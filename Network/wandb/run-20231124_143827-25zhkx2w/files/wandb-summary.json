@@ -1,0 +1,1 @@
+{"loss": 0.6799136400222778, "_timestamp": 1700865814.6100519, "_runtime": 307.1935279369354, "_step": 4, "validationImage 0": {"_type": "image-file", "sha256": "0d58d820a2d8cc4ae092aeaf2d7f379d7b1e61e97666beafab9475beff4d697b", "size": 65351, "path": "media/images/validationImage 0_4_0d58d820a2d8cc4ae092.png", "format": "png", "width": 640, "height": 480}}

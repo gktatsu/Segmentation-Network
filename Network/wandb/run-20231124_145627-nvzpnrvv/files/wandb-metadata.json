@@ -1,0 +1,51 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.11.5",
+    "heartbeatAt": "2023-11-24T22:56:28.627737",
+    "startedAt": "2023-11-24T22:56:27.079037",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "C:\\Users\\Platz3\\PycharmProjects\\Segmentation Network\\venv\\Network\\train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "host": "DESKTOP-FHV6BKN",
+    "username": "Platz3",
+    "executable": "C:\\Users\\Platz3\\anaconda3\\envs\\SegmentationBA\\python.exe",
+    "cpu_count": 4,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 3001.0,
+        "min": 0.0,
+        "max": 3001.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3001.0,
+            "min": 0.0,
+            "max": 3001.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 930.9631996154785,
+            "used": 189.29046630859375
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1070",
+            "memory_total": 8589934592
+        },
+        {
+            "name": "NVIDIA GeForce GTX 1070",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 31.912120819091797
+    }
+}
