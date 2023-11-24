@@ -159,3 +159,5 @@ cython_debug/
 .vs/
 
 Network/Dataset*
+*wandb*
+*output*
