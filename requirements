@@ -1,0 +1,5 @@
+matplotlib
+opencv-contrib-python
+imutils
+scikit-learn
+tqdm
