@@ -13,6 +13,8 @@ class SegmentationDataset(Dataset):
 		# transforms
 		self.imagePaths = glob.glob(imagePaths+"/*.png")
 		self.maskPaths = glob.glob(maskPaths+"/*.png")
+		#import pdb
+		#pdb.set_trace()
 		self.transforms = transforms
 	def __len__(self):
 		# return the number of total samples contained in the dataset
