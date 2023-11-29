@@ -4,3 +4,4 @@ imutils
 scikit-learn
 tqdm
 torchmetrics
+wandb
