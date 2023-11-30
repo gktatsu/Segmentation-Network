@@ -214,7 +214,7 @@ if os.path.exists(logging_path + 'model.pth'):
 else:
     print("[WARNING] Weights not found.")
 
-jaccard.reset()
+#jaccard.reset()
 
 with torch.no_grad():
 	# set the model in evaluation mode
@@ -227,7 +227,7 @@ with torch.no_grad():
 		pred = unet(x)
 		totalTestLoss += lossFunc(pred, y)
 
-		jaccard(sigmoid(pred),y)
+		#jaccard(sigmoid(pred),y)
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
 			sigmoid_pediction = sigmoid(pred)
@@ -247,8 +247,8 @@ with torch.no_grad():
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
-miou = jaccard.compute()
-wandb.log({"test/miou": miou})
+#miou = jaccard.compute()
+#wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()
