@@ -20,7 +20,8 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-os.environ["WANDB_MODE"] = "dryrun"
+wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
+# os.environ["WANDB_MODE"] = "dryrun"
 
 # start a new wandb run to track this script
 wandb.init(
@@ -29,8 +30,6 @@ wandb.init(
     # track hyperparameters and run metadata
     config=config.config_dic
 )
-
-wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
 
 logging_path = config.config_dic["BASE_OUTPUT"] + "/" + str(wandb.run.name) + "/"
 os.makedirs(logging_path,exist_ok=True)
@@ -65,13 +64,13 @@ print(f"[INFO] found {len(testDS)} examples in the test set...")
 # create the training and test data loaders
 trainLoader = DataLoader(trainDS, shuffle=True,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=4)
 valLoader = DataLoader(valDS, shuffle=False,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=4)
 testLoader = DataLoader(testDS, shuffle=False,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=4)
 
 sigmoid = torch.nn.Sigmoid()
 jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"])
@@ -245,5 +244,5 @@ endTime = time.time()
 print("[INFO] total time taken to train the model: {:.2f}s".format(
 	endTime - startTime))
 
-wandb.sync()
+# wandb.sync()
 wandb.finish()
