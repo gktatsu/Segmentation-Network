@@ -219,7 +219,7 @@ with torch.no_grad():
 		#jaccard(sigmoid(pred),y)
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-			sigmoid_pediction = sigmoid(pred)
+			#sigmoid_pediction = sigmoid(pred)
 			for i in range(num_img):
 				#import pdb
 				#pdb.set_trace()
@@ -230,14 +230,14 @@ with torch.no_grad():
 				for a in axs:
 					a.set_axis_off()
 				plt.tight_layout()
-				wandb.log({f"testImage {i}": wandb.Image(plt)})
+				#wandb.log({f"testImage {i}": wandb.Image(plt)})
 				plt.close()
 
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
-miou = jaccard.compute()
-wandb.log({"test/miou": miou})
+#miou = jaccard.compute()
+#wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()
