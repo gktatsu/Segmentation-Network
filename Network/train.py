@@ -20,16 +20,8 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-# load the image and mask filepaths in a sorted manner
-#imagePaths = sorted(list(paths.list_images(config.IMAGE_DATASET_PATH)))
-#maskPaths = sorted(list(paths.list_images(config.MASK_DATASET_PATH)))
-# partition the data into training and testing splits using 85% of
-# the data for training and the remaining 15% for testing
-#split = train_test_split(imagePaths, maskPaths,
-	#test_size=config.TEST_SPLIT, random_state=42)
-# unpack the data split
-#(trainImages, testImages) = split[:2]
-#(trainMasks, testMasks) = split[2:]
+
+wandb.init(offline=True)
 
 wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
 
@@ -214,7 +206,7 @@ if os.path.exists(logging_path + 'model.pth'):
 else:
     print("[WARNING] Weights not found.")
 
-#jaccard.reset()
+jaccard.reset()
 
 with torch.no_grad():
 	# set the model in evaluation mode
@@ -247,12 +239,13 @@ with torch.no_grad():
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
-#miou = jaccard.compute()
-#wandb.log({"test/miou": miou})
+miou = jaccard.compute()
+wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()
 print("[INFO] total time taken to train the model: {:.2f}s".format(
 	endTime - startTime))
 
+wandb.sync()
 wandb.finish()
