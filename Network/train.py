@@ -106,7 +106,7 @@ startTime = time.time()
 currentPatience = 0
 bestValLoss = np.inf
 
-scheduler = ReduceLROnPlateau(opt, mode='min', patience=config.config_dic["PATIENCE"], factor=config.config_dic["SCHEDULER_FACTOR"], verbose=True)
+# scheduler = ReduceLROnPlateau(opt, mode='min', patience=config.config_dic["PATIENCE"], factor=config.config_dic["SCHEDULER_FACTOR"], verbose=True)
 
 for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 	# set the model in training mode
@@ -196,7 +196,7 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 	else:
 		currentPatience = 0
 
-	scheduler.step(avgValLoss)
+	#scheduler.step(avgValLoss)
 
 	# update our training history
 	H["train_loss"].append(avgTrainLoss.cpu().detach().numpy())
