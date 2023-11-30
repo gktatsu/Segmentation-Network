@@ -31,6 +31,8 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 #(trainImages, testImages) = split[:2]
 #(trainMasks, testMasks) = split[2:]
 
+wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
+
 # start a new wandb run to track this script
 wandb.init(
     # set the wandb project where this run will be logged
