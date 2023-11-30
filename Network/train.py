@@ -20,12 +20,12 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
+os.environ["WANDB_MODE"] = "dryrun"
+
 # start a new wandb run to track this script
 wandb.init(
-	offline=True,
-    # set the wandb project where this run will be logged
+	# set the wandb project where this run will be logged
     project="Segmentation Network",
-    key="a62bd616c3a898497ab242a339258e281c14489e",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
