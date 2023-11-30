@@ -5,4 +5,3 @@ scikit-learn
 tqdm
 torchmetrics
 wandb
-wandb init
