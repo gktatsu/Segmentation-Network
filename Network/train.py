@@ -208,11 +208,11 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 
 
 # Load weights for testing
-if os.path.exists(logging_path + 'model.pth'):
-    print("[INFO] Loading pre-trained weights for testing...")
-    unet.load_state_dict(torch.load(logging_path + 'model.pth'))
-else:
-    print("[WARNING] Weights not found.")
+#if os.path.exists(logging_path + 'model.pth'):
+    #print("[INFO] Loading pre-trained weights for testing...")
+    #unet.load_state_dict(torch.load(logging_path + 'model.pth'))
+#else:
+    #print("[WARNING] Weights not found.")
 
 jaccard.reset()
 
