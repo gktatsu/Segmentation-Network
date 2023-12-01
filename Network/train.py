@@ -237,8 +237,8 @@ with torch.no_grad():
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
-miou = jaccard.compute()
-wandb.log({"test/miou": miou})
+#miou = jaccard.compute()
+#wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()
