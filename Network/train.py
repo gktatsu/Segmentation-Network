@@ -20,7 +20,7 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
+# wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
 # os.environ["WANDB_MODE"] = "dryrun"
 
 # start a new wandb run to track this script
@@ -64,17 +64,17 @@ print(f"[INFO] found {len(testDS)} examples in the test set...")
 # create the training and test data loaders
 trainLoader = DataLoader(trainDS, shuffle=True,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=config.config_dic['NUM_WORKERS'])
 valLoader = DataLoader(valDS, shuffle=False,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=config.config_dic['NUM_WORKERS'])
 testLoader = DataLoader(testDS, shuffle=False,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=0)
+	num_workers=config.config_dic['NUM_WORKERS'])
 
 sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic["DEVICE"])
-# jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"])
+# jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic["DEVICE"])
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
@@ -141,13 +141,15 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 			jaccard(sigmoid(pred),y)
 			if(valIndex == 0):
 				num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-				sigmoid_pediction = sigmoid(pred)
+				sigmoid_pediction = sigmoid(pred).cpu()
+				x_cpu = x.cpu()
+				y_cpu = y.cpu()
 				for i in range(num_img):
 					#import pdb
 					#pdb.set_trace()
 					fig,axs = plt.subplots(1,3)
-					axs[0].imshow(x[i].permute(1,2,0))
-					axs[1].imshow(y[i].permute(1,2,0))
+					axs[0].imshow(x_cpu[i].permute(1,2,0))
+					axs[1].imshow(y_cpu[i].permute(1,2,0))
 					axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
 					for a in axs:
 						a.set_axis_off()
@@ -220,13 +222,15 @@ with torch.no_grad():
 		#jaccard(sigmoid(pred),y)
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-			sigmoid_pediction = sigmoid(pred)
+			sigmoid_pediction = sigmoid(pred).cpu()
+			x_cpu = x.cpu()
+			y_cpu = y.cpu()
 			for i in range(num_img):
 				#import pdb
 				#pdb.set_trace()
 				fig,axs = plt.subplots(1,3)
-				axs[0].imshow(x[i].permute(1,2,0))
-				axs[1].imshow(y[i].permute(1,2,0))
+				axs[0].imshow(x_cpu[i].permute(1,2,0))
+				axs[1].imshow(y_cpu[i].permute(1,2,0))
 				axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
 				for a in axs:
 					a.set_axis_off()
@@ -237,8 +241,8 @@ with torch.no_grad():
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
-#miou = jaccard.compute()
-#wandb.log({"test/miou": miou})
+miou = jaccard.compute()
+wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()

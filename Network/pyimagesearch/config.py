@@ -19,6 +19,7 @@ config_dic = {
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
+    "NUM_WORKERS": 0,
     "INIT_LR": 0.001,
     "NUM_EPOCHS": 600,
     "BATCH_SIZE": 64,
@@ -26,8 +27,8 @@ config_dic = {
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "output",
-    "PATIENCE": 20,
-    "MIN_NUM_EPOCHS": 150,
+    "PATIENCE": 10,
+    "MIN_NUM_EPOCHS": 50,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
 }
