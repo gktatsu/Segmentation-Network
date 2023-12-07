@@ -22,7 +22,7 @@ config_dic = {
     "NUM_WORKERS": 0,
     "INIT_LR": 0.001,
     "NUM_EPOCHS": 600,
-    "BATCH_SIZE": 64,
+    "BATCH_SIZE": 256,
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
