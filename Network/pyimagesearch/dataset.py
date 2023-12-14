@@ -49,7 +49,6 @@ class SegmentationDataset(Dataset):
 			axs[i].imshow(mask[i])
 		plt.show()"""
 
-        # TODO: mask.shape hat ([64, 1, 128, 128]) statt ([64, 3, 128, 128])
 		#import pdb
 		#pdb.set_trace
 
