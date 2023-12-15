@@ -15,7 +15,7 @@ import os
 # "DATASET_PATH": r"Network/Dataset/AugDataset/WannerFIB/"
 
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Blur/",
+    "DATASET_PATH": r"Network/Dataset/Noise/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
