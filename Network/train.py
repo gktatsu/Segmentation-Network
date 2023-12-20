@@ -176,7 +176,7 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 		bestValLoss = avgValLoss
 		#import pdb
 		#pdb.set_trace()
-		torch.save(unet,logging_path + "model.pth")
+		torch.save(unet.state_dict(),logging_path + "model.pth")
 		#torch.save(unet, config.MODEL_PATH)
 		currentPatience = 0
 	else:
