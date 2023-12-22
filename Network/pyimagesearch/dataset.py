@@ -6,6 +6,7 @@ import cv2
 import glob
 import torch
 import matplotlib.pyplot as plt
+import random
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
@@ -20,8 +21,18 @@ class SegmentationDataset(Dataset):
 		# return the number of total samples contained in the dataset
 		return len(self.imagePaths)
 	def __getitem__(self, idx):
+		## TODO TEST
+		is_real_image = random.random() < 0.6
+
+		if is_real_image:
+			image_name = f"image_{idx + 1}.png"
+			imagePath = os.path.join(self.imagePaths, image_name)
+		else:
+			imagePath = self.imagePaths[idx]
+		## TODO END_TEST
+
 		# grab the image path from the current index
-		imagePath = self.imagePaths[idx]
+		# imagePath = self.imagePaths[idx]
 		# load the image from disk, swap its channels from BGR to RGB,
 		# and read the associated mask from disk in grayscale mode
 		image = cv2.imread(imagePath)
