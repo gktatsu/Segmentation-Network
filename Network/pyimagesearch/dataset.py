@@ -27,20 +27,28 @@ class SegmentationDataset(Dataset):
 
 		if probability:
 			# use original image
-			imagePath = self.imagePaths[idx]
+			# imagePath = self.imagePaths[idx]
+			random_image = random.randint(1, 322)
+			image_chose = f'image_{random_image}'
+
+			imagePath = config.config_dic["DATASET_PATH"] + image_chose + "/"
 			image = cv2.imread(imagePath)
 
 			if image is None:
-				print(f"Error loading image at path: {imagePath}")
+				print(f"[Error] loading image at path: {imagePath}")
 
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 			mask = cv2.imread(self.maskPaths[idx], 0)
 		else:
 			# use augmented image
-			base_image_name = self.imagePaths[idx]
-			augmentations = ["blur_0", "brightness_0", "crop_0", "noise_0", "zoom_rotate_0"]
+			random_image = random.randint(1, 322)
+			image_chose = f'image_{random_image}'
+
+			# base_image_name = self.imagePaths[idx]
+			imagePath = config.config_dic["DATASET_PATH"] + image_chose + "/"
+			augmentations = ["blur_0", "brightness_0", "noise_0", "zoom_rotate_0", "zoom_rotate_1"]
 			chosen_augmentation = random.choice(augmentations)
-			augmented_image_path = f"{base_image_name}_aug_{chosen_augmentation}.png"
+			augmented_image_path = f"{imagePath}_aug_{chosen_augmentation}.png"
 
 			image = cv2.imread(augmented_image_path)
 			if image is None:
