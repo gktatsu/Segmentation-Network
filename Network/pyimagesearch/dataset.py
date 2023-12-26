@@ -38,8 +38,7 @@ class SegmentationDataset(Dataset):
 
 			image = cv2.imread(augmented_image_path)
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-			mask = cv2.imread(augmented_image_path)
-			mask = cv2.cvtColor(mask, cv2.COLOR_BGR2RGB)
+			mask = cv2.imread(augmented_image_path, 0)
 
 		binary_mask = np.zeros((mask.shape[0], mask.shape[1], config.config_dic["NUM_CLASSES"]), dtype=np.uint8)
 
