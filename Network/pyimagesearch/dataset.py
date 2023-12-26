@@ -31,14 +31,15 @@ class SegmentationDataset(Dataset):
 			mask = cv2.imread(self.maskPaths[idx], 0)
 		else:
 			# use augmented image
-			base_image_name = self.imagePaths[idx].split("_aug")[0]
+			base_image_name = self.imagePaths[idx]
 			augmentations = ["blur_0", "brightness_0", "crop_0", "noise_0", "zoom_rotate_0"]
 			chosen_augmentation = random.choice(augmentations)
 			augmented_image_path = f"{base_image_name}_aug_{chosen_augmentation}.png"
 
 			image = cv2.imread(augmented_image_path)
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-			mask = cv2.imread(self.maskPaths[idx], 0)
+			mask = cv2.imread(augmented_image_path)
+			mask = cv2.cvtColor(mask, cv2.COLOR_BGR2RGB)
 
 		binary_mask = np.zeros((mask.shape[0], mask.shape[1], config.config_dic["NUM_CLASSES"]), dtype=np.uint8)
 
