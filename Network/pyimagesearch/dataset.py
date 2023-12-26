@@ -23,10 +23,16 @@ class SegmentationDataset(Dataset):
 	def __getitem__(self, idx):
 		probability = random.random() < 0.6
 
+		print(f"[Probability] ist {probability}. Choose image now...")
+
 		if probability:
 			# use original image
 			imagePath = self.imagePaths[idx]
 			image = cv2.imread(imagePath)
+
+			if image is None:
+				print(f"Error loading image at path: {imagePath}")
+
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 			mask = cv2.imread(self.maskPaths[idx], 0)
 		else:
@@ -37,6 +43,9 @@ class SegmentationDataset(Dataset):
 			augmented_image_path = f"{base_image_name}_aug_{chosen_augmentation}.png"
 
 			image = cv2.imread(augmented_image_path)
+			if image is None:
+				print(f"Error loading augmented image at path: {augmented_image_path}")
+
 			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 			mask = cv2.imread(augmented_image_path, 0)
 
