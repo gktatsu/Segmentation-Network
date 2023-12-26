@@ -38,9 +38,9 @@ class SegmentationDataset(Dataset):
 					break
 
 			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}")+"/*.png")
-			self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
+			# self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
 			print(f"[Image] is real image {self.imagePaths[idx]}.")
-			print(f"[Mask] is real mask{self.maskPaths[idx]}.")
+			# print(f"[Mask] is real mask{self.maskPaths[idx]}.")
 
 		else:
 			print(f"[Augmented] Take augmented image.")
@@ -58,9 +58,9 @@ class SegmentationDataset(Dataset):
 			chosen_augmentation = random.choice(augmentations)
 			print(f"[Chosen augmentation] {chosen_augmentation}.")
 			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}_aug_{chosen_augmentation}")+"/*.png")
-			self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
+			# self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
 			print(f"[Image] is augmented image {self.imagePaths[idx]}.")
-			print(f"[Mask] is augmented mask{self.maskPaths[idx]}.")
+			# print(f"[Mask] is augmented mask{self.maskPaths[idx]}.")
 
 		# grab the image path from the current index
 		imagePath = self.imagePaths[idx]
