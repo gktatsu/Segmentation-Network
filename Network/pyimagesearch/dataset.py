@@ -7,6 +7,7 @@ import glob
 import torch
 import matplotlib.pyplot as plt
 import random
+import os
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
@@ -22,50 +23,79 @@ class SegmentationDataset(Dataset):
 		return len(self.imagePaths)
 	def __getitem__(self, idx):
 		probability = random.random() < 0.6
-
-		print(f"[Probability] ist {probability}. Choose image now...")
+		print(f"[Probability] is {probability}. Choose image now...")
 
 		if probability:
-			# use original image
-			# imagePath = self.imagePaths[idx]
-			random_image = random.randint(1, 322)
-			image_chose = f'image_{random_image}'
+			print(f"[Real] Take real image.")
+			paths = config.config_dic["DATASET_PATH"] + "/train_images/"
 
-			imagePath = config.config_dic["DATASET_PATH"] + image_chose + "/"
-			image = cv2.imread(imagePath)
+			while True:
+				random_image = random.randint(1, 322)
+				image_path = os.path.join(paths, f"img_{random_image}")
 
-			if image is None:
-				print(f"[Error] loading image at path: {imagePath}")
+				if os.path.exists(image_path + ".png"):
+					print(f"[Image] {image_path}.png")
+					break
 
-			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-			mask = cv2.imread(self.maskPaths[idx], 0)
+			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}")+"/*.png")
+			self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
+			print(f"[Image] is real image {self.imagePaths[idx]}.")
+			print(f"[Mask] is real mask{self.maskPaths[idx]}.")
+
 		else:
-			# use augmented image
-			random_image = random.randint(1, 322)
-			image_chose = f'image_{random_image}'
+			print(f"[Augmented] Take augmented image.")
+			paths = config.config_dic["DATASET_PATH"] + "/train_images/"
 
-			# base_image_name = self.imagePaths[idx]
-			imagePath = config.config_dic["DATASET_PATH"] + image_chose + "/"
+			while True:
+				random_image = random.randint(1, 322)
+				image_path = os.path.join(paths, f"img_{random_image}")
+
+				if os.path.exists(image_path + ".png"):
+					print(f"[Augmented image] {image_path}.png")
+					break
+
 			augmentations = ["blur_0", "brightness_0", "noise_0", "zoom_rotate_0", "zoom_rotate_1"]
 			chosen_augmentation = random.choice(augmentations)
-			augmented_image_path = f"{imagePath}_aug_{chosen_augmentation}.png"
+			print(f"[Chosen augmentation] {chosen_augmentation}.")
+			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}_aug_{chosen_augmentation}")+"/*.png")
+			self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
+			print(f"[Image] is augmented image {self.imagePaths[idx]}.")
+			print(f"[Mask] is augmented mask{self.maskPaths[idx]}.")
 
-			image = cv2.imread(augmented_image_path)
-			if image is None:
-				print(f"Error loading augmented image at path: {augmented_image_path}")
+		# grab the image path from the current index
+		imagePath = self.imagePaths[idx]
+		# load the image from disk, swap its channels from BGR to RGB,
+		# and read the associated mask from disk in grayscale mode
+		image = cv2.imread(imagePath)
+		"""import pdb
+		pdb.set_trace()"""
+		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+		mask = cv2.imread(self.maskPaths[idx], 0)
 
-			image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-			mask = cv2.imread(augmented_image_path, 0)
 
 		binary_mask = np.zeros((mask.shape[0], mask.shape[1], config.config_dic["NUM_CLASSES"]), dtype=np.uint8)
 
 		for class_idx in range(config.config_dic["NUM_CLASSES"]):
-			binary_mask[:, :, class_idx] = (mask == class_idx).astype(np.uint8)
+			binary_mask[:,:,class_idx] = (mask==class_idx).astype(np.uint8)
 
-		# apply the transformations to both image and its mask
+		""""""
+		# check to see if we are applying any transformations
+
 		if self.transforms is not None:
+			# apply the transformations to both image and its mask
 			image = self.transforms(image)
 			mask = self.transforms(binary_mask)
-			mask = (mask * 255)
+			mask = (mask*255) #.type(torch.IntTensor)
+		"""fig, axs = plt.subplots(1,config.NUM_CLASSES)
+		for i in range(config.NUM_CLASSES):
+			axs[i].imshow(mask[i])
+		plt.show()"""
 
+		#import pdb
+		#pdb.set_trace
+
+
+			# image.shape sollte sein: C,B,H
+			# mask.shape num_classes,B,H  oder B,H
+		# return a tuple of the image and its mask
 		return (image, mask)
