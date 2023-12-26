@@ -27,7 +27,7 @@ class SegmentationDataset(Dataset):
 
 		if is_real_image:
 			image_name = f"image_{idx + 1}.png"
-			imagePath = os.path.join(self.imagePaths, image_name)
+			imagePath = os.path.join(self.imagePaths[idx], image_name)
 		else:
 			imagePath = self.imagePaths[idx]
 		## TODO END_TEST
