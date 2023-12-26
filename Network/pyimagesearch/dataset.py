@@ -7,6 +7,7 @@ import glob
 import torch
 import matplotlib.pyplot as plt
 import random
+import os
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
