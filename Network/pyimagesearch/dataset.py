@@ -6,8 +6,6 @@ import cv2
 import glob
 import torch
 import matplotlib.pyplot as plt
-import random
-import os
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
@@ -22,46 +20,6 @@ class SegmentationDataset(Dataset):
 		# return the number of total samples contained in the dataset
 		return len(self.imagePaths)
 	def __getitem__(self, idx):
-		probability = random.random() < 0.6
-		print(f"[Probability] is {probability}. Choose image now...")
-
-		if probability:
-			print(f"[Real] Take real image.")
-			paths = config.config_dic["DATASET_PATH"] + "/train_images/"
-
-			while True:
-				random_image = random.randint(1, 322)
-				image_path = os.path.join(paths, f"img_{random_image}")
-
-				if os.path.exists(image_path + ".png"):
-					print(f"[Image] {image_path}.png")
-					break
-
-			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}")+"/*.png")
-			# self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
-			print(f"[Image] is real image {self.imagePaths[idx]}.")
-			# print(f"[Mask] is real mask{self.maskPaths[idx]}.")
-
-		else:
-			print(f"[Augmented] Take augmented image.")
-			paths = config.config_dic["DATASET_PATH"] + "/train_images/"
-
-			while True:
-				random_image = random.randint(1, 322)
-				image_path = os.path.join(paths, f"img_{random_image}")
-
-				if os.path.exists(image_path + ".png"):
-					print(f"[Augmented image] {image_path}.png")
-					break
-
-			augmentations = ["blur_0", "brightness_0", "noise_0", "zoom_rotate_0", "zoom_rotate_1"]
-			chosen_augmentation = random.choice(augmentations)
-			print(f"[Chosen augmentation] {chosen_augmentation}.")
-			self.imagePaths[idx] = glob.glob(os.path.join(paths, f"{random_image}_aug_{chosen_augmentation}")+"/*.png")
-			# self.maskPaths[idx] = glob.glob(self.imagePaths[idx].replace("train_images", "train_masks")+"/*.png")
-			print(f"[Image] is augmented image {self.imagePaths[idx]}.")
-			# print(f"[Mask] is augmented mask{self.maskPaths[idx]}.")
-
 		# grab the image path from the current index
 		imagePath = self.imagePaths[idx]
 		# load the image from disk, swap its channels from BGR to RGB,
