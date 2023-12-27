@@ -53,7 +53,7 @@ train_transforms = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
     transforms.RandomRotation(15),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
     transforms.ToTensor()
 ])
 
@@ -122,14 +122,14 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 		(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
 		# perform a forward pass and calculate the training loss
 		pred = unet(x)
-		print("Prediction shape:", pred.shape)
-		print("Ground Truth shape:", y.shape)
+		# print("Prediction shape:", pred.shape)
+		# print("Ground Truth shape:", y.shape)
 		# import pdb
 		# pdb.set_trace()
 		loss = lossFunc(pred, y)
-		print("Loss:", loss.item())
-		print("NaN in prediction:", torch.isnan(pred).any().item())
-		print("NaN in ground truth:", torch.isnan(y).any().item())
+		# print("Loss:", loss.item())
+		# print("NaN in prediction:", torch.isnan(pred).any().item())
+		# print("NaN in ground truth:", torch.isnan(y).any().item())
 		# first, zero out any previously accumulated gradients, then
 		# perform backpropagation, and then update model parameters
 		opt.zero_grad()
