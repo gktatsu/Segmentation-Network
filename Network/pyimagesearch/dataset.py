@@ -56,7 +56,4 @@ class SegmentationDataset(Dataset):
 			# image.shape sollte sein: C,B,H
 			# mask.shape num_classes,B,H  oder B,H
 		# return a tuple of the image and its mask
-		print("Image shape:", image.shape)
-		print("Mask shape:", mask.shape)
-
 		return (image, mask)
