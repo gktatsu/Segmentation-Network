@@ -42,12 +42,12 @@ testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
-# transforms = transforms.Compose([transforms.ToPILImage(),
- 	# transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-		# config.config_dic["INPUT_IMAGE_WIDTH"])),
-	# transforms.ToTensor()])
+transforms = transforms.Compose([transforms.ToPILImage(),
+ 	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
+		config.config_dic["INPUT_IMAGE_WIDTH"])),
+	transforms.ToTensor()])
 
-transforms = transforms.Compose([
+train_transforms = transforms.Compose([
     transforms.ToPILImage(),
     transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
     transforms.RandomHorizontalFlip(),
@@ -62,7 +62,7 @@ transforms = transforms.Compose([
 	transforms.ToTensor()])"""
 # create the train and test datasets
 trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
-	transforms=transforms)
+	transforms=train_transforms)
 valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
     transforms=transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
