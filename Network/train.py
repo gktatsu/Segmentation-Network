@@ -42,10 +42,20 @@ testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
-transforms = transforms.Compose([transforms.ToPILImage(),
- 	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-		config.config_dic["INPUT_IMAGE_WIDTH"])),
-	transforms.ToTensor()])
+# transforms = transforms.Compose([transforms.ToPILImage(),
+ 	# transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
+		# config.config_dic["INPUT_IMAGE_WIDTH"])),
+	# transforms.ToTensor()])
+
+transforms = transforms.Compose([
+    transforms.ToPILImage(),
+    transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomVerticalFlip(),
+    transforms.RandomRotation(15),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+    transforms.ToTensor()
+])
 
 """transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
 		config.INPUT_IMAGE_WIDTH)),
