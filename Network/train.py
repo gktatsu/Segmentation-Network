@@ -42,7 +42,7 @@ testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
-transforms = transforms.Compose([transforms.ToPILImage(),
+base_transforms = transforms.Compose([transforms.ToPILImage(),
  	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
 		config.config_dic["INPUT_IMAGE_WIDTH"])),
 	transforms.ToTensor()])
@@ -64,9 +64,9 @@ train_transforms = transforms.Compose([
 trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
 	transforms=train_transforms)
 valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
-    transforms=transforms)
+    transforms=base_transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-    transforms=transforms)
+    transforms=base_transforms)
 print(f"[INFO] found {len(trainDS)} examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
