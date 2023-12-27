@@ -50,10 +50,10 @@ base_transforms = transforms.Compose([transforms.ToPILImage(),
 train_transforms = transforms.Compose([
     transforms.ToPILImage(),
     transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip(),
+    # transforms.RandomHorizontalFlip(),
+    # transforms.RandomVerticalFlip(),
     transforms.RandomRotation(15),
-    # transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
     transforms.ToTensor()
 ])
 
@@ -93,7 +93,7 @@ unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DE
 lossFunc = BCEWithLogitsLoss()
 opt = Adam(unet.parameters(), lr=config.config_dic["INIT_LR"])
 # calculate steps per epoch for training and test set
-trainSteps = len(trainDS) // config.config_dic["BATCH_SIZE"] # len(trainLoader)
+trainSteps = np.max(len(trainDS) // config.config_dic["BATCH_SIZE"]) # len(trainLoader)
 valSteps = np.max([len(valDS) // config.config_dic["BATCH_SIZE"], 1]) # 25 // 64
 testSteps = len(testDS) // config.config_dic["BATCH_SIZE"]
 
