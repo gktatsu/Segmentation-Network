@@ -42,31 +42,21 @@ testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
-base_transforms = transforms.Compose([transforms.ToPILImage(),
+transforms = transforms.Compose([transforms.ToPILImage(),
  	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
 		config.config_dic["INPUT_IMAGE_WIDTH"])),
 	transforms.ToTensor()])
-
-train_transforms = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip(),
-    transforms.RandomRotation(15),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
-    transforms.ToTensor()
-])
 
 """transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
 		config.INPUT_IMAGE_WIDTH)),
 	transforms.ToTensor()])"""
 # create the train and test datasets
 trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
-	transforms=train_transforms)
+	transforms=transforms)
 valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
-    transforms=base_transforms)
+    transforms=transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-    transforms=base_transforms)
+    transforms=transforms)
 print(f"[INFO] found {len(trainDS)} examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
@@ -122,14 +112,9 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 		(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
 		# perform a forward pass and calculate the training loss
 		pred = unet(x)
-		# print("Prediction shape:", pred.shape)
-		# print("Ground Truth shape:", y.shape)
 		# import pdb
 		# pdb.set_trace()
 		loss = lossFunc(pred, y)
-		# print("Loss:", loss.item())
-		# print("NaN in prediction:", torch.isnan(pred).any().item())
-		# print("NaN in ground truth:", torch.isnan(y).any().item())
 		# first, zero out any previously accumulated gradients, then
 		# perform backpropagation, and then update model parameters
 		opt.zero_grad()
