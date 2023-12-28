@@ -41,22 +41,24 @@ valMasks = os.path.join(config.config_dic["DATASET_PATH"], "validation_masks")
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
-# define transformations
-transforms = transforms.Compose([transforms.ToPILImage(),
- 	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-		config.config_dic["INPUT_IMAGE_WIDTH"])),
-	transforms.ToTensor()])
+# Define transformations
+train_transforms = transforms.Compose([
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomVerticalFlip(),
+    transforms.ToPILImage(),
+    transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
+    transforms.ToTensor()
+])
 
-"""transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
-		config.INPUT_IMAGE_WIDTH)),
-	transforms.ToTensor()])"""
+val_test_transforms = transforms.Compose([
+    transforms.ToPILImage(),
+    transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"], config.config_dic["INPUT_IMAGE_WIDTH"])),
+    transforms.ToTensor()
+])
 # create the train and test datasets
-trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
-	transforms=transforms)
-valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
-    transforms=transforms)
-testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-    transforms=transforms)
+trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks, transforms=train_transforms)
+valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks, transforms=val_test_transforms)
+testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks, transforms=val_test_transforms)
 print(f"[INFO] found {len(trainDS)} examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
