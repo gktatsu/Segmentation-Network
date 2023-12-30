@@ -36,8 +36,8 @@ os.makedirs(logging_path,exist_ok=True)
 
 trainImages = os.path.join(config.config_dic["DATASET_PATH"], "train_images")
 trainMasks = os.path.join(config.config_dic["DATASET_PATH"], "train_masks")
-valImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
-valMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
+valImages = os.path.join(config.config_dic["DATASET_PATH"], "val_images")
+valMasks = os.path.join(config.config_dic["DATASET_PATH"], "val_masks")
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
