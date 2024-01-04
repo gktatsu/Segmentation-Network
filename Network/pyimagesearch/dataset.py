@@ -11,7 +11,7 @@ import random
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
 		# 65% probability for real image
-		use_real_image = random.random() < 0.65
+		use_real_image = random.random() < 0.25
 
 		# store the image and mask filepaths, and augmentation
 		# transforms
