@@ -22,8 +22,8 @@ class SegmentationDataset(Dataset):
 		else:
 			# Network/Dataset/Dataset_Name/image_1.png
 			random_number = random.randint(0, 19)
-			self.imagePaths = glob.glob(imagePaths + "/*_" + random_number + ".png")
-			self.maskPaths = glob.glob(imagePaths + "/*_" + random_number + ".png")
+			self.imagePaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
+			self.maskPaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
 
 		#import pdb
 		#pdb.set_trace()
