@@ -6,26 +6,13 @@ import cv2
 import glob
 import torch
 import matplotlib.pyplot as plt
-import random
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
-		# 65% probability for real image
-		use_real_image = random.random() < 0.25
-
 		# store the image and mask filepaths, and augmentation
 		# transforms
-
-		if use_real_image:
-			self.imagePaths = glob.glob(imagePaths+"/*.png")
-			self.maskPaths = glob.glob(maskPaths+"/*.png")
-
-		else:
-			# Network/Dataset/Dataset_Name/image_1.png
-			random_number = random.randint(0, 19)
-			self.imagePaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
-			self.maskPaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
-
+		self.imagePaths = glob.glob(imagePaths+"/*.png")
+		self.maskPaths = glob.glob(maskPaths+"/*.png")
 		#import pdb
 		#pdb.set_trace()
 		self.transforms = transforms
