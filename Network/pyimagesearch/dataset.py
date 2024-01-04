@@ -10,7 +10,8 @@ import random
 
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
-		use_real_image = random.random() < 0.5
+		# 65% probability for real image
+		use_real_image = random.random() < 0.65
 
 		# store the image and mask filepaths, and augmentation
 		# transforms
@@ -22,11 +23,8 @@ class SegmentationDataset(Dataset):
 		else:
 			# Network/Dataset/Dataset_Name/image_1.png
 			random_number = random.randint(0, 19)
-			print(random_number)
 			self.imagePaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
 			self.maskPaths = glob.glob(imagePaths + "/*_" + str(random_number) + ".png")
-			print(self.imagePaths)
-			print(self.maskPaths)
 
 		#import pdb
 		#pdb.set_trace()
