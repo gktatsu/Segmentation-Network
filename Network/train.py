@@ -36,8 +36,8 @@ os.makedirs(logging_path,exist_ok=True)
 
 trainImages = os.path.join(config.config_dic["DATASET_PATH"], "train_images")
 trainMasks = os.path.join(config.config_dic["DATASET_PATH"], "train_masks")
-valImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
-valMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
+valImages = os.path.join(config.config_dic["DATASET_PATH"], "validation_images")
+valMasks = os.path.join(config.config_dic["DATASET_PATH"], "validation_masks")
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
@@ -85,7 +85,7 @@ opt = Adam(unet.parameters(), lr=config.config_dic["INIT_LR"])
 # calculate steps per epoch for training and test set
 trainSteps = len(trainDS) // config.config_dic["BATCH_SIZE"] # len(trainLoader)
 valSteps = np.max([len(valDS) // config.config_dic["BATCH_SIZE"], 1]) # 25 // 64
-testSteps = len(testDS) // config.config_dic["BATCH_SIZE"]
+testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
 
 # initialize a dictionary to store training history
 H = {"train_loss": [], "val_loss": [] , "test_loss": []}
