@@ -83,7 +83,7 @@ unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DE
 lossFunc = BCEWithLogitsLoss()
 opt = Adam(unet.parameters(), lr=config.config_dic["INIT_LR"])
 # calculate steps per epoch for training and test set
-trainSteps = len(trainDS) // config.config_dic["BATCH_SIZE"] # len(trainLoader)
+trainSteps = np.max([len(trainDS) // config.config_dic["BATCH_SIZE"], 1]) # len(trainLoader)
 valSteps = np.max([len(valDS) // config.config_dic["BATCH_SIZE"], 1]) # 25 // 64
 testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
 
