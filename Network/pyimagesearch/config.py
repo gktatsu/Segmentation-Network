@@ -16,19 +16,19 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Dataset 1/WannerFIB/",
+    "DATASET_PATH": r"Network/Dataset/XXL_mix/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
     "NUM_WORKERS": 0,
-    "INIT_LR": 0.001,
+    "INIT_LR": 0.002875,
     "NUM_EPOCHS": 400,
     "BATCH_SIZE": 512,
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
-    "PATIENCE": 20,
+    "PATIENCE": 5,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
