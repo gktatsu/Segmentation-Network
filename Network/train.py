@@ -218,8 +218,8 @@ with torch.no_grad():
 		# make the predictions and calculate the validation loss
 		pred = unet(x)
 		totalTestLoss += lossFunc(pred, y)
+		jaccard(sigmoid(pred),y)
 
-		#jaccard(sigmoid(pred),y)
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
 			sigmoid_pediction = sigmoid(pred).cpu()
