@@ -28,7 +28,7 @@ config_dic = {
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
-    "PATIENCE": 10,
+    "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
