@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Dataset 1/WannerFIB/",
+    "DATASET_PATH": r"Network/Dataset/Dataset 1 Synthetic Mix/WannerFIB/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
