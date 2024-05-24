@@ -38,8 +38,8 @@ trainImages = os.path.join(config.config_dic["DATASET_PATH"], "train_images")
 trainMasks = os.path.join(config.config_dic["DATASET_PATH"], "train_masks")
 valImages = os.path.join(config.config_dic["DATASET_PATH"], "validation_images")
 valMasks = os.path.join(config.config_dic["DATASET_PATH"], "validation_masks")
-testImages = os.path.join(config.config_dic["DATASET_PATH"], "validation_images")
-testMasks = os.path.join(config.config_dic["DATASET_PATH"], "validation_images")
+testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
+testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
 transforms = transforms.Compose([transforms.ToPILImage(),
