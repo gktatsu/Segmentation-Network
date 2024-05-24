@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Dataset 1 + 232 Synthetic/",
+    "DATASET_PATH": r"Network/Dataset/Real + Augmentations + Synthetic/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
