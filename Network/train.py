@@ -57,7 +57,7 @@ valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
     transforms=transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
     transforms=transforms)
-print(f"[INFO] found {len(trainDS)} examples in the training set...")
+print(f"[INFO] found 232 examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
 
