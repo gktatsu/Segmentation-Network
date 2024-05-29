@@ -26,7 +26,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # start a new wandb run to track this script
 wandb.init(
 	# set the wandb project where this run will be logged
-    project="EM-ControlNet",
+    project="Segmentation Network",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
@@ -124,7 +124,6 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 		totalTrainLoss += loss
 
 		wandb.log({"train/loss": loss})
-		wandb.log({"loss": loss}, step=(i, (x, y)))
 
 	# switch off autograd for validation
 	with torch.no_grad():
