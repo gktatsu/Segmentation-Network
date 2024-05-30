@@ -1,0 +1,34 @@
+Segmentierungsnetzwerk Dokumentation
+
+Dieses Segmentierungsnetzwerk implementiert eine UNet-Architektur zur Segmentierung von Bilddaten.
+Es besteht aus den folgenden Hauptkomponenten:
+
+1. Trainingsprozess
+Das Trainingsverfahren ist in der Datei 'train.py' implementiert. Hier werden die Daten geladen, das Netzwerk
+trainiert und die Modelle bewertet. Das Training erfolgt über mehrere Epochen, wobei in jeder Epoche die
+Trainings- und Validierungsverluste berechnet werden. Das Netzwerk wird mit der PyTorch-Bibliothek trainiert
+und die Fortschritte werden mithilfe von Weights & Biases (wandb) protokolliert.
+
+2. Datenverarbeitung
+Die Datenverarbeitung wird in der Datei 'dataset.py' durchgeführt. Hier werden die Bilddaten und zugehörigen
+Masken geladen, vorverarbeitet und für das Training vorbereitet. Die Implementierung ermöglicht auch die
+Anwendung von Transformationen auf die Daten, um Augmentationen und andere Preprocessing-Schritte durchzuführen.
+
+3. Modellarchitektur
+Die Netzwerkarchitektur ist in der Datei 'model.py' definiert. Das Netzwerk verwendet eine U-Net Architektur, die
+aus einem Encoder und einem Decoder besteht. Der Encoder extrahiert Merkmale aus den Eingangsbildern, während
+der Decoder diese Merkmale verwendet, um die Segmentierungsmasken zu generieren.
+
+4. Konfiguration
+Die Konfiguration des Netzwerks erfolgt über die Datei config.py. Hier können Hyperparameter wie die Anzahl
+der Epochen, die Batch-Größe und die Lernrate festgelegt werden. Darüber hinaus können hier Pfade zu den
+Datensätzen und anderen Ressourcen angegeben werden.
+
+5. Abhängigkeiten
+Das Netzwerk basiert auf der PyTorch-Bibliothek für Deep Learning und verwendet verschiedene andere Bibliotheken
+wie scikit-learn, tqdm und matplotlib für die Datenverarbeitung und Visualisierung.
+
+6. Ausgabe und Evaluation
+Die Ausgabe des Trainings wird in dem Verzeichnis output/ gespeichert. Hier finden Sie trainierte Modelle,
+Logdateien und Metriken wie Verlust und Genauigkeit. Das Netzwerk kann auch auf einem separaten Testdatensatz
+evaluiert werden, um seine Leistung zu bewerten.
