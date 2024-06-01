@@ -31,5 +31,5 @@ config_dic = {
     "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
-    "SCHEDULER_FACTOR": 0.9
+    "SCHEDULER_FACTOR": 1.2
 }
