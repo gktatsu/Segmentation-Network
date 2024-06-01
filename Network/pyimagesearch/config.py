@@ -29,7 +29,7 @@ config_dic = {
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
     "PATIENCE": 20,
-    "MIN_NUM_EPOCHS": 320,
+    "MIN_NUM_EPOCHS": 400,
     "NUM_LOG_IMAGES": 5,
-    "SCHEDULER_FACTOR": 0.7
+    "SCHEDULER_FACTOR": 0.99
 }
