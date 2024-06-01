@@ -26,7 +26,7 @@ config_dic = {
     "BATCH_SIZE": 512,
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
-    "THRESHOLD": 0.3,
+    "THRESHOLD": 0.7,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
     "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
