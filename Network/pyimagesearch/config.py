@@ -16,12 +16,12 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Synthetic (116 images)/",
+    "DATASET_PATH": r"Network/Dataset/Synthetic (232 images)/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
     "NUM_WORKERS": 0,
-    "INIT_LR": 0.001,
+    "INIT_LR": 0.0001,
     "NUM_EPOCHS": 700,
     "BATCH_SIZE": 512,
     "INPUT_IMAGE_WIDTH": 128,
@@ -31,5 +31,5 @@ config_dic = {
     "PATIENCE": 25,
     "MIN_NUM_EPOCHS": 500,
     "NUM_LOG_IMAGES": 5,
-    "SCHEDULER_FACTOR": 0.8
+    "SCHEDULER_FACTOR": 0.05
 }
