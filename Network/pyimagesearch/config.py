@@ -22,14 +22,14 @@ config_dic = {
     "NUM_CLASSES": 3,
     "NUM_WORKERS": 0,
     "INIT_LR": 0.001,
-    "NUM_EPOCHS": 400,
-    "BATCH_SIZE": 512,
+    "NUM_EPOCHS": 700,
+    "BATCH_SIZE": 64,
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
     "PATIENCE": 20,
-    "MIN_NUM_EPOCHS": 100,
+    "MIN_NUM_EPOCHS": 350,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
 }
