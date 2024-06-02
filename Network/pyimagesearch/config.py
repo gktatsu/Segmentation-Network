@@ -21,7 +21,7 @@ config_dic = {
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
     "NUM_WORKERS": 0,
-    "INIT_LR": 0.006,
+    "INIT_LR": 0.0015,
     "NUM_EPOCHS": 700,
     "BATCH_SIZE": 64,
     "INPUT_IMAGE_WIDTH": 128,
@@ -31,5 +31,5 @@ config_dic = {
     "PATIENCE": 25,
     "MIN_NUM_EPOCHS": 700,
     "NUM_LOG_IMAGES": 5,
-    "SCHEDULER_FACTOR": 0.6
+    "SCHEDULER_FACTOR": 0.55
 }
