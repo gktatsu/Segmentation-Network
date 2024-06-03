@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Synthetic (232 imgs)/",
+    "DATASET_PATH": r"Network/Dataset/Augmentations (Time Match)/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
@@ -29,7 +29,7 @@ config_dic = {
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
     "PATIENCE": 20,
-    "MIN_NUM_EPOCHS": 250,
+    "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
 }
