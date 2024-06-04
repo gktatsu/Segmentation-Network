@@ -228,10 +228,11 @@ with torch.no_grad():
 			for i in range(num_img):
 				#import pdb
 				#pdb.set_trace()
-				fig,axs = plt.subplots(1,3)
+				fig,axs = plt.subplots(1,4)
 				axs[0].imshow(x_cpu[i].permute(1,2,0))
 				axs[1].imshow(y_cpu[i].permute(1,2,0))
 				axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
+				axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).permute(1, 2, 0))
 				for a in axs:
 					a.set_axis_off()
 				plt.tight_layout()
