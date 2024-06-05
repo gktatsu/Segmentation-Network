@@ -232,7 +232,7 @@ with torch.no_grad():
 				axs[0].imshow(x_cpu[i].permute(1,2,0))
 				axs[1].imshow(y_cpu[i].permute(1,2,0))
 				axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
-				axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).float().permute(1, 2, 0))
+				# axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).float().permute(1, 2, 0))
 				for a in axs:
 					a.set_axis_off()
 				plt.tight_layout()
