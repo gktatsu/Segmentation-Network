@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Real + Synthetic + Augmentations/",
+    "DATASET_PATH": r"Network/Dataset/Synthetic + Real (large)/",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
@@ -27,7 +27,7 @@ config_dic = {
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
-    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output",
+    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output/weights",
     "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
