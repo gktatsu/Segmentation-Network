@@ -73,8 +73,8 @@ testLoader = DataLoader(testDS, shuffle=False,
 	num_workers=config.config_dic['NUM_WORKERS'])
 
 sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
-# jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
+# jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic["DEVICE"])
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
