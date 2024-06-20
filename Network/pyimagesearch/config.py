@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Synthetic (232 images)/",
+    "DATASET_PATH": r"Network/Dataset/Dataset 1/",
     # "DATASET_PATH": r"C:\Users\Platz3\PycharmProjects\Segmentation-Network\Network\Dataset\Synthetic (232 images)",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
