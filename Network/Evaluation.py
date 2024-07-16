@@ -37,15 +37,15 @@ wandb.init(
 # real images
 # model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 2/"
-# model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 3/"
+# model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 3/" # Noch leer
 # synthetic
 # model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 2/"
-model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 3/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 3/" # Noch leer
 
 # 464 images
 # ControlNet augmentations
-# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 3/"
 # standard augmentations
