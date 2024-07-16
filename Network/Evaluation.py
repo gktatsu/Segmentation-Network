@@ -71,10 +71,10 @@ wandb.init(
 # standard augmentations
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 2/"
-model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 3/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 3/"
 
 # time match: ControlNet augmentations (10.553) <-> standard augmentations (31.560)
-# model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 3/" # Noch leer
 
