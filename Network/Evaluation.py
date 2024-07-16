@@ -37,7 +37,7 @@ wandb.init(
 # real images
 # model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 2/"
-# model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 3/" # Noch leer
+model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 3/" # Noch leer
 # synthetic
 # model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 2/"
@@ -75,7 +75,7 @@ wandb.init(
 
 # time match: ControlNet augmentations (10.553) <-> standard augmentations (31.560)
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 1/"
-model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 3/" # Noch leer
 
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
