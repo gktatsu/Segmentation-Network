@@ -61,11 +61,11 @@ wandb.init(
 # standard augmentations
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 2/"
-model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 3/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 3/"
 
 # 10.553 images
 # ControlNet augmentations
-# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 3/"
 # standard augmentations
