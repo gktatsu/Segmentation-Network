@@ -32,7 +32,7 @@ wandb.init(
 )
 
 # TODO adapt path to model weights
-model_weights = r"output/weights/generous-rain-510/"
+model_weights = r"output/weights/golden-sky-513/"
 
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
