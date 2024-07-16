@@ -59,8 +59,8 @@ wandb.init(
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 3/"
 # standard augmentations
-model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 1/"
-# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 3/"
 
 # 10.553 images
