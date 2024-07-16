@@ -26,13 +26,57 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # start a new wandb run to track this script
 wandb.init(
 	# set the wandb project where this run will be logged
-    project="Test",
+    project="Test2",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
 
-# TODO adapt path to model weights
-model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 3/"
+# adapt path to model weights
+
+# 232 images
+# real images
+model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Dataset 1/Run 3/"
+# synthetic
+# model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic/Run 3/"
+
+# 464 images
+# ControlNet augmentations
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (small)/Run 3/"
+# standard augmentations
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (small)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (small)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (small)/Run 3/"
+
+# 5393 images
+# ControlNet augmentations
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 3/"
+# standard augmentations
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (medium)/Run 3/"
+
+# 10.553 images
+# ControlNet augmentations
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 3/"
+# standard augmentations
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 3/"
+
+# time match: ControlNet augmentations (10.553) <-> standard augmentations (31.560)
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 1/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 2/"
+# model_weights = r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 3/"
 
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
