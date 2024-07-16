@@ -26,7 +26,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # start a new wandb run to track this script
 wandb.init(
 	# set the wandb project where this run will be logged
-    project="Segmentation Network Evaluation",
+    project="Segmentation Network Evaluation - Sorted",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
