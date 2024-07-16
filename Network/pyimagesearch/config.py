@@ -28,7 +28,7 @@ config_dic = {
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
-    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output/weights",
+    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output/weights/real data",
     "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
