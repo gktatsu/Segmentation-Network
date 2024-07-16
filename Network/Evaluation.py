@@ -67,9 +67,9 @@ wandb.init(
 # ControlNet augmentations
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 2/"
-model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 3/"
+# model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 3/"
 # standard augmentations
-# model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 1/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 2/"
 # model_weights = r"Network/Weights (Abgabe)/Augmentations (large)/Run 3/"
 
