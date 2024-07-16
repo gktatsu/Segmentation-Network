@@ -32,7 +32,7 @@ wandb.init(
 )
 
 # TODO adapt path to model weights
-model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 1/"
+model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (large)/Run 2/"
 
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
