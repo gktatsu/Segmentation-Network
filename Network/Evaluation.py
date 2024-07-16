@@ -26,13 +26,13 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # start a new wandb run to track this script
 wandb.init(
 	# set the wandb project where this run will be logged
-    project="Segmentation Network Evaluation - Sorted",
+    project="Test",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
 
 # TODO adapt path to model weights
-model_weights = r"output/weights/confused-capybara-512/"
+model_weights = r"Network/Weights (Abgabe)/Synthetic + Real (medium)/Run 1/"
 
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
