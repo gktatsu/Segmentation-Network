@@ -16,7 +16,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"Network/Dataset/Dataset 1/WannerFIB/",
+    "DATASET_PATH": r"Network/Dataset/Synthetic (232 images)/",
     # "DATASET_PATH": r"C:\Users\Platz3\PycharmProjects\Segmentation-Network\Network\Dataset\Synthetic (232 images)",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
@@ -28,7 +28,7 @@ config_dic = {
     "INPUT_IMAGE_WIDTH": 128,
     "INPUT_IMAGE_HEIGHT": 128,
     "THRESHOLD": 0.5,
-    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output/weights/real data",
+    "BASE_OUTPUT": "/mnt/hdd/pascalr/Segmentation-Network/output/weights/",
     "PATIENCE": 20,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
