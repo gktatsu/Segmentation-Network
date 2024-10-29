@@ -25,7 +25,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # start a new wandb run to track this script
 wandb.init(
-	# set the wandb project where this run will be logged
+    # set the wandb project where this run will be logged
     project="Alle Ergebnisse",
     # track hyperparameters and run metadata
     config=config.config_dic
@@ -81,20 +81,21 @@ testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
 transforms = transforms.Compose([transforms.ToPILImage(),
- 	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-		config.config_dic["INPUT_IMAGE_WIDTH"])),
-	transforms.ToTensor()])
+                                 transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
+                                                    config.config_dic["INPUT_IMAGE_WIDTH"])),
+                                 transforms.ToTensor()])
 
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-    transforms=transforms)
+                             transforms=transforms)
 print(f"[INFO] found {len(testDS)} examples in the test set...")
 
 testLoader = DataLoader(testDS, shuffle=False,
-	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=config.config_dic['NUM_WORKERS'])
+                        batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
+                        num_workers=config.config_dic['NUM_WORKERS'])
 
 sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multilabel', num_labels=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
+jaccard = JaccardIndex(task='multilabel', num_labels=config.config_dic["NUM_CLASSES"],
+                       threshold=config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
@@ -120,31 +121,31 @@ for model_weights in model_weights_list:
 
     with torch.no_grad():
         # set the model in evaluation mode
-	    unet.eval()
+        unet.eval()
         # loop over the test set
-	    for testIndex,(x, y) in enumerate(testLoader):
+        for testIndex, (x, y) in enumerate(testLoader):
             # send the input to the device
-		    (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
+            (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
             # make the predictions and calculate the validation loss
-		    pred = unet(x)
-            totalTestLoss += lossFunc(pred, y)
-            jaccard(sigmoid(pred),y.long())
+            pred = unet(x)
+        totalTestLoss += lossFunc(pred, y)
+        jaccard(sigmoid(pred), y.long())
 
-            if(testIndex == 0):
-                num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-                sigmoid_pediction = sigmoid(pred).cpu()
-                x_cpu = x.cpu()
-                y_cpu = y.cpu()
-                for i in range(num_img):
-                    fig,axs = plt.subplots(1,3)
-                    axs[0].imshow(x_cpu[i].permute(1,2,0))
-                    axs[1].imshow(y_cpu[i].permute(1,2,0))
-                    axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
-                    for a in axs:
-                        a.set_axis_off()
-                    plt.tight_layout()
-                    wandb.log({f"testImage {i}": wandb.Image(plt)})
-                    plt.close()
+        if (testIndex == 0):
+            num_img = np.min((x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
+            sigmoid_pediction = sigmoid(pred).cpu()
+            x_cpu = x.cpu()
+            y_cpu = y.cpu()
+            for i in range(num_img):
+                fig, axs = plt.subplots(1, 3)
+                axs[0].imshow(x_cpu[i].permute(1, 2, 0))
+                axs[1].imshow(y_cpu[i].permute(1, 2, 0))
+                axs[2].imshow(sigmoid_pediction[i].permute(1, 2, 0))
+                for a in axs:
+                    a.set_axis_off()
+                plt.tight_layout()
+                wandb.log({f"testImage {i}": wandb.Image(plt)})
+                plt.close()
 
     avgTestLoss = totalTestLoss / testSteps
     wandb.log({"test/avgTestLoss": avgTestLoss})
@@ -154,7 +155,7 @@ for model_weights in model_weights_list:
     # display the total time needed to perform the training
     endTime = time.time()
     print("[INFO] total time taken to train the model: {:.2f}s".format(
-	    endTime - startTime))
+        endTime - startTime))
 
     # wandb.sync()
     wandb.finish()
