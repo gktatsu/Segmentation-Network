@@ -68,40 +68,6 @@ model_weights_list = [
     r"Network/Weights (Abgabe)/Augmentations (Time match)/Run 2/"
 ]
 
-testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
-testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
-
-# define transformations
-transforms = transforms.Compose([transforms.ToPILImage(),
-                                 transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-                                                    config.config_dic["INPUT_IMAGE_WIDTH"])),
-                                 transforms.ToTensor()])
-
-testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-                             transforms=transforms)
-print(f"[INFO] found {len(testDS)} examples in the test set...")
-
-testLoader = DataLoader(testDS, shuffle=False,
-                        batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-                        num_workers=config.config_dic['NUM_WORKERS'])
-
-sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multilabel', num_labels=config.config_dic["NUM_CLASSES"],
-                       threshold=config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
-
-# initialize our UNet model
-unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
-
-# initialize loss function and optimizer
-lossFunc = BCEWithLogitsLoss()
-# calculate steps per epoch for training and test set
-testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
-
-# loop over epochs
-print("[INFO] eval the network...")
-startTime = time.time()
-totalTestLoss = 0
-
 for model_weights in model_weights_list:
     # start a new wandb run to track this script
     wandb.init(
@@ -110,6 +76,40 @@ for model_weights in model_weights_list:
         # track hyperparameters and run metadata
         config=config.config_dic
     )
+
+    testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
+    testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
+
+    # define transformations
+    transforms = transforms.Compose([transforms.ToPILImage(),
+                                     transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
+                                                        config.config_dic["INPUT_IMAGE_WIDTH"])),
+                                     transforms.ToTensor()])
+
+    testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
+                                 transforms=transforms)
+    print(f"[INFO] found {len(testDS)} examples in the test set...")
+
+    testLoader = DataLoader(testDS, shuffle=False,
+                            batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
+                            num_workers=config.config_dic['NUM_WORKERS'])
+
+    sigmoid = torch.nn.Sigmoid()
+    jaccard = JaccardIndex(task='multilabel', num_labels=config.config_dic["NUM_CLASSES"],
+                           threshold=config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
+
+    # initialize our UNet model
+    unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
+
+    # initialize loss function and optimizer
+    lossFunc = BCEWithLogitsLoss()
+    # calculate steps per epoch for training and test set
+    testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
+
+    # loop over epochs
+    print("[INFO] eval the network...")
+    startTime = time.time()
+    totalTestLoss = 0
 
     if os.path.exists(model_weights + 'model.pth'):
         print("[INFO] Loading pre-trained weights for testing...")
