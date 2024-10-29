@@ -23,14 +23,6 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
 # os.environ["WANDB_MODE"] = "dryrun"
 
-# start a new wandb run to track this script
-wandb.init(
-    # set the wandb project where this run will be logged
-    project="Alle Ergebnisse",
-    # track hyperparameters and run metadata
-    config=config.config_dic
-)
-
 model_weights_list = [
     ######################
     #### Experiment 1 ####
@@ -111,6 +103,14 @@ startTime = time.time()
 totalTestLoss = 0
 
 for model_weights in model_weights_list:
+    # start a new wandb run to track this script
+    wandb.init(
+        # set the wandb project where this run will be logged
+        project="Alle Ergebnisse",
+        # track hyperparameters and run metadata
+        config=config.config_dic
+    )
+
     if os.path.exists(model_weights + 'model.pth'):
         print("[INFO] Loading pre-trained weights for testing...")
         unet.load_state_dict(torch.load(model_weights + 'model.pth'))
