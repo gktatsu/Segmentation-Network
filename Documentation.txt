@@ -1,34 +1,34 @@
 Segmentierungsnetzwerk Dokumentation
 
-Dieses Segmentierungsnetzwerk implementiert eine UNet-Architektur zur Segmentierung von Bilddaten.
-Es besteht aus den folgenden Hauptkomponenten:
 
-1. Trainingsprozess
-Das Trainingsverfahren ist in der Datei 'train.py' implementiert. Hier werden die Daten geladen, das Netzwerk
-trainiert und die Modelle bewertet. Das Training erfolgt über mehrere Epochen, wobei in jeder Epoche die
-Trainings- und Validierungsverluste berechnet werden. Das Netzwerk wird mit der PyTorch-Bibliothek trainiert
-und die Fortschritte werden mithilfe von Weights & Biases (wandb) protokolliert.
+Speicherort der Datensätze:
+mnt/hdd/pascalr/Segmentation-Network/Network/Dataset/
 
-2. Datenverarbeitung
-Die Datenverarbeitung wird in der Datei 'dataset.py' durchgeführt. Hier werden die Bilddaten und zugehörigen
-Masken geladen, vorverarbeitet und für das Training vorbereitet. Die Implementierung ermöglicht auch die
-Anwendung von Transformationen auf die Daten, um Augmentationen und andere Preprocessing-Schritte durchzuführen.
+Speicherort der Weights:
+mnt/hdd/pascalr/Segmentation-Network/Network/Weights (Abgabe)/
 
-3. Modellarchitektur
-Die Netzwerkarchitektur ist in der Datei 'model.py' definiert. Das Netzwerk verwendet eine U-Net Architektur, die
-aus einem Encoder und einem Decoder besteht. Der Encoder extrahiert Merkmale aus den Eingangsbildern, während
-der Decoder diese Merkmale verwendet, um die Segmentierungsmasken zu generieren.
 
-4. Konfiguration
-Die Konfiguration des Netzwerks erfolgt über die Datei config.py. Hier können Hyperparameter wie die Anzahl
-der Epochen, die Batch-Größe und die Lernrate festgelegt werden. Darüber hinaus können hier Pfade zu den
-Datensätzen und anderen Ressourcen angegeben werden.
+## Ausführung des Codes (Cluster) ##
 
-5. Abhängigkeiten
-Das Netzwerk basiert auf der PyTorch-Bibliothek für Deep Learning und verwendet verschiedene andere Bibliotheken
-wie scikit-learn, tqdm und matplotlib für die Datenverarbeitung und Visualisierung.
+Training:
+Um das Segmentierungsnetzwerk zu trainieren wird die Klasse 'train.py' ausgeführt.
+Bevor das Training durchgeführt wird ist es notwendig in der Klasse 'config.py' den
+Pfad zum Datensatz und gegebenenfalls die Hyperparameter anzupassen. Um den Code
+auszuführen kann die Datei 'run.sh' verwendet werden. In 'requirements' sind alle
+benötigten dependencies enthalten. Folgender Befehl führt den Code erfolgreich aus:
+submit ./run.sh --pytorch --requirements requirements --apt-install libsm6 libxext6
+libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv --name newRun
 
-6. Ausgabe und Evaluation
-Die Ausgabe des Trainings wird in dem Verzeichnis output/ gespeichert. Hier finden Sie trainierte Modelle,
-Logdateien und Metriken wie Verlust und Genauigkeit. Das Netzwerk kann auch auf einem separaten Testdatensatz
-evaluiert werden, um seine Leistung zu bewerten.
+
+Evaluierung:
+Um die Trainingsergebnisse nur zu evaluieren kann die Klasse 'Evaluation.py' ausgeführt
+werden. Um den Code auszuführen kann die Datei 'runEvaluation.sh' verwendet werden. Vor
+der Ausführung ist es notwendig in der Klasse den Pfad zum Model anzupassen.
+Folgender Befehl führt den Code erfolgreich aus:
+submit ./runEvaluation.sh --pytorch --requirements requirements --apt-install libsm6 libxext6
+libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv --name newRun
+
+
+## Ausführung des Codes (Lokal) ##
+Ausführen von 'train.py' bzw. 'Evaluation.py'
+--> Segmentation-Network/Network/Segmentation.yaml

@@ -20,7 +20,7 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-# wandb.login(key="a62bd616c3a898497ab242a339258e281c14489e")
+# wandb.login(key="INSERT KEY")
 # os.environ["WANDB_MODE"] = "dryrun"
 
 # start a new wandb run to track this script

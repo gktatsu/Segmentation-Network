@@ -1,11 +1,5 @@
 Segmentierungsnetzwerk
 
-Das Segmentierungsnetzwerk wurde entworfen, um Datensätze bestehend aus elektronenmikroskopischen Daten
-auswerten und evaluieren zu können. Es verwendet eine U-Net Architektur, um eine Segmentierung aus einem
-Datensatz zu erstellen, der aus Test-, Validierungs- und Trainingsdaten besteht. Das Netzwerk ist in
-Python implementiert und verwendet die PyTorch-Bibliothek für Deep Learning.
-
-
 Um das Netzwerk zu trainieren wird die Datei 'train.py' folgendermaßen ausgeführt:
 
 - Lokal: python train.py
@@ -13,7 +7,7 @@ Um das Netzwerk zu trainieren wird die Datei 'train.py' folgendermaßen ausgefü
 
 
 
-Requirements (requirements.txt):
+Requirements (requirements.txt / Segmentation.yaml):
 
 - PyTorch
 - TorchVision
@@ -70,7 +64,5 @@ Dataset/
     ├── mask2.png
     └── ...
 
-
-Ausgabe:
-Die Ausgaben des Trainings werden in dem Verzeichnis 'output' gespeichert. Hier werden unter anderem die
-trainierten Modelle sowie Logs und Metriken gespeichert.
+Weitere Informationen zum Start des Codes und dem Speicherort
+der Datensätze sind in Documentation.txt zu finden.
