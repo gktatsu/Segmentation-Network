@@ -1,5 +1,14 @@
 # Segmentation-Network
 
+Das Segmentierungsnetzwerk wurde entworfen, um Bilder in verschiedene semantische Bereiche oder Segmente zu
+zu unterteilen. Das Netzwerk hat die Aufgabe jedem Bildpunkt in einem Eingabebild eine Klasse zuzuweisen. Um
+das Netzwerk zu trainieren werden Eingabebilder und Labels benötigt. Das Segmentierungsnetzwerk weist die 
+klassische U-Net Architektur auf.
+
+>Die Klasse 'model.py' implementiert alle Bestandteile des U-Net. Die Klasse 'dataset.py' dient der Vorverarbeitung
+der Eingabedaten.
+
+----------------------------------------------------------------------------------------------------------------
 # Konfiguration
 
 Die Konfiguration des Netzwerks erfolgt über die Datei 'config.py'. Hier können die Hyperparameter wie die
@@ -58,6 +67,7 @@ nicht explizit angegeben wird ist es notwendig die zusätzlichen Packages zu ins
 ----------------------------------------------------------------------------------------------------------------
 
 # Requirements
+>- python==<3.8.5>
 >- PyTorch==<2.1.1>
 >- TorchVision==<0.16.1>
 >- scikit-learn==<1.2.2>
