@@ -166,3 +166,4 @@ Network/Dataset*
 wandb/*
 *.png
 *.pth
+*.out
