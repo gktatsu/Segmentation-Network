@@ -161,3 +161,8 @@ cython_debug/
 Network/Dataset*
 *wandb*
 *output*
+
+# Custom
+wandb/*
+*.png
+*.pth
