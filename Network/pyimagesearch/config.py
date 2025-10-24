@@ -14,10 +14,13 @@ import os
 # Path for Cluster:
 # "DATASET_PATH": r"Network/Dataset/AugDataset/WannerFIB/"
 
+# Path for Demo:
+# "DATASET_PATH": r"/mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/demo/"
+
 # "BASE_OUTPUT": "output",
 config_dic = {
     # "DATASET_PATH": r"Network/Dataset/CN Augmentations (10.320 images)/",
-    "DATASET_PATH": r"/mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/demo/",
+    "DATASET_PATH": r"/mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/hannah/Dataset 1/WannerFIB/WannerFIB_train_images",
     # "DATASET_PATH": r"C:\Users\Platz3\PycharmProjects\Segmentation-Network\Network\Dataset\Synthetic (232 images)",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
