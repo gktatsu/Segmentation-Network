@@ -133,15 +133,10 @@ def main():
                         help="If set and exactly two input sources are provided, treat the second source (index 1) as preserved test set.")
     parser.add_argument("--preserve-test-index", type=int, default=None,
                         help="If set, the images/masks pair at this index (0-based) will be preserved as the test set; remaining sources are merged and split into train/valid")
-    # Overwrite existing output folder before writing
-    parser.add_argument("--overwrite", action="store_true",
-                        help="Remove existing output folder before writing")
-    # timestamp option: default ON, provide flag to disable
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("--append-timestamp", dest="append_timestamp", action="store_true",
-                       help="Append run timestamp (yyyymmddHHMM) to destination filenames before the extension (default: enabled)")
-    group.add_argument("--no-append-timestamp", dest="append_timestamp", action="store_false",
-                       help="Do not append run timestamp to destination filenames")
+    # By default append a run-timestamp to the output root dir (to avoid clobbering previous outputs).
+    # Provide a flag to disable this behaviour.
+    parser.add_argument("--no-append-timestamp", action="store_false", dest="append_timestamp",
+                        help="Do not append run timestamp to the output root directory (default: append)")
     parser.set_defaults(append_timestamp=True)
 
     args = parser.parse_args()
@@ -153,10 +148,13 @@ def main():
     seed = args.seed
     move_flag = args.move
     dry_run = args.dry_run
-    overwrite = args.overwrite
     append_ts = args.append_timestamp
-    # run timestamp for destination filenames (yyyymmddHHMM)
-    run_ts = datetime.now().strftime('%Y%m%d%H%M')
+    # If enabled, append a run timestamp (yyyymmddHHMM) to the output root directory name only.
+    # Example: /path/to/out -> /path/to/out_20251027HHMM
+    if append_ts:
+        run_ts = datetime.now().strftime('%Y%m%d%H%M')
+        # normalise path (remove trailing slash) then append _timestamp to the final component
+        out_root = os.path.normpath(out_root) + '_' + run_ts
 
     # Merge files from multiple input directories
     img_map = {}  # basename -> list of (images_dir, filename)
@@ -299,13 +297,6 @@ def main():
         for (basename, img_fname, mask_fname, img_dir, mask_dir), split in zip(pairs, splits):
             final_items.append((basename, img_fname, mask_fname, img_dir, mask_dir, split))
 
-    # Optionally clear existing output
-    if overwrite and os.path.exists(out_root):
-        if dry_run:
-            print(f"Dry-run: would remove existing output folder: {out_root}")
-        else:
-            shutil.rmtree(out_root)
-
     # Prepare output dirs
     make_output_dirs(out_root)
 
@@ -331,17 +322,8 @@ def main():
         for (basename, img_fname, mask_fname, img_dir, mask_dir, split) in final_items:
             src_image = os.path.join(img_dir, img_fname)
             src_mask = os.path.join(mask_dir, mask_fname)
-            # optionally append run timestamp to destination filenames (before extension)
-            if append_ts:
-                img_base, img_ext = os.path.splitext(img_fname)
-                mask_base, mask_ext = os.path.splitext(mask_fname)
-                dest_img_name = f"{img_base}_{run_ts}{img_ext}"
-                dest_mask_name = f"{mask_base}_{run_ts}{mask_ext}"
-            else:
-                dest_img_name = img_fname
-                dest_mask_name = mask_fname
-            dest_image = os.path.join(out_root, split, "images", dest_img_name)
-            dest_mask = os.path.join(out_root, split, "masks", dest_mask_name)
+            dest_image = os.path.join(out_root, split, "images", img_fname)
+            dest_mask = os.path.join(out_root, split, "masks", mask_fname)
 
             writer.writerow([basename, src_image, img_dir, src_mask, mask_dir, split, dest_image, dest_mask])
 
