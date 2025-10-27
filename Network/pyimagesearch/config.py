@@ -35,7 +35,7 @@ config_dic = {
     "INPUT_IMAGE_HEIGHT": 256,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network/Network/output/weights/",
-    "PATIENCE":100,
+    "PATIENCE": 100,
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
