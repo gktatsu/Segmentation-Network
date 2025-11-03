@@ -29,13 +29,13 @@ config_dic = {
     "NUM_CLASSES": 3,
     "NUM_WORKERS": 0,
     "INIT_LR": 0.001,
-    "NUM_EPOCHS": 2000,
-    "BATCH_SIZE": 512,
+    "NUM_EPOCHS": 5000,
+    "BATCH_SIZE": 32,
     "INPUT_IMAGE_WIDTH": 256,
     "INPUT_IMAGE_HEIGHT": 256,
     "THRESHOLD": 0.5,
     "BASE_OUTPUT": "/mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network/Network/output/weights/",
-    "PATIENCE": 100,  # early stopping patience
+    "PATIENCE": 1000,  # early stopping patience
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1
