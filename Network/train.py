@@ -4,7 +4,7 @@
 from pyimagesearch.dataset import SegmentationDataset
 from pyimagesearch.model import UNet
 from pyimagesearch import config
-from torch.nn import BCEWithLogitsLoss
+from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
@@ -73,15 +73,14 @@ testLoader = DataLoader(testDS, shuffle=False,
 	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
 	num_workers=config.config_dic['NUM_WORKERS'])
 
-sigmoid = torch.nn.Sigmoid()
-# jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic["DEVICE"])
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"],threshold = config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
+# use CrossEntropyLoss for multiclass segmentation (targets are class indices HxW)
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
 
 # initialize loss function and optimizer
-lossFunc = BCEWithLogitsLoss()
+lossFunc = CrossEntropyLoss()
 opt = Adam(unet.parameters(), lr=config.config_dic["INIT_LR"])
 # calculate steps per epoch for training and test set
 trainSteps = np.max([len(trainDS) // config.config_dic["BATCH_SIZE"], 1]) # len(trainLoader)
@@ -112,9 +111,10 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 		# send the input to the device
 		(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
 		# perform a forward pass and calculate the training loss
-		pred = unet(x)
+		pred = unet(x)  # shape: (N, C, H, W), raw logits
 		# import pdb
 		# pdb.set_trace()
+		# y is expected to be LongTensor of shape (N, H, W) with class indices
 		loss = lossFunc(pred, y)
 		# first, zero out any previously accumulated gradients, then
 		# perform backpropagation, and then update model parameters
@@ -139,7 +139,9 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 			# pdb.set_trace()
 			pred = unet(x)
 			totalValLoss += lossFunc(pred, y)
-			jaccard(sigmoid(pred),y)
+			# for multiclass Jaccard, pass predicted class indices and target labels
+			pred_labels = torch.argmax(pred, dim=1)
+			jaccard(pred_labels, y)
 			if(valIndex == 0):
 				num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
 				sigmoid_pediction = sigmoid(pred).cpu()
@@ -221,7 +223,8 @@ with torch.no_grad():
 		# make the predictions and calculate the validation loss
 		pred = unet(x)
 		totalTestLoss += lossFunc(pred, y)
-		jaccard(sigmoid(pred),y)
+		pred_labels = torch.argmax(pred, dim=1)
+		jaccard(pred_labels, y)
 
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
