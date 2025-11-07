@@ -20,75 +20,82 @@ import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-wandb.login(key=os.environ.get('WANDB_API_KEY', '91ca033bf4cedebb62502c72c3f5196cb8940574'))
+wandb.login(key=os.environ.get('WANDB_API_KEY',
+            '91ca033bf4cedebb62502c72c3f5196cb8940574'))
 # wandb.login(key="INSERT KEY")
 # os.environ["WANDB_MODE"] = "dryrun"
 
 # start a new wandb run to track this script
 wandb.init(
-	# set the wandb project where this run will be logged
+    # set the wandb project where this run will be logged
     project="Segmentation Network",
     # track hyperparameters and run metadata
     config=config.config_dic
 )
 
-logging_path = config.config_dic["BASE_OUTPUT"] + "/" + str(wandb.run.name) + "/"
-os.makedirs(logging_path,exist_ok=True)
+logging_path = config.config_dic["BASE_OUTPUT"] + \
+    "/" + str(wandb.run.name) + "/"
+os.makedirs(logging_path, exist_ok=True)
 
 trainImages = os.path.join(config.config_dic["DATASET_PATH"], "train_images")
 trainMasks = os.path.join(config.config_dic["DATASET_PATH"], "train_masks")
-valImages = os.path.join(config.config_dic["DATASET_PATH"], "validation_images")
+valImages = os.path.join(
+    config.config_dic["DATASET_PATH"], "validation_images")
 valMasks = os.path.join(config.config_dic["DATASET_PATH"], "validation_masks")
 testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
 transforms = transforms.Compose([transforms.ToPILImage(),
- 	transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-		config.config_dic["INPUT_IMAGE_WIDTH"])),
-	transforms.ToTensor()])
+                                 transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
+                                                    config.config_dic["INPUT_IMAGE_WIDTH"])),
+                                 transforms.ToTensor()])
 
 """transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
 		config.INPUT_IMAGE_WIDTH)),
 	transforms.ToTensor()])"""
 # create the train and test datasets
 trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
-	transforms=transforms)
+                              transforms=transforms)
 valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
-    transforms=transforms)
+                            transforms=transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-    transforms=transforms)
+                             transforms=transforms)
 print(f"[INFO] found {len(trainDS)} examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
 
 # create the training and test data loaders
 trainLoader = DataLoader(trainDS, shuffle=True,
-	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=config.config_dic['NUM_WORKERS'])
+                         batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
+                         num_workers=config.config_dic['NUM_WORKERS'])
 valLoader = DataLoader(valDS, shuffle=False,
-	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=config.config_dic['NUM_WORKERS'])
+                       batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
+                       num_workers=config.config_dic['NUM_WORKERS'])
 testLoader = DataLoader(testDS, shuffle=False,
-	batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-	num_workers=config.config_dic['NUM_WORKERS'])
+                        batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
+                        num_workers=config.config_dic['NUM_WORKERS'])
 
 # use CrossEntropyLoss for multiclass segmentation (targets are class indices HxW)
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(config.config_dic['DEVICE'])
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(
+    config.config_dic['DEVICE'])
 
 # initialize our UNet model
-unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
+unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(
+    config.config_dic["DEVICE"])
 
 # initialize loss function and optimizer
 lossFunc = CrossEntropyLoss()
 opt = Adam(unet.parameters(), lr=config.config_dic["INIT_LR"])
 # calculate steps per epoch for training and test set
-trainSteps = np.max([len(trainDS) // config.config_dic["BATCH_SIZE"], 1]) # len(trainLoader)
-valSteps = np.max([len(valDS) // config.config_dic["BATCH_SIZE"], 1]) # 25 // 64
+# len(trainLoader)
+trainSteps = np.max([len(trainDS) // config.config_dic["BATCH_SIZE"], 1])
+valSteps = np.max(
+    [len(valDS) // config.config_dic["BATCH_SIZE"], 1])  # 25 // 64
 testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
 
 # initialize a dictionary to store training history
-H = {"train_loss": [], "val_loss": [] , "test_loss": []}
+H = {"train_loss": [], "val_loss": [], "test_loss": []}
 
 # loop over epochs
 print("[INFO] training the network...")
@@ -96,112 +103,117 @@ startTime = time.time()
 currentPatience = 0
 bestValLoss = np.inf
 
-scheduler = ReduceLROnPlateau(opt, mode='min', patience=config.config_dic["PATIENCE"], factor=config.config_dic["SCHEDULER_FACTOR"], verbose=True)
+scheduler = ReduceLROnPlateau(
+    opt, mode='min', patience=config.config_dic["PATIENCE"], factor=config.config_dic["SCHEDULER_FACTOR"], verbose=True)
 
 for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
-	# set the model in training mode
-	unet.train()
-	# initialize the total training and validation loss
-	totalTrainLoss = 0
-	totalTestLoss = 0
-	totalValLoss = 0
+    # set the model in training mode
+    unet.train()
+    # initialize the total training and validation loss
+    totalTrainLoss = 0
+    totalTestLoss = 0
+    totalValLoss = 0
 
-	# loop over the training set
-	for (i, (x, y)) in enumerate(trainLoader):
-		# send the input to the device
-		(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
-		# perform a forward pass and calculate the training loss
-		pred = unet(x)  # shape: (N, C, H, W), raw logits
-		# import pdb
-		# pdb.set_trace()
-		# y is expected to be LongTensor of shape (N, H, W) with class indices
-		loss = lossFunc(pred, y)
-		# first, zero out any previously accumulated gradients, then
-		# perform backpropagation, and then update model parameters
-		opt.zero_grad()
-		loss.backward()
-		opt.step()
-		# add the loss to the total training loss so far
-		totalTrainLoss += loss
+    # loop over the training set
+    for (i, (x, y)) in enumerate(trainLoader):
+        # send the input to the device
+        (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(
+            config.config_dic["DEVICE"]))
+        # perform a forward pass and calculate the training loss
+        pred = unet(x)  # shape: (N, C, H, W), raw logits
+        # import pdb
+        # pdb.set_trace()
+        # y is expected to be LongTensor of shape (N, H, W) with class indices
+        loss = lossFunc(pred, y)
+        # first, zero out any previously accumulated gradients, then
+        # perform backpropagation, and then update model parameters
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        # add the loss to the total training loss so far
+        totalTrainLoss += loss
 
-		wandb.log({"train/loss": loss})
+        wandb.log({"train/loss": loss})
 
-	# switch off autograd for validation
-	with torch.no_grad():
-		# set the model in evaluation mode
-		unet.eval()
-		# loop over the validation set
-		for valIndex,(x, y) in enumerate(valLoader):
-			# send the input to the device
-			(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
-			# make the predictions and calculate the validation loss
-			# import pdb
-			# pdb.set_trace()
-			pred = unet(x)
-			totalValLoss += lossFunc(pred, y)
-			# for multiclass Jaccard, pass predicted class indices and target labels
-			pred_labels = torch.argmax(pred, dim=1)
-			jaccard(pred_labels, y)
-			if(valIndex == 0):
-				num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-				sigmoid_pediction = torch.sigmoid(pred).cpu()
-				x_cpu = x.cpu()
-				y_cpu = y.cpu()
-				for i in range(num_img):
-					#import pdb
-					#pdb.set_trace()
-					fig,axs = plt.subplots(1,3)
-					axs[0].imshow(x_cpu[i].permute(1,2,0))
-					axs[1].imshow(y_cpu[i].permute(1,2,0))
-					axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
-					for a in axs:
-						a.set_axis_off()
-					plt.tight_layout()
-					wandb.log({f"validationImage {i}": wandb.Image(plt)}, step=e)
-					plt.close()
+    # switch off autograd for validation
+    with torch.no_grad():
+        # set the model in evaluation mode
+        unet.eval()
+        # loop over the validation set
+        for valIndex, (x, y) in enumerate(valLoader):
+            # send the input to the device
+            (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(
+                config.config_dic["DEVICE"]))
+            # make the predictions and calculate the validation loss
+            # import pdb
+            # pdb.set_trace()
+            pred = unet(x)
+            totalValLoss += lossFunc(pred, y)
+            # for multiclass Jaccard, pass predicted class indices and target labels
+            pred_labels = torch.argmax(pred, dim=1)
+            jaccard(pred_labels, y)
+            if (valIndex == 0):
+                num_img = np.min(
+                    (x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
+                sigmoid_pediction = torch.sigmoid(pred).cpu()
+                x_cpu = x.cpu()
+                y_cpu = y.cpu()
+                for i in range(num_img):
+                    # import pdb
+                    # pdb.set_trace()
+                    fig, axs = plt.subplots(1, 3)
+                    axs[0].imshow(x_cpu[i].permute(1, 2, 0))
+                    axs[1].imshow(y_cpu[i].permute(1, 2, 0))
+                    axs[2].imshow(sigmoid_pediction[i].permute(1, 2, 0))
+                    for a in axs:
+                        a.set_axis_off()
+                    plt.tight_layout()
+                    wandb.log(
+                        {f"validationImage {i}": wandb.Image(plt)}, step=e)
+                    plt.close()
 
-	# calculate the average training and validation loss
-	#print("valSteps: ", valSteps)
-	#print("totalTrainLoss:", totalTrainLoss)
-	#print("totalValLoss", totalValLoss)
-	avgTrainLoss = totalTrainLoss / trainSteps
-	avgValLoss = totalValLoss / valSteps
+    # calculate the average training and validation loss
+    # print("valSteps: ", valSteps)
+    # print("totalTrainLoss:", totalTrainLoss)
+    # print("totalValLoss", totalValLoss)
+    avgTrainLoss = totalTrainLoss / trainSteps
+    avgValLoss = totalValLoss / valSteps
 
-	miou = jaccard.compute()
+    miou = jaccard.compute()
 
-	wandb.log({"train/avgTrainLoss": avgTrainLoss}, step=e)
-	wandb.log({"val/avgValLoss": avgValLoss}, step=e)
+    wandb.log({"train/avgTrainLoss": avgTrainLoss}, step=e)
+    wandb.log({"val/avgValLoss": avgValLoss}, step=e)
 
-	wandb.log({"val/miou": miou}, step=e)
-	jaccard.reset()
+    wandb.log({"val/miou": miou}, step=e)
+    jaccard.reset()
 
-	min_delta = config.config_dic.get("MIN_DELTA", 0.0)
-	# consider an improvement only if avgValLoss decreases by at least min_delta
-	if avgValLoss < bestValLoss - min_delta:
-		bestValLoss = avgValLoss
-		#import pdb
-		#pdb.set_trace()
-		torch.save(unet.state_dict(), logging_path + "model.pth")
-		#torch.save(unet, config.MODEL_PATH)
-		currentPatience = 0
-	else:
-		currentPatience += 1
+    min_delta = config.config_dic.get("MIN_DELTA", 0.0)
+    # consider an improvement only if avgValLoss decreases by at least min_delta
+    if avgValLoss < bestValLoss - min_delta:
+        bestValLoss = avgValLoss
+        # import pdb
+        # pdb.set_trace()
+        torch.save(unet.state_dict(), logging_path + "model.pth")
+        # torch.save(unet, config.MODEL_PATH)
+        currentPatience = 0
+    else:
+        currentPatience += 1
 
-	if e > config.config_dic["MIN_NUM_EPOCHS"]:
-		if currentPatience >= config.config_dic["PATIENCE"]:
-			break
-	else:
-		currentPatience = 0
+    if e > config.config_dic["MIN_NUM_EPOCHS"]:
+        if currentPatience >= config.config_dic["PATIENCE"]:
+            break
+    else:
+        currentPatience = 0
 
-	scheduler.step(avgValLoss)
+    scheduler.step(avgValLoss)
 
-	# update our training history
-	H["train_loss"].append(avgTrainLoss.cpu().detach().numpy())
-	H["val_loss"].append(avgValLoss.cpu().detach().numpy())
-	# print the model training and validation information
-	print("[INFO] EPOCH: {}/{}".format(e + 1, config.config_dic["NUM_EPOCHS"]))
-	print("Train loss: {:.6f}, Val loss: {:.4f}".format(
-		avgTrainLoss, avgValLoss))
+    # update our training history
+    H["train_loss"].append(avgTrainLoss.cpu().detach().numpy())
+    H["val_loss"].append(avgValLoss.cpu().detach().numpy())
+    # print the model training and validation information
+    print("[INFO] EPOCH: {}/{}".format(e + 1, config.config_dic["NUM_EPOCHS"]))
+    print("Train loss: {:.6f}, Val loss: {:.4f}".format(
+        avgTrainLoss, avgValLoss))
 
 
 # Load weights for testing
@@ -214,46 +226,48 @@ else:
 jaccard.reset()
 
 with torch.no_grad():
-	# set the model in evaluation mode
-	unet.eval()
-	# loop over the test set
-	for testIndex,(x, y) in enumerate(testLoader):
-		# send the input to the device
-		(x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
-		# make the predictions and calculate the validation loss
-		pred = unet(x)
-		totalTestLoss += lossFunc(pred, y)
-		pred_labels = torch.argmax(pred, dim=1)
-		jaccard(pred_labels, y)
-		if(testIndex == 0):
-			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-			sigmoid_pediction = torch.sigmoid(pred).cpu()
-			x_cpu = x.cpu()
-			y_cpu = y.cpu()
-			for i in range(num_img):
-				# import pdb
-				# pdb.set_trace()
-				fig,axs = plt.subplots(1,3)
-				axs[0].imshow(x_cpu[i].permute(1,2,0))
-				axs[1].imshow(y_cpu[i].permute(1,2,0))
-				axs[2].imshow(sigmoid_pediction[i].permute(1,2,0))
-				# axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).float().permute(1, 2, 0))
-				for a in axs:
-					a.set_axis_off()
-				plt.tight_layout()
-				wandb.log({f"testImage {i}": wandb.Image(plt)})
-				plt.close()
+    # set the model in evaluation mode
+    unet.eval()
+    # loop over the test set
+    for testIndex, (x, y) in enumerate(testLoader):
+        # send the input to the device
+        (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(
+            config.config_dic["DEVICE"]))
+        # make the predictions and calculate the validation loss
+        pred = unet(x)
+        totalTestLoss += lossFunc(pred, y)
+        pred_labels = torch.argmax(pred, dim=1)
+        jaccard(pred_labels, y)
+        if (testIndex == 0):
+            num_img = np.min((x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
+            sigmoid_pediction = torch.sigmoid(pred).cpu()
+            x_cpu = x.cpu()
+            y_cpu = y.cpu()
+            for i in range(num_img):
+                # import pdb
+                # pdb.set_trace()
+                fig, axs = plt.subplots(1, 3)
+                axs[0].imshow(x_cpu[i].permute(1, 2, 0))
+                axs[1].imshow(y_cpu[i].permute(1, 2, 0))
+                axs[2].imshow(sigmoid_pediction[i].permute(1, 2, 0))
+                # axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).float().permute(1, 2, 0))
+                for a in axs:
+                    a.set_axis_off()
+                plt.tight_layout()
+                wandb.log({f"testImage {i}": wandb.Image(plt)})
+                plt.close()
 
 avgTestLoss = totalTestLoss / testSteps
 wandb.log({"test/avgTestLoss": avgTestLoss})
-print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(avgTrainLoss, avgValLoss, avgTestLoss))
+print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(
+    avgTrainLoss, avgValLoss, avgTestLoss))
 miou = jaccard.compute()
 wandb.log({"test/miou": miou})
 
 # display the total time needed to perform the training
 endTime = time.time()
 print("[INFO] total time taken to train the model: {:.2f}s".format(
-	endTime - startTime))
+    endTime - startTime))
 
 # wandb.sync()
 wandb.finish()
