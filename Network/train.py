@@ -173,19 +173,21 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 	wandb.log({"val/miou": miou})
 	jaccard.reset()
 
-	if(avgValLoss < bestValLoss):
+	min_delta = config.config_dic.get("MIN_DELTA", 0.0)
+	# consider an improvement only if avgValLoss decreases by at least min_delta
+	if avgValLoss < bestValLoss - min_delta:
 		bestValLoss = avgValLoss
 		#import pdb
 		#pdb.set_trace()
-		torch.save(unet.state_dict(),logging_path + "model.pth")
+		torch.save(unet.state_dict(), logging_path + "model.pth")
 		#torch.save(unet, config.MODEL_PATH)
 		currentPatience = 0
 	else:
 		currentPatience += 1
 
-	if(e > config.config_dic["MIN_NUM_EPOCHS"]):
-	    if(currentPatience >= config.config_dic["PATIENCE"]):
-	        break
+	if e > config.config_dic["MIN_NUM_EPOCHS"]:
+		if currentPatience >= config.config_dic["PATIENCE"]:
+			break
 	else:
 		currentPatience = 0
 
