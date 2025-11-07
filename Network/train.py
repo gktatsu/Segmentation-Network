@@ -33,6 +33,18 @@ wandb.init(
     config=config.config_dic
 )
 
+wandb.define_metric("epoch")
+wandb.define_metric("epoch/*", step_metric="epoch")
+
+
+def log_metrics(data, *, epoch=None, commit=True):
+    payload = dict(data)
+    if epoch is not None:
+        payload.update({f"epoch/{key}": value for key, value in data.items()})
+        payload["epoch"] = epoch
+    wandb.log(payload, commit=commit)
+
+
 logging_path = config.config_dic["BASE_OUTPUT"] + \
     "/" + str(wandb.run.name) + "/"
 os.makedirs(logging_path, exist_ok=True)
@@ -110,9 +122,9 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
     # set the model in training mode
     unet.train()
     # initialize the total training and validation loss
-    totalTrainLoss = 0
-    totalTestLoss = 0
-    totalValLoss = 0
+    totalTrainLoss = 0.0
+    totalTestLoss = 0.0
+    totalValLoss = 0.0
 
     # loop over the training set
     for (i, (x, y)) in enumerate(trainLoader):
@@ -131,9 +143,10 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
         loss.backward()
         opt.step()
         # add the loss to the total training loss so far
-        totalTrainLoss += loss
+        loss_value = loss.detach().item()
+        totalTrainLoss += loss_value
 
-        wandb.log({"train/loss": loss})
+        log_metrics({"train/loss": loss_value})
 
     # switch off autograd for validation
     with torch.no_grad():
@@ -146,7 +159,8 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
                       y.to(config.config_dic["DEVICE"]))
             # make the predictions and calculate the validation loss
             pred = unet(x)
-            totalValLoss += lossFunc(pred, y)
+            val_loss = lossFunc(pred, y).detach().item()
+            totalValLoss += val_loss
             # for multiclass Jaccard, pass predicted class indices and target labels
             pred_labels = torch.argmax(pred, dim=1)
             jaccard(pred_labels, y)
@@ -174,7 +188,10 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
                     for a in axs:
                         a.set_axis_off()
                     plt.tight_layout()
-                    wandb.log({f"validationImage {i}": wandb.Image(plt)})
+                    log_metrics(
+                        {f"validationImage {i}": wandb.Image(plt)},
+                        epoch=e + 1,
+                    )
                     plt.close()
 
     # calculate the average training and validation loss
@@ -185,15 +202,23 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
     avgValLoss = totalValLoss / valSteps
 
     miou = jaccard.compute()
+    miou_value = (
+        miou.detach().item() if isinstance(miou, torch.Tensor) else miou
+    )
 
-    wandb.log({"train/avgTrainLoss": avgTrainLoss})
-    wandb.log({"val/avgValLoss": avgValLoss})
-
-    wandb.log({"val/miou": miou})
+    log_metrics(
+        {
+            "train/loss": avgTrainLoss,
+            "train/avgTrainLoss": avgTrainLoss,
+            "val/avgValLoss": avgValLoss,
+            "val/miou": miou_value,
+        },
+        epoch=e + 1,
+    )
     jaccard.reset()
 
     min_delta = config.config_dic.get("MIN_DELTA", 0.0)
-    # consider an improvement only if avgValLoss decreases by at least min_delta
+    # consider an improvement only if avgValLoss improves by at least min_delta
     if avgValLoss < bestValLoss - min_delta:
         bestValLoss = avgValLoss
         # import pdb
@@ -213,8 +238,8 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
     scheduler.step(avgValLoss)
 
     # update our training history
-    H["train_loss"].append(avgTrainLoss.cpu().detach().numpy())
-    H["val_loss"].append(avgValLoss.cpu().detach().numpy())
+    H["train_loss"].append(avgTrainLoss)
+    H["val_loss"].append(avgValLoss)
     # print the model training and validation information
     print("[INFO] EPOCH: {}/{}".format(e + 1, config.config_dic["NUM_EPOCHS"]))
     print("Train loss: {:.6f}, Val loss: {:.4f}".format(
@@ -240,7 +265,7 @@ with torch.no_grad():
             config.config_dic["DEVICE"]))
         # make the predictions and calculate the validation loss
         pred = unet(x)
-        totalTestLoss += lossFunc(pred, y)
+        totalTestLoss += lossFunc(pred, y).detach().item()
         pred_labels = torch.argmax(pred, dim=1)
         jaccard(pred_labels, y)
         if testIndex == 0:
@@ -266,15 +291,18 @@ with torch.no_grad():
                 for a in axs:
                     a.set_axis_off()
                 plt.tight_layout()
-                wandb.log({f"testImage {i}": wandb.Image(plt)})
+                log_metrics({f"testImage {i}": wandb.Image(plt)})
                 plt.close()
 
 avgTestLoss = totalTestLoss / testSteps
-wandb.log({"test/avgTestLoss": avgTestLoss})
+log_metrics({"test/avgTestLoss": avgTestLoss})
 print("Train loss: {:.6f}, Val loss: {:.4f}, Test loss: {:.4f}".format(
     avgTrainLoss, avgValLoss, avgTestLoss))
 miou = jaccard.compute()
-wandb.log({"test/miou": miou})
+miou_test_value = (
+    miou.detach().item() if isinstance(miou, torch.Tensor) else miou
+)
+log_metrics({"test/miou": miou_test_value})
 
 # display the total time needed to perform the training
 endTime = time.time()
