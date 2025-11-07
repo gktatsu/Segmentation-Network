@@ -174,8 +174,7 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
                     for a in axs:
                         a.set_axis_off()
                     plt.tight_layout()
-                    wandb.log({f"validationImage {i}": wandb.Image(plt)},
-                              step=e)
+                    wandb.log({f"validationImage {i}": wandb.Image(plt)})
                     plt.close()
 
     # calculate the average training and validation loss
@@ -187,10 +186,10 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 
     miou = jaccard.compute()
 
-    wandb.log({"train/avgTrainLoss": avgTrainLoss}, step=e)
-    wandb.log({"val/avgValLoss": avgValLoss}, step=e)
+    wandb.log({"train/avgTrainLoss": avgTrainLoss})
+    wandb.log({"val/avgValLoss": avgValLoss})
 
-    wandb.log({"val/miou": miou}, step=e)
+    wandb.log({"val/miou": miou})
     jaccard.reset()
 
     min_delta = config.config_dic.get("MIN_DELTA", 0.0)
