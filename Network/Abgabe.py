@@ -4,7 +4,7 @@
 from pyimagesearch.dataset import SegmentationDataset
 from pyimagesearch.model import UNet
 from pyimagesearch import config
-from torch.nn import BCEWithLogitsLoss
+from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
@@ -86,14 +86,14 @@ testLoader = DataLoader(testDS, shuffle=False,
                         num_workers=config.config_dic['NUM_WORKERS'])
 
 sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multilabel', num_labels=config.config_dic["NUM_CLASSES"],
-                       threshold=config.config_dic["THRESHOLD"]).to(config.config_dic['DEVICE'])
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
 
 # initialize loss function and optimizer
-lossFunc = BCEWithLogitsLoss()
+# use CrossEntropyLoss for multiclass segmentation
+lossFunc = CrossEntropyLoss()
 # calculate steps per epoch for training and test set
 testSteps = np.max([len(testDS) // config.config_dic["BATCH_SIZE"], 1])
 
@@ -129,7 +129,8 @@ for model_weights in model_weights_list:
             # make the predictions and calculate the validation loss
             pred = unet(x)
             totalTestLoss += lossFunc(pred, y)
-            jaccard(sigmoid(pred), y.long())
+            pred_labels = torch.argmax(pred, dim=1)
+            jaccard(pred_labels, y)
 
             if (testIndex == 0):
                 num_img = np.min((x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
