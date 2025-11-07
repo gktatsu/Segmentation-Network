@@ -144,7 +144,7 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
 			jaccard(pred_labels, y)
 			if(valIndex == 0):
 				num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-				sigmoid_pediction = sigmoid(pred).cpu()
+				sigmoid_pediction = torch.sigmoid(pred).cpu()
 				x_cpu = x.cpu()
 				y_cpu = y.cpu()
 				for i in range(num_img):
@@ -225,15 +225,14 @@ with torch.no_grad():
 		totalTestLoss += lossFunc(pred, y)
 		pred_labels = torch.argmax(pred, dim=1)
 		jaccard(pred_labels, y)
-
 		if(testIndex == 0):
 			num_img = np.min((x.shape[0],config.config_dic["NUM_LOG_IMAGES"]))
-			sigmoid_pediction = sigmoid(pred).cpu()
+			sigmoid_pediction = torch.sigmoid(pred).cpu()
 			x_cpu = x.cpu()
 			y_cpu = y.cpu()
 			for i in range(num_img):
-				#import pdb
-				#pdb.set_trace()
+				# import pdb
+				# pdb.set_trace()
 				fig,axs = plt.subplots(1,3)
 				axs[0].imshow(x_cpu[i].permute(1,2,0))
 				axs[1].imshow(y_cpu[i].permute(1,2,0))
