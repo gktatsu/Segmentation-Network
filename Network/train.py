@@ -142,34 +142,40 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
         # loop over the validation set
         for valIndex, (x, y) in enumerate(valLoader):
             # send the input to the device
-            (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(
-                config.config_dic["DEVICE"]))
+            (x, y) = (x.to(config.config_dic["DEVICE"]),
+                      y.to(config.config_dic["DEVICE"]))
             # make the predictions and calculate the validation loss
-            # import pdb
-            # pdb.set_trace()
             pred = unet(x)
             totalValLoss += lossFunc(pred, y)
             # for multiclass Jaccard, pass predicted class indices and target labels
             pred_labels = torch.argmax(pred, dim=1)
             jaccard(pred_labels, y)
-            if (valIndex == 0):
-                num_img = np.min(
-                    (x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
-                sigmoid_pediction = torch.sigmoid(pred).cpu()
+            if valIndex == 0:
+                num_img = np.min((x.shape[0],
+                                   config.config_dic["NUM_LOG_IMAGES"]))
                 x_cpu = x.cpu()
                 y_cpu = y.cpu()
+                pred_cpu = pred_labels.cpu()
                 for i in range(num_img):
-                    # import pdb
-                    # pdb.set_trace()
                     fig, axs = plt.subplots(1, 3)
                     axs[0].imshow(x_cpu[i].permute(1, 2, 0))
-                    axs[1].imshow(y_cpu[i].permute(1, 2, 0))
-                    axs[2].imshow(sigmoid_pediction[i].permute(1, 2, 0))
+                    axs[1].imshow(
+                        y_cpu[i],
+                        cmap="tab10",
+                        vmin=0,
+                        vmax=config.config_dic["NUM_CLASSES"] - 1,
+                    )
+                    axs[2].imshow(
+                        pred_cpu[i],
+                        cmap="tab10",
+                        vmin=0,
+                        vmax=config.config_dic["NUM_CLASSES"] - 1,
+                    )
                     for a in axs:
                         a.set_axis_off()
                     plt.tight_layout()
-                    wandb.log(
-                        {f"validationImage {i}": wandb.Image(plt)}, step=e)
+                    wandb.log({f"validationImage {i}": wandb.Image(plt)},
+                              step=e)
                     plt.close()
 
     # calculate the average training and validation loss
@@ -238,19 +244,26 @@ with torch.no_grad():
         totalTestLoss += lossFunc(pred, y)
         pred_labels = torch.argmax(pred, dim=1)
         jaccard(pred_labels, y)
-        if (testIndex == 0):
+        if testIndex == 0:
             num_img = np.min((x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
-            sigmoid_pediction = torch.sigmoid(pred).cpu()
             x_cpu = x.cpu()
             y_cpu = y.cpu()
+            pred_cpu = pred_labels.cpu()
             for i in range(num_img):
-                # import pdb
-                # pdb.set_trace()
                 fig, axs = plt.subplots(1, 3)
                 axs[0].imshow(x_cpu[i].permute(1, 2, 0))
-                axs[1].imshow(y_cpu[i].permute(1, 2, 0))
-                axs[2].imshow(sigmoid_pediction[i].permute(1, 2, 0))
-                # axs[3].imshow((sigmoid_pediction[i] > config.config_dic["THRESHOLD"]).float().permute(1, 2, 0))
+                axs[1].imshow(
+                    y_cpu[i],
+                    cmap="tab10",
+                    vmin=0,
+                    vmax=config.config_dic["NUM_CLASSES"] - 1,
+                )
+                axs[2].imshow(
+                    pred_cpu[i],
+                    cmap="tab10",
+                    vmin=0,
+                    vmax=config.config_dic["NUM_CLASSES"] - 1,
+                )
                 for a in axs:
                     a.set_axis_off()
                 plt.tight_layout()
