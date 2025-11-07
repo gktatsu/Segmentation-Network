@@ -119,16 +119,26 @@ def copy_or_move(src, dst, move=False, dry_run=False):
 
 def main():
     """コマンドライン引数を解析し分割処理を実行する。"""
-    parser = argparse.ArgumentParser(description="Split paired image/mask dataset into train/valid/test")
-    parser.add_argument("--images", required=True, nargs='+', help="Path(s) to images folder(s) (non-recursive). Multiple allowed and will be merged")
-    parser.add_argument("--masks", required=True, nargs='+', help="Path(s) to masks folder(s) (non-recursive). Multiple allowed and will be merged")
-    parser.add_argument("--out", required=True, help="Output root path (will create train/valid/test under this)")
-    parser.add_argument("--train", type=float, default=0.6, help="Train ratio (default 0.6)")
-    parser.add_argument("--valid", type=float, default=0.2, help="Valid ratio (default 0.2)")
-    parser.add_argument("--test", type=float, default=0.2, help="Test ratio (default 0.2)")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed for shuffling")
-    parser.add_argument("--move", action="store_true", help="Move files instead of copying")
-    parser.add_argument("--dry-run", action="store_true", help="Do not actually copy/move files, only produce the log")
+    parser = argparse.ArgumentParser(
+        description="Split paired image/mask dataset into train/valid/test")
+    parser.add_argument("--images", required=True, nargs='+',
+                        help="Path(s) to images folder(s) (non-recursive). Multiple allowed and will be merged")
+    parser.add_argument("--masks", required=True, nargs='+',
+                        help="Path(s) to masks folder(s) (non-recursive). Multiple allowed and will be merged")
+    parser.add_argument("--out", required=True,
+                        help="Output root path (will create train/valid/test under this)")
+    parser.add_argument("--train", type=float, default=0.6,
+                        help="Train ratio (default 0.6)")
+    parser.add_argument("--valid", type=float, default=0.2,
+                        help="Valid ratio (default 0.2)")
+    parser.add_argument("--test", type=float, default=0.2,
+                        help="Test ratio (default 0.2)")
+    parser.add_argument("--seed", type=int, default=42,
+                        help="Random seed for shuffling")
+    parser.add_argument("--move", action="store_true",
+                        help="Move files instead of copying")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Do not actually copy/move files, only produce the log")
     parser.add_argument("--preserve-original-test", action="store_true",
                         help="If set and exactly two input sources are provided, treat the second source (index 1) as preserved test set.")
     parser.add_argument("--preserve-test-index", type=int, default=None,
@@ -197,11 +207,13 @@ def main():
             print(f"Examples of duplicate images (basename): {dup_images[:5]}")
         if dup_masks:
             print(f"Examples of duplicate masks (basename): {dup_masks[:5]}")
-        print("Please ensure basenames are unique or adjust the script to handle duplicates.")
+        print(
+            "Please ensure basenames are unique or adjust the script to handle duplicates.")
         sys.exit(1)
 
     # Create pairs selecting the single entry for each basename
-    pairs_all = []  # list of tuples: (basename, image_filename, mask_filename, image_dir, mask_dir)
+    # list of tuples: (basename, image_filename, mask_filename, image_dir, mask_dir)
+    pairs_all = []
     for b in paired_basenames:
         img_dir, img_fname = img_map[b][0]
         mask_dir, mask_fname = mask_map[b][0]
@@ -214,14 +226,16 @@ def main():
         if len(images_dirs) == 2 and len(masks_dirs) == 2:
             preserve_index = 1
         else:
-            print("--preserve-original-test requires exactly two input sources (images and masks)")
+            print(
+                "--preserve-original-test requires exactly two input sources (images and masks)")
             sys.exit(1)
 
     preserved_pairs = []
     if preserve_index is not None:
         # Validate index
         if preserve_index < 0 or preserve_index >= len(images_dirs) or preserve_index >= len(masks_dirs):
-            print(f"preserve-test-index {preserve_index} out of range for provided sources")
+            print(
+                f"preserve-test-index {preserve_index} out of range for provided sources")
             sys.exit(1)
         # Filter pairs_all to find those whose source dirs match the preserve index dirs
         preserve_img_dir = images_dirs[preserve_index]
@@ -240,23 +254,28 @@ def main():
     # Optionally preserve one source pair as the test set, otherwise merge-all
     preserve_idx = args.preserve_test_index
 
-    final_items = []  # list of tuples: (basename, img_fname, mask_fname, img_dir, mask_dir, split)
+    # list of tuples: (basename, img_fname, mask_fname, img_dir, mask_dir, split)
+    final_items = []
 
     if preserve_idx is not None:
         # validate index
         if preserve_idx < 0 or preserve_idx >= len(images_dirs) or preserve_idx >= len(masks_dirs):
-            print(f"--preserve-test-index {preserve_idx} is out of range for provided input directories")
+            print(
+                f"--preserve-test-index {preserve_idx} is out of range for provided input directories")
             sys.exit(1)
 
         preserved_img_dir = images_dirs[preserve_idx]
         preserved_mask_dir = masks_dirs[preserve_idx]
 
-        preserved = [p for p in pairs if p[3] == preserved_img_dir and p[4] == preserved_mask_dir]
-        remaining = [p for p in pairs if not (p[3] == preserved_img_dir and p[4] == preserved_mask_dir)]
+        preserved = [p for p in pairs if p[3] ==
+                     preserved_img_dir and p[4] == preserved_mask_dir]
+        remaining = [p for p in pairs if not (
+            p[3] == preserved_img_dir and p[4] == preserved_mask_dir)]
 
         # assign preserved to test
         for (basename, img_fname, mask_fname, img_dir, mask_dir) in preserved:
-            final_items.append((basename, img_fname, mask_fname, img_dir, mask_dir, 'test'))
+            final_items.append(
+                (basename, img_fname, mask_fname, img_dir, mask_dir, 'test'))
 
         # split remaining into train/valid only (preserved test counts as test)
         n_rem = len(remaining)
@@ -275,7 +294,8 @@ def main():
             splits_rem = ['train'] * train_count + ['valid'] * valid_count
             for item, s in zip(remaining, splits_rem):
                 basename, img_fname, mask_fname, img_dir, mask_dir = item
-                final_items.append((basename, img_fname, mask_fname, img_dir, mask_dir, s))
+                final_items.append(
+                    (basename, img_fname, mask_fname, img_dir, mask_dir, s))
     else:
         # Shuffle and split all pairs into train/valid/test
         random.seed(seed)
@@ -295,7 +315,8 @@ def main():
             splits.extend(["train"] * (n - len(splits)))
 
         for (basename, img_fname, mask_fname, img_dir, mask_dir), split in zip(pairs, splits):
-            final_items.append((basename, img_fname, mask_fname, img_dir, mask_dir, split))
+            final_items.append(
+                (basename, img_fname, mask_fname, img_dir, mask_dir, split))
 
     # Prepare output dirs
     make_output_dirs(out_root)
@@ -325,11 +346,14 @@ def main():
             dest_image = os.path.join(out_root, split, "images", img_fname)
             dest_mask = os.path.join(out_root, split, "masks", mask_fname)
 
-            writer.writerow([basename, src_image, img_dir, src_mask, mask_dir, split, dest_image, dest_mask])
+            writer.writerow([basename, src_image, img_dir,
+                            src_mask, mask_dir, split, dest_image, dest_mask])
 
             try:
-                copy_or_move(src_image, dest_image, move=move_flag, dry_run=dry_run)
-                copy_or_move(src_mask, dest_mask, move=move_flag, dry_run=dry_run)
+                copy_or_move(src_image, dest_image,
+                             move=move_flag, dry_run=dry_run)
+                copy_or_move(src_mask, dest_mask,
+                             move=move_flag, dry_run=dry_run)
             except Exception as e:
                 print(f"Failed to copy/move pair {basename}: {e}")
 
