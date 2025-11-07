@@ -86,10 +86,12 @@ testLoader = DataLoader(testDS, shuffle=False,
                         num_workers=config.config_dic['NUM_WORKERS'])
 
 sigmoid = torch.nn.Sigmoid()
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(config.config_dic['DEVICE'])
+jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(
+    config.config_dic['DEVICE'])
 
 # initialize our UNet model
-unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(config.config_dic["DEVICE"])
+unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(
+    config.config_dic["DEVICE"])
 
 # initialize loss function and optimizer
 # use CrossEntropyLoss for multiclass segmentation
@@ -125,7 +127,8 @@ for model_weights in model_weights_list:
         # loop over the test set
         for testIndex, (x, y) in enumerate(testLoader):
             # send the input to the device
-            (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(config.config_dic["DEVICE"]))
+            (x, y) = (x.to(config.config_dic["DEVICE"]), y.to(
+                config.config_dic["DEVICE"]))
             # make the predictions and calculate the validation loss
             pred = unet(x)
             totalTestLoss += lossFunc(pred, y)
@@ -133,7 +136,8 @@ for model_weights in model_weights_list:
             jaccard(pred_labels, y)
 
             if (testIndex == 0):
-                num_img = np.min((x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
+                num_img = np.min(
+                    (x.shape[0], config.config_dic["NUM_LOG_IMAGES"]))
                 sigmoid_pediction = sigmoid(pred).cpu()
                 x_cpu = x.cpu()
                 y_cpu = y.cpu()

@@ -15,6 +15,8 @@ os.makedirs(output_image_folder, exist_ok=True)
 os.makedirs(output_mask_folder, exist_ok=True)
 
 # Define the transformations for augmentation
+
+
 def get_random_transform():
     return transforms.Compose([
         # transforms.RandomVerticalFlip(),
@@ -24,6 +26,7 @@ def get_random_transform():
         # transforms.ColorJitter(brightness=0.2),
         # transforms.RandomCrop(512),
     ])
+
 
 # List all filenames in the original images folder
 image_files = os.listdir(image_folder)
@@ -58,8 +61,10 @@ for image_file in image_files:
         augmented_mask = to_tensor(augmented_mask)
 
         # Save the augmented images and masks
-        output_image_path = os.path.join(output_image_folder, f"{image_file[:-4]}_{idx}.png")
-        output_mask_path = os.path.join(output_mask_folder, f"{image_file[:-4]}_{idx}.png")
+        output_image_path = os.path.join(
+            output_image_folder, f"{image_file[:-4]}_{idx}.png")
+        output_mask_path = os.path.join(
+            output_mask_folder, f"{image_file[:-4]}_{idx}.png")
 
         # Convert tensor objects to PIL Images for saving
         augmented_image_pil = transforms.ToPILImage()(augmented_image)
