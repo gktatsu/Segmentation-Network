@@ -38,5 +38,6 @@ config_dic = {
     "PATIENCE": 1000,  # early stopping patience
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
-    "SCHEDULER_FACTOR": 0.1
+    "SCHEDULER_FACTOR": 0.1,
+    "MIN_DELTA": 1e-4
 }
