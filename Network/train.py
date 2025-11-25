@@ -16,6 +16,7 @@ import numpy as np
 import torch
 import time
 import os
+from datetime import datetime
 import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
@@ -25,10 +26,13 @@ wandb.login(key=os.environ.get('WANDB_API_KEY',
 # wandb.login(key="INSERT KEY")
 # os.environ["WANDB_MODE"] = "dryrun"
 
+run_name = f"training_run_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
 # start a new wandb run to track this script
 wandb.init(
     # set the wandb project where this run will be logged
     project="Segmentation Network",
+    name=run_name,
     # track hyperparameters and run metadata
     config=config.config_dic
 )
