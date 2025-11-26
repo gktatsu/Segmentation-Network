@@ -15,14 +15,23 @@ arguments you would normally provide to split_dataset.py. Optionally supply
 --format-dest to override the output directory for format_dataset.py. When not
 provided, the formatted dataset is written next to the split output using the
 suffix "_formatted".
+
+If you include --dry-run, it is forwarded to split_dataset.py and format_dataset.py
+is skipped so you can inspect the planned allocation safely.
 EOF
 }
 
 FORMAT_DEST=""
+RUN_DRY=false
 declare -a SPLIT_ARGS=()
 
 while (($#)); do
   case "$1" in
+    --dry-run)
+      RUN_DRY=true
+      SPLIT_ARGS+=("$1")
+      shift
+      ;;
     --format-dest)
       if (($# < 2)); then
         echo "[run_split_and_format] Error: --format-dest requires a value" >&2
@@ -88,6 +97,11 @@ split_output_root="$(grep -E 'SPLIT_DATASET_OUTPUT_ROOT=' "$tmp_log" | tail -n1 
 if [[ -z "$split_output_root" ]]; then
   echo "[run_split_and_format] Could not detect the final split output root. Ensure split_dataset.py is up to date." >&2
   exit 1
+fi
+
+if [[ "$RUN_DRY" == true ]]; then
+  echo "[run_split_and_format] Dry-run requested; skipping format_dataset.py."
+  exit 0
 fi
 
 if [[ -z "$FORMAT_DEST" ]]; then
