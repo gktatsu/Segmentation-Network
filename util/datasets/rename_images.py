@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import shutil
 from pathlib import Path
@@ -163,6 +164,61 @@ def apply_operations(
         temp.rename(dest)
 
 
+def is_image_only_directory(
+    directory: Path, extensions: List[str] | None
+) -> bool:
+    """ディレクトリが指定拡張子のファイルのみを含むかを判定する。"""
+
+    try:
+        files: List[Path] = []
+        has_subdirs = False
+        for entry in directory.iterdir():
+            if entry.is_file():
+                files.append(entry)
+            elif entry.is_dir():
+                has_subdirs = True
+            # シンボリックリンクなどは無視
+        if has_subdirs:
+            return False
+        if not files:
+            return False
+        if not extensions:
+            return True
+        return all(file.suffix.lower() in extensions for file in files)
+    except PermissionError:
+        return False
+
+
+def collect_image_only_dirs(
+    root: Path, extensions: List[str] | None
+) -> List[Path]:
+    """ルート配下で画像のみを含むディレクトリ一覧を取得する。"""
+
+    targets: List[Path] = []
+    for dirpath, _dirnames, _filenames in os.walk(root):
+        directory = Path(dirpath)
+        if is_image_only_directory(directory, extensions):
+            targets.append(directory)
+    return targets
+
+
+def resolve_output_subdir(
+    base_output: Path | None, root: Path, current: Path
+) -> Path | None:
+    """再帰処理時にルートからの相対パスに応じた出力先を決定する。"""
+
+    if base_output is None:
+        return None
+    try:
+        relative = current.relative_to(root)
+    except ValueError:
+        # 念のため root 外のディレクトリが来てもそのまま返す
+        return base_output
+    if relative == Path('.'):
+        return base_output
+    return base_output / relative
+
+
 def rename_images(
     directory: Path,
     prefix: str,
@@ -190,6 +246,52 @@ def rename_images(
     renamed = sum(1 for src, dest in operations if src != dest)
     print(f"Processed {len(files)} files. Renamed {renamed} of them.")
     return renamed
+
+
+def rename_images_recursive(
+    root_dir: Path,
+    prefix: str,
+    start_index: int,
+    zero_pad: int,
+    auto_pad: bool,
+    extensions: List[str] | None,
+    dry_run: bool,
+    overwrite: bool,
+    output_dir: Path | None,
+) -> int:
+    """ルート配下の全サブディレクトリに対して連番リネームを適用する。"""
+
+    targets = collect_image_only_dirs(root_dir, extensions)
+    if not targets:
+        print(
+            "No subdirectories containing only the target image extensions were found."  # noqa: E501
+        )
+        return 0
+
+    total_dirs = 0
+    total_renamed = 0
+    for directory in sorted(targets):
+        dest_dir = resolve_output_subdir(output_dir, root_dir, directory)
+        print(f"[recursive] Processing {directory}")
+        renamed = rename_images(
+            directory=directory,
+            prefix=prefix,
+            start_index=start_index,
+            zero_pad=zero_pad,
+            auto_pad=auto_pad,
+            extensions=extensions,
+            dry_run=dry_run,
+            overwrite=overwrite,
+            output_dir=dest_dir,
+        )
+        total_dirs += 1
+        total_renamed += renamed
+
+    print(
+        f"Recursive rename completed: processed {total_dirs} directories, "
+        f"renamed {total_renamed} files in total."
+    )
+    return total_renamed
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -240,6 +342,14 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--recursive",
+        action="store_true",
+        help=(
+            "Process every subdirectory under --dir that contains only files "
+            "with the target extensions."
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Show the planned renames without modifying files",
@@ -259,19 +369,33 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Error: '{target_dir}' is not a directory.")
         return 1
     extensions = normalize_extensions(args.ext)
-    rename_images(
-        directory=target_dir,
-        prefix=args.prefix,
-        start_index=args.start,
-        zero_pad=args.zero_pad,
-        auto_pad=args.auto_pad,
-        extensions=extensions,
-        dry_run=args.dry_run,
-        overwrite=args.overwrite,
-        output_dir=Path(args.output).expanduser().resolve()
-        if args.output
-        else None,
+    output_dir = (
+        Path(args.output).expanduser().resolve() if args.output else None
     )
+    if args.recursive:
+        rename_images_recursive(
+            root_dir=target_dir,
+            prefix=args.prefix,
+            start_index=args.start,
+            zero_pad=args.zero_pad,
+            auto_pad=args.auto_pad,
+            extensions=extensions,
+            dry_run=args.dry_run,
+            overwrite=args.overwrite,
+            output_dir=output_dir,
+        )
+    else:
+        rename_images(
+            directory=target_dir,
+            prefix=args.prefix,
+            start_index=args.start,
+            zero_pad=args.zero_pad,
+            auto_pad=args.auto_pad,
+            extensions=extensions,
+            dry_run=args.dry_run,
+            overwrite=args.overwrite,
+            output_dir=output_dir,
+        )
     return 0
 
 
