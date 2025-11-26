@@ -148,6 +148,7 @@ python3 rename_images.py --dir /path/to/images --prefix sample --start 1 --zero-
 - `--output`: 別ディレクトリにコピーしたい場合に指定。省略時はインプレースでリネームします。
 - `--skip-processed`: 指定したディレクトリにマーカー（デフォルト `.rename_images_done`）が存在する場合はスキップします。
 - `--write-marker`: 正常終了後にマーカーを作成します。`--skip-processed` と組み合わせると再実行を防げます。`--marker-name` でファイル名をカスタマイズ可能。
+- ファイルは「0, 1, 2, ... 10, 11 ...」といった自然順序でソートされるため、`mask9.png` の次に `mask10.png` が来るようになります。
 
 ### 再帰モード
 
