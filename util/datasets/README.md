@@ -59,6 +59,7 @@
 		 --dest   /path/to/final_dataset
 	 ```
 	 - `final_dataset/` 直下に `train_images/`, `train_masks/`, `validation_images/`, `validation_masks/`, `test_images/`, `test_masks/` が生成され、各サブセットで `image1.png`, `mask1.png` といった連番にコピーされます。
+	 - `split_dataset.py` 実行後には `SPLIT_DATASET_OUTPUT_ROOT=/actual/path` という行が必ず出力されるため、自動化スクリプトで最終出力ルートを取得できます。
 
 ### フォルダ構造イメージ
 
@@ -108,6 +109,27 @@ Dataset/
 | `--source` (必須) | `split_dataset.py` の出力ルート。`train/valid/test` 配下に `images/`・`masks/` が必要です。 |
 | `--dest` (必須) | 整形後の出力先。存在しない場合は自動作成されます。 |
 | `--dry-run` | コピーを行わず、実行内容のみ表示。 |
+
+## まとめ実行スクリプト
+
+`util/datasets/run_split_and_format.sh` は `split_dataset.py` と `format_dataset.py` を連続実行するヘルパーです。分割用の引数をそのまま渡せば、分割先にタイムスタンプが付与されても自動的に解決し、整形済みデータセットまで一気に生成します。
+
+### 使い方
+
+```bash
+cd util/datasets
+./run_split_and_format.sh \
+	--images /path/to/images \
+	--masks  /path/to/masks \
+	--out    /path/to/out_dir \
+	--train 0.6 --valid 0.2 --test 0.2
+```
+
+- `split_dataset.py` に渡していた引数はすべてそのまま利用できます。
+- 整形後の出力先は既定で `<splitの実ディレクトリ>_formatted` になります。別の場所に書き出したい場合は `--format-dest /your/dest` を追加してください（このオプションのみシェルスクリプト固有）。
+- `PYTHON_BIN` 環境変数を設定すると `python3` 以外のインタプリタを使うことも可能です。
+
+整形処理の進捗と結果パスは `[run_split_and_format]` プレフィックス付きで表示されます。分割のみ / 整形のみを実行したい場合は、従来どおり各 Python スクリプトを直接呼び出してください。
 
 ## 出力されるログ
 
