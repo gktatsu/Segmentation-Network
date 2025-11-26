@@ -23,7 +23,7 @@ import os
 
 # "BASE_OUTPUT": "output",
 config_dic = {
-    "DATASET_PATH": r"/mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/WannerFIB_202511261349_formatted_mask_best",
+    "DATASET_PATH": r"/mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/WannerFIB_202511261352_formatted_mask_best",
     "DEVICE": "cuda" if torch.cuda.is_available() else "cpu",
     "PIN_MEMORY": True if "cuda" else False,
     "NUM_CLASSES": 3,
