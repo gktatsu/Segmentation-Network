@@ -129,6 +129,7 @@ cd util/datasets
 - 整形後の出力先は既定で `<splitの実ディレクトリ>_formatted` になります。別の場所に書き出したい場合は `--format-dest /your/dest` を追加してください（このオプションのみシェルスクリプト固有）。
 - `PYTHON_BIN` 環境変数を設定すると `python3` 以外のインタプリタを使うことも可能です。
 - `--dry-run` を付けると `split_dataset.py` だけをドライランで実行し、割当ログを確認した時点で終了します（`format_dataset.py` はスキップ）。
+	正常完了時は中間の split ディレクトリを削除し、`split_log_*.csv` と `split_summary_*.txt` をフォーマット済みフォルダ直下に移動するため、最終的に残るのは `<out>_formatted` のみです。
 
 整形処理の進捗と結果パスは `[run_split_and_format]` プレフィックス付きで表示されます。分割のみ / 整形のみを実行したい場合は、従来どおり各 Python スクリプトを直接呼び出してください。
 

@@ -114,5 +114,23 @@ if ! "$PYTHON_BIN" "$FORMAT_SCRIPT" --source "$split_output_root" --dest "$FORMA
   exit 1
 fi
 
+log_found=false
+mkdir -p "$FORMAT_DEST"
+while IFS= read -r -d '' log_file; do
+  log_found=true
+  base_name="$(basename "$log_file")"
+  mv "$log_file" "$FORMAT_DEST/$base_name"
+done < <(find "$split_output_root" -maxdepth 1 -type f \
+  \( -name 'split_log_*.csv' -o -name 'split_summary_*.txt' \) -print0)
+
+if [[ "$log_found" == true ]]; then
+  echo "[run_split_and_format] Moved split logs into $FORMAT_DEST"
+else
+  echo "[run_split_and_format] No split logs found to move."
+fi
+
+rm -rf "$split_output_root"
+echo "[run_split_and_format] Removed intermediate split directory: $split_output_root"
+
 echo "[run_split_and_format] Done. Split output: $split_output_root"
 echo "[run_split_and_format] Formatted dataset: $FORMAT_DEST"
