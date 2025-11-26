@@ -164,6 +164,21 @@ def apply_operations(
         temp.rename(dest)
 
 
+def marker_file_exists(directory: Path, marker_name: str) -> bool:
+    """指定ディレクトリにマーカーが存在するか判定する。"""
+
+    marker_path = directory / marker_name
+    return marker_path.exists()
+
+
+def write_marker_file(directory: Path, marker_name: str) -> None:
+    """実行済みマーカーを作成する。"""
+
+    marker_path = directory / marker_name
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    marker_path.touch()
+
+
 def is_image_only_directory(
     directory: Path, extensions: List[str] | None
 ) -> bool:
@@ -229,6 +244,9 @@ def rename_images(
     dry_run: bool,
     overwrite: bool,
     output_dir: Path | None,
+    skip_processed: bool,
+    marker_name: str,
+    write_marker: bool,
 ) -> int:
     """メイン処理。"""
     files = iter_target_files(directory, extensions)
@@ -238,6 +256,16 @@ def rename_images(
     copy_mode = output_dir is not None
     if output_dir is not None:
         output_dir.mkdir(parents=True, exist_ok=True)
+    marker_target_dir = output_dir if output_dir is not None else directory
+    if skip_processed and marker_file_exists(marker_target_dir, marker_name):
+        msg = (
+            "Skip requested; marker '{marker}' already present in {dir}."
+        ).format(
+            marker=marker_name,
+            dir=marker_target_dir,
+        )
+        print(msg)
+        return 0
     operations = build_operations(
         files, prefix, start_index, zero_pad, auto_pad, output_dir
     )
@@ -245,6 +273,8 @@ def rename_images(
     apply_operations(operations, dry_run, overwrite, copy_mode)
     renamed = sum(1 for src, dest in operations if src != dest)
     print(f"Processed {len(files)} files. Renamed {renamed} of them.")
+    if not dry_run and write_marker:
+        write_marker_file(marker_target_dir, marker_name)
     return renamed
 
 
@@ -258,6 +288,9 @@ def rename_images_recursive(
     dry_run: bool,
     overwrite: bool,
     output_dir: Path | None,
+    skip_processed: bool,
+    marker_name: str,
+    write_marker: bool,
 ) -> int:
     """ルート配下の全サブディレクトリに対して連番リネームを適用する。"""
 
@@ -272,6 +305,16 @@ def rename_images_recursive(
     total_renamed = 0
     for directory in sorted(targets):
         dest_dir = resolve_output_subdir(output_dir, root_dir, directory)
+        marker_dir = dest_dir if dest_dir is not None else directory
+        if skip_processed and marker_file_exists(marker_dir, marker_name):
+            msg = (
+                "[recursive] Skipping {dir} (marker '{marker}' found)."
+            ).format(
+                dir=directory,
+                marker=marker_name,
+            )
+            print(msg)
+            continue
         print(f"[recursive] Processing {directory}")
         renamed = rename_images(
             directory=directory,
@@ -283,6 +326,9 @@ def rename_images_recursive(
             dry_run=dry_run,
             overwrite=overwrite,
             output_dir=dest_dir,
+            skip_processed=skip_processed,
+            marker_name=marker_name,
+            write_marker=write_marker,
         )
         total_dirs += 1
         total_renamed += renamed
@@ -350,6 +396,27 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--skip-processed",
+        action="store_true",
+        help=(
+            "Skip directories that already contain the marker file "
+            "(see --marker-name)."
+        ),
+    )
+    parser.add_argument(
+        "--marker-name",
+        default=".rename_images_done",
+        help="File name used to mark directories as processed.",
+    )
+    parser.add_argument(
+        "--write-marker",
+        action="store_true",
+        help=(
+            "Create the marker file after successfully renaming a directory "
+            "(respects --output)."
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Show the planned renames without modifying files",
@@ -372,6 +439,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     output_dir = (
         Path(args.output).expanduser().resolve() if args.output else None
     )
+    skip_processed = args.skip_processed
+    marker_name = args.marker_name
+    write_marker = args.write_marker
     if args.recursive:
         rename_images_recursive(
             root_dir=target_dir,
@@ -383,6 +453,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             dry_run=args.dry_run,
             overwrite=args.overwrite,
             output_dir=output_dir,
+            skip_processed=skip_processed,
+            marker_name=marker_name,
+            write_marker=write_marker,
         )
     else:
         rename_images(
@@ -395,6 +468,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             dry_run=args.dry_run,
             overwrite=args.overwrite,
             output_dir=output_dir,
+            skip_processed=skip_processed,
+            marker_name=marker_name,
+            write_marker=write_marker,
         )
     return 0
 
