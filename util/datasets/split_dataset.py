@@ -373,6 +373,9 @@ def main():
     print("Split finished.")
     print(f"CSV log: {csv_path}")
     print(f"Summary: {summary_path}")
+    # Expose the resolved output root so wrapper scripts can chain downstream
+    # steps without re-implementing the timestamp logic here.
+    print(f"SPLIT_DATASET_OUTPUT_ROOT={out_root}")
     if dry_run:
         print("Dry-run: no files were copied/moved.")
 
