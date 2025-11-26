@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import shutil
 from pathlib import Path
@@ -26,12 +27,31 @@ def normalize_extensions(exts: Sequence[str] | None) -> List[str] | None:
     return normalized or None
 
 
+_NATURAL_SORT_RE = re.compile(r"(\d+)")
+
+
+def natural_sort_key(value: str):
+    """0,1,2,...,10 のように人間が期待する順序で並べ替えるキー。"""
+
+    key = []
+    for part in _NATURAL_SORT_RE.split(value):
+        if not part:
+            continue
+        if part.isdigit():
+            key.append((0, int(part)))
+        else:
+            key.append((1, part.lower()))
+    return key
+
+
 def iter_target_files(
     directory: Path, extensions: List[str] | None
 ) -> List[Path]:
     """対象ディレクトリからリネーム対象ファイルを取得する。"""
     files: List[Path] = []
-    for entry in sorted(directory.iterdir()):
+    for entry in sorted(
+        directory.iterdir(), key=lambda e: natural_sort_key(e.name)
+    ):
         if not entry.is_file():
             continue
         if extensions and entry.suffix.lower() not in extensions:
