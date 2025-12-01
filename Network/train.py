@@ -8,7 +8,7 @@ from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
-from torchvision import transforms
+from torchvision import transforms as T
 from imutils import paths
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -62,21 +62,34 @@ testImages = os.path.join(config.config_dic["DATASET_PATH"], "test_images")
 testMasks = os.path.join(config.config_dic["DATASET_PATH"], "test_masks")
 
 # define transformations
-transforms = transforms.Compose([transforms.ToPILImage(),
-                                 transforms.Resize((config.config_dic["INPUT_IMAGE_HEIGHT"],
-                                                    config.config_dic["INPUT_IMAGE_WIDTH"])),
-                                 transforms.ToTensor()])
+base_transforms = T.Compose([
+    T.ToPILImage(),
+    T.Resize(
+        (
+            config.config_dic["INPUT_IMAGE_HEIGHT"],
+            config.config_dic["INPUT_IMAGE_WIDTH"],
+        )
+    ),
+    T.ToTensor(),
+])
 
 """transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
 		config.INPUT_IMAGE_WIDTH)),
 	transforms.ToTensor()])"""
 # create the train and test datasets
-trainDS = SegmentationDataset(imagePaths=trainImages, maskPaths=trainMasks,
-                              transforms=transforms)
+trainDS = SegmentationDataset(
+    imagePaths=trainImages,
+    maskPaths=trainMasks,
+    transforms=base_transforms,
+    rotation_degrees=config.config_dic["ONLINE_ROTATION_MAX_DEGREES"],
+    augmentations_per_image=config.config_dic[
+        "ONLINE_AUGMENTATIONS_PER_IMAGE"
+    ],
+)
 valDS = SegmentationDataset(imagePaths=valImages, maskPaths=valMasks,
-                            transforms=transforms)
+                            transforms=base_transforms)
 testDS = SegmentationDataset(imagePaths=testImages, maskPaths=testMasks,
-                             transforms=transforms)
+                             transforms=base_transforms)
 print(f"[INFO] found {len(trainDS)} examples in the training set...")
 print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")

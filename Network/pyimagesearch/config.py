@@ -39,5 +39,8 @@ config_dic = {
     "MIN_NUM_EPOCHS": 100,
     "NUM_LOG_IMAGES": 5,
     "SCHEDULER_FACTOR": 0.1,
-    "MIN_DELTA": 1e-4
+    "MIN_DELTA": 1e-4,
+    # online augmentation controls
+    "ONLINE_ROTATION_MAX_DEGREES": 0.0,
+    "ONLINE_AUGMENTATIONS_PER_IMAGE": 0
 }
