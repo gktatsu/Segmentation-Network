@@ -18,9 +18,54 @@ import time
 import os
 from datetime import datetime
 import uuid
+import argparse
 import wandb
 from torchmetrics import JaccardIndex
 from torch.optim.lr_scheduler import ReduceLROnPlateau
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Train the segmentation network with optional overrides."
+    )
+    parser.add_argument(
+        "--dataset-path",
+        type=str,
+        help=(
+            "Override the base dataset directory (expects train/val/test "
+            "subfolders)."
+        ),
+    )
+    parser.add_argument(
+        "--base-output",
+        type=str,
+        help="Override the directory used for checkpoints and logs.",
+    )
+    parser.add_argument(
+        "--run-name",
+        type=str,
+        help="Custom WandB run name (falls back to timestamp+uuid).",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        help="Override batch size defined in config.py.",
+    )
+    parser.add_argument(
+        "--num-workers",
+        type=int,
+        help="Override DataLoader worker count defined in config.py.",
+    )
+    return parser.parse_args()
+
+
+args = parse_args()
+config.apply_overrides(
+    DATASET_PATH=args.dataset_path,
+    BASE_OUTPUT=args.base_output,
+    BATCH_SIZE=args.batch_size,
+    NUM_WORKERS=args.num_workers,
+)
 
 wandb.login(key=os.environ.get('WANDB_API_KEY',
             '91ca033bf4cedebb62502c72c3f5196cb8940574'))
@@ -29,7 +74,13 @@ wandb.login(key=os.environ.get('WANDB_API_KEY',
 
 timestamp_str = datetime.now().strftime('%Y%m%d_%H%M%S')
 unique_suffix = f"p{os.getpid()}_{uuid.uuid4().hex[:8]}"
-run_name = f"training_run_{timestamp_str}_{unique_suffix}"
+auto_run_name = f"training_run_{timestamp_str}_{unique_suffix}"
+run_name_candidates = [
+    args.run_name,
+    os.environ.get("RUN_NAME"),
+    os.environ.get("JOB_NAME"),
+]
+run_name = next((name for name in run_name_candidates if name), auto_run_name)
 
 # start a new wandb run to track this script
 wandb.init(
@@ -52,8 +103,10 @@ def log_metrics(data, *, epoch=None, commit=True):
     wandb.log(payload, commit=commit)
 
 
-logging_path = config.config_dic["BASE_OUTPUT"] + \
-    "/" + str(wandb.run.name) + "/"
+effective_run_name = str(wandb.run.name)
+logging_path = os.path.join(
+    config.config_dic["BASE_OUTPUT"], effective_run_name
+)
 os.makedirs(logging_path, exist_ok=True)
 
 trainImages = os.path.join(config.config_dic["DATASET_PATH"], "train_images")

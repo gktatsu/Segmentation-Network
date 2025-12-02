@@ -44,3 +44,47 @@ config_dic = {
     "ONLINE_ROTATION_MAX_DEGREES": 0.0,
     "ONLINE_AUGMENTATIONS_PER_IMAGE": 0
 }
+
+
+def _coerce_value(key, value):
+    """Coerce override values to match the original config types."""
+    if key not in config_dic:
+        return value
+
+    template = config_dic[key]
+    if isinstance(template, bool):
+        if isinstance(value, bool):
+            return value
+        return str(value).lower() in {"1", "true", "yes", "on"}
+    if isinstance(template, int) and not isinstance(template, bool):
+        return int(value)
+    if isinstance(template, float):
+        return float(value)
+    return value
+
+
+def apply_overrides(**overrides):
+    """Override config values at runtime (e.g., via CLI arguments)."""
+    for key, value in overrides.items():
+        if value is None:
+            continue
+        config_dic[key] = _coerce_value(key, value)
+
+
+def _apply_env_overrides():
+    env_map = {
+        "DATASET_PATH": "DATASET_PATH",
+        "BASE_OUTPUT": "BASE_OUTPUT",
+        "BATCH_SIZE": "BATCH_SIZE",
+        "NUM_WORKERS": "NUM_WORKERS",
+    }
+    overrides = {}
+    for cfg_key, env_key in env_map.items():
+        env_val = os.environ.get(env_key)
+        if env_val is not None:
+            overrides[cfg_key] = env_val
+    if overrides:
+        apply_overrides(**overrides)
+
+
+_apply_env_overrides()
