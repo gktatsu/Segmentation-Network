@@ -77,6 +77,8 @@ def _apply_env_overrides():
         "BASE_OUTPUT": "BASE_OUTPUT",
         "BATCH_SIZE": "BATCH_SIZE",
         "NUM_WORKERS": "NUM_WORKERS",
+        "ONLINE_ROTATION_MAX_DEGREES": "ONLINE_ROTATION_MAX_DEGREES",
+        "ONLINE_AUGMENTATIONS_PER_IMAGE": "ONLINE_AUGMENTATIONS_PER_IMAGE",
     }
     overrides = {}
     for cfg_key, env_key in env_map.items():

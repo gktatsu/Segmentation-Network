@@ -56,6 +56,19 @@ def parse_args():
         type=int,
         help="Override DataLoader worker count defined in config.py.",
     )
+    parser.add_argument(
+        "--online-rotation-max-degrees",
+        type=float,
+        help="Enable online rotation augmentation with the given +/- degrees.",
+    )
+    parser.add_argument(
+        "--online-augmentations-per-image",
+        type=int,
+        help=(
+            "Number of rotated copies per original image when online "
+            "rotation is enabled."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -65,6 +78,8 @@ config.apply_overrides(
     BASE_OUTPUT=args.base_output,
     BATCH_SIZE=args.batch_size,
     NUM_WORKERS=args.num_workers,
+    ONLINE_ROTATION_MAX_DEGREES=args.online_rotation_max_degrees,
+    ONLINE_AUGMENTATIONS_PER_IMAGE=args.online_augmentations_per_image,
 )
 
 wandb.login(key=os.environ.get('WANDB_API_KEY',
@@ -129,9 +144,6 @@ base_transforms = T.Compose([
     T.ToTensor(),
 ])
 
-"""transforms = transforms.Compose([transforms.Resize((config.INPUT_IMAGE_HEIGHT,
-		config.INPUT_IMAGE_WIDTH)),
-	transforms.ToTensor()])"""
 # create the train and test datasets
 trainDS = SegmentationDataset(
     imagePaths=trainImages,
@@ -151,19 +163,34 @@ print(f"[INFO] found {len(valDS)} examples in the validation set...")
 print(f"[INFO] found {len(testDS)} examples in the test set...")
 
 # create the training and test data loaders
-trainLoader = DataLoader(trainDS, shuffle=True,
-                         batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-                         num_workers=config.config_dic['NUM_WORKERS'])
-valLoader = DataLoader(valDS, shuffle=False,
-                       batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-                       num_workers=config.config_dic['NUM_WORKERS'])
-testLoader = DataLoader(testDS, shuffle=False,
-                        batch_size=config.config_dic["BATCH_SIZE"], pin_memory=config.config_dic["PIN_MEMORY"],
-                        num_workers=config.config_dic['NUM_WORKERS'])
+trainLoader = DataLoader(
+    trainDS,
+    shuffle=True,
+    batch_size=config.config_dic["BATCH_SIZE"],
+    pin_memory=config.config_dic["PIN_MEMORY"],
+    num_workers=config.config_dic["NUM_WORKERS"],
+)
+valLoader = DataLoader(
+    valDS,
+    shuffle=False,
+    batch_size=config.config_dic["BATCH_SIZE"],
+    pin_memory=config.config_dic["PIN_MEMORY"],
+    num_workers=config.config_dic["NUM_WORKERS"],
+)
+testLoader = DataLoader(
+    testDS,
+    shuffle=False,
+    batch_size=config.config_dic["BATCH_SIZE"],
+    pin_memory=config.config_dic["PIN_MEMORY"],
+    num_workers=config.config_dic["NUM_WORKERS"],
+)
 
-# use CrossEntropyLoss for multiclass segmentation (targets are class indices HxW)
-jaccard = JaccardIndex(task='multiclass', num_classes=config.config_dic["NUM_CLASSES"]).to(
-    config.config_dic['DEVICE'])
+# use CrossEntropyLoss for multiclass segmentation (targets are class
+# indices HxW)
+jaccard = JaccardIndex(
+    task='multiclass',
+    num_classes=config.config_dic["NUM_CLASSES"],
+).to(config.config_dic['DEVICE'])
 
 # initialize our UNet model
 unet = UNet(nbClasses=config.config_dic["NUM_CLASSES"]).to(
@@ -189,7 +216,12 @@ currentPatience = 0
 bestValLoss = np.inf
 
 scheduler = ReduceLROnPlateau(
-    opt, mode='min', patience=config.config_dic["PATIENCE"], factor=config.config_dic["SCHEDULER_FACTOR"], verbose=True)
+    opt,
+    mode='min',
+    patience=config.config_dic["PATIENCE"],
+    factor=config.config_dic["SCHEDULER_FACTOR"],
+    verbose=True,
+)
 
 for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
     # set the model in training mode
@@ -234,12 +266,14 @@ for e in tqdm(range(config.config_dic["NUM_EPOCHS"])):
             pred = unet(x)
             val_loss = lossFunc(pred, y).detach().item()
             totalValLoss += val_loss
-            # for multiclass Jaccard, pass predicted class indices and target labels
+            # for multiclass Jaccard, pass predicted class indices and
+            # target labels
             pred_labels = torch.argmax(pred, dim=1)
             jaccard(pred_labels, y)
             if valIndex == 0:
-                num_img = np.min((x.shape[0],
-                                   config.config_dic["NUM_LOG_IMAGES"]))
+                num_img = np.min(
+                    (x.shape[0], config.config_dic["NUM_LOG_IMAGES"])
+                )
                 x_cpu = x.cpu()
                 y_cpu = y.cpu()
                 pred_cpu = pred_labels.cpu()

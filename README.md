@@ -38,6 +38,21 @@ Ausführen von 'train.py' bzw. 'Evaluation.py'
 > <span style="color:orange"> python train.py bzw. python Evaluation.py </span>
 ==> Segmentation-Network/Network/Segmentation.yaml oder siehe Dependencies
 
+## Runtime-Overrides (z.B. Rotation)
+
+Wichtige Hyperparameter lassen sich inzwischen direkt beim Start setzen. Beispiel:
+
+```bash
+python Network/train.py \
+	--dataset-path /pfad/zum/dataset \
+	--run-name run42 \
+	--online-rotation-max-degrees 12 \
+	--online-augmentations-per-image 3
+```
+
+Alternativ können dieselben Werte auch über Umgebungsvariablen gesetzt werden
+(`ONLINE_ROTATION_MAX_DEGREES`, `ONLINE_AUGMENTATIONS_PER_IMAGE`).
+
 # Ausführung des Codes (Cluster)
 Training:
 Um das Segmentierungsnetzwerk zu trainieren wird die Klasse 'train.py' ausgeführt.
