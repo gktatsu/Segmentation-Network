@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 """指定ディレクトリ内の画像ファイルを連番リネームするツール。"""
+
+# NOTE: The maintained implementation now lives in
+# `util/datasets/random_split/rename_images.py`. This legacy copy is kept for
+# backward compatibility only.
+
 from __future__ import annotations
 
 import argparse

@@ -1,13 +1,15 @@
 ## 概要
 
-このリポジトリには、ペア画像（例: セグメンテーションの入力画像と対応マスク）を学習・検証・テストに振り分ける `split_dataset.py` と、分割後の成果物を最終的な提出形式に整形する `format_dataset.py` の 2 本の CLI ツールが含まれています。どちらも標準ライブラリのみで動作し、Linux / macOS / Windows いずれの環境でも Python 3.7 以上で利用できます。
+このリポジトリには、ペア画像（例: セグメンテーションの入力画像と対応マスク）を学習・検証・テストに振り分ける `split_dataset.py` と、分割後の成果物を最終的な提出形式に整形する `format_dataset.py` の 2 本の CLI ツールが含まれています。どちらも標準ライブラリのみで動作し、Linux / macOS / Windows いずれの環境でも Python 3.7 以上で利用できます。現在は `util/datasets/random_split/` 配下に集約されているので、以降のコマンド例もこのフォルダを基準にしています（親ディレクトリ側には互換目的のラッパーのみ残しています）。
 
 ## ファイル一覧
 
 | ファイル | 役割 |
 |----------|------|
-| `split_dataset.py` | 複数の画像ディレクトリとマスクディレクトリを照合し、指定比率で `train` / `valid` / `test` に分割するメインツール。ログ（CSV / summary）を生成します。 |
-| `format_dataset.py` | `split_dataset.py` の出力（`train/valid/test` 直下に `images/`・`masks/` を持つ構造）を、`train_images/` などのフラットな最終構造にコピーしつつ連番リネームします。 |
+| `random_split/split_dataset.py` | 複数の画像ディレクトリとマスクディレクトリを照合し、指定比率で `train` / `valid` / `test` に分割するメインツール。ログ（CSV / summary）を生成します。 |
+| `random_split/format_dataset.py` | `split_dataset.py` の出力（`train/valid/test` 直下に `images/`・`masks/` を持つ構造）を、`train_images/` などのフラットな最終構造にコピーしつつ連番リネームします。 |
+
+各スクリプトの詳細説明・CLI オプションまとめは `util/datasets/random_split/README.md` にも記載しています。日々の運用ではそちらを参照すれば十分です。
 
 ## 必要条件
 
@@ -19,7 +21,7 @@
 
 1. **分割の確認 (dry-run)**
 	 ```bash
-	 python3 split_dataset.py \
+	 python3 random_split/split_dataset.py \
 		 --images /path/to/images \
 		 --masks  /path/to/masks \
 		 --out    /path/to/out_dir \
@@ -30,7 +32,7 @@
 
 2. **本実行**
 	 ```bash
-	 python3 split_dataset.py \
+	 python3 random_split/split_dataset.py \
 		 --images /path/to/images \
 		 --masks  /path/to/masks \
 		 --out    /path/to/out_dir \
@@ -43,7 +45,7 @@
 
 3. **既存の分割を保持しつつ再分配する場合**
 	 ```bash
-	 python3 split_dataset.py \
+	 python3 random_split/split_dataset.py \
 		 --images /path/to/train_images /path/to/test_images \
 		 --masks  /path/to/train_masks  /path/to/test_masks \
 		 --out    /path/to/out_dir \
@@ -54,7 +56,7 @@
 
 4. **最終フォーマットへの整形**
 	 ```bash
-	 python3 format_dataset.py \
+	 python3 random_split/format_dataset.py \
 		 --source /path/to/out_dir \
 		 --dest   /path/to/final_dataset
 	 ```
@@ -112,13 +114,13 @@ Dataset/
 
 ## まとめ実行スクリプト
 
-`util/datasets/run_split_and_format.sh` は `split_dataset.py` と `format_dataset.py` を連続実行するヘルパーです。分割用の引数をそのまま渡せば、分割先にタイムスタンプが付与されても自動的に解決し、整形済みデータセットまで一気に生成します。
+`util/datasets/random_split/run_split_and_format.sh` は `split_dataset.py` と `format_dataset.py` を連続実行するヘルパーです。分割用の引数をそのまま渡せば、分割先にタイムスタンプが付与されても自動的に解決し、整形済みデータセットまで一気に生成します。
 
 ### 使い方
 
 ```bash
 cd util/datasets
-./run_split_and_format.sh \
+bash random_split/run_split_and_format.sh \
 	--images /path/to/images \
 	--masks  /path/to/masks \
 	--out    /path/to/out_dir \
@@ -135,12 +137,12 @@ cd util/datasets
 
 ## 画像連番リネームツール
 
-`rename_images.py` は単一ディレクトリ内の画像を `img_0001.png` のような規則に沿って並べ直すユーティリティです。`--dir` に対象ディレクトリを指定すると、その直下のファイルだけを処理します。
+`random_split/rename_images.py` は単一ディレクトリ内の画像を `img_0001.png` のような規則に沿って並べ直すユーティリティです。`--dir` に対象ディレクトリを指定すると、その直下のファイルだけを処理します。
 
 ### 基本コマンド
 
 ```bash
-python3 rename_images.py --dir /path/to/images --prefix sample --start 1 --zero-pad 4
+python3 random_split/rename_images.py --dir /path/to/images --prefix sample --start 1 --zero-pad 4
 ```
 
 - `--prefix`: 生成されるファイル名の接頭辞。
@@ -157,7 +159,7 @@ python3 rename_images.py --dir /path/to/images --prefix sample --start 1 --zero-
 `--recursive` を付けると、`--dir` を「ルート」と見なし、その配下すべてのサブディレクトリを走査します。直下に **指定拡張子のファイルのみ** を含むディレクトリを自動検出し、各ディレクトリに対して上記ロジックを個別に適用します。
 
 ```bash
-python3 rename_images.py \
+python3 random_split/rename_images.py \
 	--dir /datasets/raw_assets \
 	--recursive \
 	--prefix dataset \
