@@ -9,6 +9,7 @@ Directory structure relative to the source root is preserved.
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 from pathlib import Path
 from typing import Iterable, List
@@ -32,7 +33,7 @@ def parse_args() -> argparse.Namespace:
         help="Directory where matching files will be copied to.",
     )
     parser.add_argument(
-        "max_index",
+        "--max_index",
         type=int,
         help="Highest batch index to include (copies batch0 through batchN).",
     )
@@ -60,13 +61,16 @@ def validate_args(source: Path, destination: Path, max_index: int) -> None:
 
 
 def collect_candidates(source: Path, max_index: int) -> List[Path]:
-    tokens = tuple(f"batch{i}" for i in range(max_index + 1))
+    # Build a regex that matches batch0, batch1, ..., batchN
+    # but NOT batch10, batch11, etc. when max_index < 10.
+    # Pattern: batch<digit>(?!\d) ensures no digit follows.
+    indices = "|".join(str(i) for i in range(max_index + 1))
+    pattern = re.compile(rf"batch({indices})(?!\d)", re.IGNORECASE)
     matches: List[Path] = []
     for path in source.rglob("*"):
         if not path.is_file():
             continue
-        name_lower = path.name.lower()
-        if any(token in name_lower for token in tokens):
+        if pattern.search(path.name):
             matches.append(path)
     return matches
 

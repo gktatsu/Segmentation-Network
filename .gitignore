@@ -166,3 +166,4 @@ Network/Dataset*
 wandb/*
 *.png
 *.pth
+util/datasets/batch_copy_config*.json
