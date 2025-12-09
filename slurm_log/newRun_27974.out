@@ -1,13 +1,13 @@
 Prolog...
 ================================================================================
-Running on worker5. This worker has IP 134.60.70.136/24
+Running on worker2. This worker has IP 134.60.70.133/24
 Running as tatsuki, with groups: students docker
-Job ID: 27955
+Job ID: 27974
 CUDA_VISIBLE_DEVICES: 0
-Using CPU Cores 0-9
-Using 64000 MiB RAM
+Using CPU Cores 0-11
+Using 63000 MiB RAM
 ================================================================================
-docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27955 --cpuset-cpus 0-9 --memory 64000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset\ 1/v2/template 	  --online-rotation-max-degrees 16     --online-augmentations-per-image 29; }'
+docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27974 --cpuset-cpus 0-11 --memory 63000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/valid/multi_25_50_2-1_x1; }'
 ================================================================================
 latest: Pulling from pytorch/pytorch
 Digest: sha256:11691e035a3651d25a87116b4f6adc113a27a29d8f5a6a583f8569e0ee5ff897
@@ -15,22 +15,22 @@ Status: Image is up to date for pytorch/pytorch:latest
 Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
 Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
 Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
-Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
-Get:5 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
-Get:6 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
-Get:7 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
-Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6059 kB]
-Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
-Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6273 kB]
-Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3895 kB]
-Get:12 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
-Get:13 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3561 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6081 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:9 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3573 kB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1287 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6287 kB]
 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1598 kB]
 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
-Get:16 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3904 kB]
 Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
-Get:18 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1286 kB]
-Fetched 43.3 MB in 2s (18.7 MB/s)
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Fetched 43.3 MB in 1s (30.9 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -214,7 +214,7 @@ Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3.10-s
 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3.10 amd64 3.10.12-1~22.04.12 [508 kB]
 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpython3-stdlib amd64 3.10.6-1~22.04.1 [6812 B]
 Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3 amd64 3.10.6-1~22.04.1 [22.8 kB]
-Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libapparmor1 amd64 3.0.4-2ubuntu2.4 [39.7 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libapparmor1 amd64 3.0.4-2ubuntu2.5 [39.6 kB]
 Get:19 http://archive.ubuntu.com/ubuntu jammy/main amd64 libargon2-1 amd64 0~20171227-0.3 [19.5 kB]
 Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libdevmapper1.02.1 amd64 2:1.02.175-2.1ubuntu5 [139 kB]
 Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjson-c5 amd64 0.15-3~ubuntu1.22.04.2 [33.5 kB]
@@ -402,7 +402,7 @@ Get:202 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libcfitsio9 amd64 
 Get:203 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libcharls2 amd64 2.3.4-1 [87.0 kB]
 Get:204 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblcms2-2 amd64 2.12~rc1-2build2 [159 kB]
 Get:205 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcolord2 amd64 1.4.6-1 [155 kB]
-Get:206 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcups2 amd64 2.4.1op1-1ubuntu4.15 [264 kB]
+Get:206 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcups2 amd64 2.4.1op1-1ubuntu4.16 [264 kB]
 Get:207 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcurl4 amd64 7.81.0-1ubuntu1.21 [290 kB]
 Get:208 http://archive.ubuntu.com/ubuntu jammy/main amd64 libraw1394-11 amd64 2.1.2-2build2 [27.0 kB]
 Get:209 http://archive.ubuntu.com/ubuntu jammy/universe amd64 libdc1394-25 amd64 2.2.6-4 [88.8 kB]
@@ -561,7 +561,7 @@ Get:361 http://archive.ubuntu.com/ubuntu jammy/universe amd64 va-driver-all amd6
 Get:362 http://archive.ubuntu.com/ubuntu jammy/main amd64 vdpau-driver-all amd64 1.4-3build2 [4510 B]
 Get:363 http://archive.ubuntu.com/ubuntu jammy/universe amd64 proj-bin amd64 8.2.1-1 [154 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 226 MB in 37s (6023 kB/s)
+Fetched 226 MB in 4s (51.3 MB/s)
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6643 files and directories currently installed.)
 Preparing to unpack .../libsystemd0_249.11-0ubuntu3.17_amd64.deb ...
 Unpacking libsystemd0:amd64 (249.11-0ubuntu3.17) over (249.11-0ubuntu3.12) ...
@@ -625,8 +625,8 @@ Selecting previously unselected package python3.
 Preparing to unpack .../0-python3_3.10.6-1~22.04.1_amd64.deb ...
 Unpacking python3 (3.10.6-1~22.04.1) ...
 Selecting previously unselected package libapparmor1:amd64.
-Preparing to unpack .../1-libapparmor1_3.0.4-2ubuntu2.4_amd64.deb ...
-Unpacking libapparmor1:amd64 (3.0.4-2ubuntu2.4) ...
+Preparing to unpack .../1-libapparmor1_3.0.4-2ubuntu2.5_amd64.deb ...
+Unpacking libapparmor1:amd64 (3.0.4-2ubuntu2.5) ...
 Selecting previously unselected package libargon2-1:amd64.
 Preparing to unpack .../2-libargon2-1_0~20171227-0.3_amd64.deb ...
 Unpacking libargon2-1:amd64 (0~20171227-0.3) ...
@@ -648,7 +648,7 @@ Unpacking libkmod2:amd64 (29-1ubuntu1) ...
 Selecting previously unselected package systemd.
 Preparing to unpack .../8-systemd_249.11-0ubuntu3.17_amd64.deb ...
 Unpacking systemd (249.11-0ubuntu3.17) ...
-Setting up libapparmor1:amd64 (3.0.4-2ubuntu2.4) ...
+Setting up libapparmor1:amd64 (3.0.4-2ubuntu2.5) ...
 Setting up libargon2-1:amd64 (0~20171227-0.3) ...
 Setting up libdevmapper1.02.1:amd64 (2:1.02.175-2.1ubuntu5) ...
 Setting up libjson-c5:amd64 (0.15-3~ubuntu1.22.04.2) ...
@@ -1206,8 +1206,8 @@ Selecting previously unselected package libcolord2:amd64.
 Preparing to unpack .../179-libcolord2_1.4.6-1_amd64.deb ...
 Unpacking libcolord2:amd64 (1.4.6-1) ...
 Selecting previously unselected package libcups2:amd64.
-Preparing to unpack .../180-libcups2_2.4.1op1-1ubuntu4.15_amd64.deb ...
-Unpacking libcups2:amd64 (2.4.1op1-1ubuntu4.15) ...
+Preparing to unpack .../180-libcups2_2.4.1op1-1ubuntu4.16_amd64.deb ...
+Unpacking libcups2:amd64 (2.4.1op1-1ubuntu4.16) ...
 Selecting previously unselected package libcurl4:amd64.
 Preparing to unpack .../181-libcurl4_7.81.0-1ubuntu1.21_amd64.deb ...
 Unpacking libcurl4:amd64 (7.81.0-1ubuntu1.21) ...
@@ -1758,8 +1758,8 @@ Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
 Setting up tzdata (2025b-0ubuntu0.22.04.1) ...
 
 Current default time zone: 'Etc/UTC'
-Local time is now:      Wed Dec  3 22:02:52 UTC 2025.
-Universal Time is now:  Wed Dec  3 22:02:52 UTC 2025.
+Local time is now:      Tue Dec  9 15:34:49 UTC 2025.
+Universal Time is now:  Tue Dec  9 15:34:49 UTC 2025.
 Run 'dpkg-reconfigure tzdata' if you wish to change it.
 
 Setting up libcap2-bin (1:2.44-1ubuntu0.22.04.2) ...
@@ -1968,7 +1968,7 @@ Setting up libopencv-stitching4.5d:amd64 (4.5.4+dfsg-9ubuntu4) ...
 Setting up libxrandr2:amd64 (2:1.5.2-1build1) ...
 Setting up libopencv-shape4.5d:amd64 (4.5.4+dfsg-9ubuntu4) ...
 Setting up libtesseract4:amd64 (4.1.1-2.1build1) ...
-Setting up libcups2:amd64 (2.4.1op1-1ubuntu4.15) ...
+Setting up libcups2:amd64 (2.4.1op1-1ubuntu4.16) ...
 Setting up libhdf5-103-1:amd64 (1.10.7+repack-4ubuntu2) ...
 Setting up libvdpau1:amd64 (1.4-3build2) ...
 Setting up libllvm15:amd64 (1:15.0.7-0ubuntu0.22.04.3) ...
@@ -2071,7 +2071,7 @@ Collecting cycler>=0.10 (from matplotlib->-r requirements (line 3))
   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
 Collecting fonttools>=4.22.0 (from matplotlib->-r requirements (line 3))
   Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (113 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 558.7 kB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 6.2 MB/s eta 0:00:00
 Collecting kiwisolver>=1.3.1 (from matplotlib->-r requirements (line 3))
   Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (6.3 kB)
 Requirement already satisfied: packaging>=20.0 in /opt/conda/lib/python3.10/site-packages (from matplotlib->-r requirements (line 3)) (23.1)
@@ -2085,7 +2085,7 @@ Collecting opencv-contrib-python (from -r requirements (line 4))
   Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
 Collecting scipy>=1.8.0 (from scikit-learn->-r requirements (line 6))
   Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 4.7 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 7.9 MB/s eta 0:00:00
 Collecting joblib>=1.2.0 (from scikit-learn->-r requirements (line 6))
   Downloading joblib-1.5.2-py3-none-any.whl.metadata (5.6 kB)
 Collecting threadpoolctl>=3.1.0 (from scikit-learn->-r requirements (line 6))
@@ -2098,10 +2098,10 @@ Collecting gitpython!=3.1.29,>=1.0.0 (from wandb->-r requirements (line 9))
   Downloading gitpython-3.1.45-py3-none-any.whl.metadata (13 kB)
 Requirement already satisfied: platformdirs in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (3.10.0)
 Collecting protobuf!=4.21.0,!=5.28.0,<7,>=3.19.0 (from wandb->-r requirements (line 9))
-  Downloading protobuf-6.33.1-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+  Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
 Collecting pydantic<3 (from wandb->-r requirements (line 9))
   Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 6.8 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 11.3 MB/s eta 0:00:00
 Requirement already satisfied: pyyaml in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (6.0.1)
 Requirement already satisfied: requests<3,>=2.0.0 in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (2.31.0)
 Collecting sentry-sdk>=2.0.0 (from wandb->-r requirements (line 9))
@@ -2133,53 +2133,53 @@ Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython!=3.1.29,>=1.0.0->wan
 Requirement already satisfied: MarkupSafe>=2.0 in /opt/conda/lib/python3.10/site-packages (from jinja2->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (2.1.3)
 Requirement already satisfied: mpmath>=0.19 in /opt/conda/lib/python3.10/site-packages (from sympy->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (1.3.0)
 Downloading matplotlib-3.10.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 71.3 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 62.8 MB/s eta 0:00:00
 Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (69.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 27.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 40.1 MB/s eta 0:00:00
 Downloading scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 66.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 54.2 MB/s eta 0:00:00
 Downloading torchmetrics-1.8.2-py3-none-any.whl (983 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 41.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 50.9 MB/s eta 0:00:00
 Downloading wandb-0.23.1-py3-none-manylinux_2_28_x86_64.whl (22.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 54.6 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 43.6 MB/s eta 0:00:00
 Downloading contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 14.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 26.9 MB/s eta 0:00:00
 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
 Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 53.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 46.4 MB/s eta 0:00:00
 Downloading gitpython-3.1.45-py3-none-any.whl (208 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 1.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 24.3 MB/s eta 0:00:00
 Downloading joblib-1.5.2-py3-none-any.whl (308 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 618.6 kB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 27.2 MB/s eta 0:00:00
 Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 36.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 43.7 MB/s eta 0:00:00
 Downloading lightning_utilities-0.15.2-py3-none-any.whl (29 kB)
-Downloading protobuf-6.33.1-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.2/323.2 kB 12.0 MB/s eta 0:00:00
+Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 kB 25.5 MB/s eta 0:00:00
 Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 14.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 27.4 MB/s eta 0:00:00
 Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 48.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 44.8 MB/s eta 0:00:00
 Downloading pyparsing-3.2.5-py3-none-any.whl (113 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 8.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 15.2 MB/s eta 0:00:00
 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 12.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 24.1 MB/s eta 0:00:00
 Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 31.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 45.0 MB/s eta 0:00:00
 Downloading sentry_sdk-2.47.0-py2.py3-none-any.whl (411 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 14.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 32.6 MB/s eta 0:00:00
 Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 3.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 5.5 MB/s eta 0:00:00
 Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
 Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 4.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 8.2 MB/s eta 0:00:00
 Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
 Downloading smmap-5.0.2-py3-none-any.whl (24 kB)
 Building wheels for collected packages: imutils
   Building wheel for imutils (setup.py): started
   Building wheel for imutils (setup.py): finished with status 'done'
-  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=8d4ab705bf189de36dec39b6d6d27dbedae8ce5de1480d97e70c8d98933edb4b
+  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=8e9992fb909d63018d295defc954e4f2762ab1254393c33681f2123eb0a90e6d
   Stored in directory: /tmp/cache/pip/wheels/85/cf/3a/e265e975a1e7c7e54eb3692d6aa4e2e7d6a3945d29da46f2d7
 Successfully built imutils
 Installing collected packages: imutils, typing-extensions, threadpoolctl, smmap, sentry-sdk, scipy, python-dateutil, pyparsing, protobuf, opencv-contrib-python, kiwisolver, joblib, fonttools, cycler, contourpy, annotated-types, typing-inspection, scikit-learn, pydantic-core, matplotlib, lightning-utilities, gitdb, torchmetrics, pydantic, gitpython, wandb
@@ -2187,1875 +2187,15 @@ Installing collected packages: imutils, typing-extensions, threadpoolctl, smmap,
     Found existing installation: typing_extensions 4.9.0
     Uninstalling typing_extensions-4.9.0:
       Successfully uninstalled typing_extensions-4.9.0
-Successfully installed annotated-types-0.7.0 contourpy-1.3.2 cycler-0.12.1 fonttools-4.61.0 gitdb-4.0.12 gitpython-3.1.45 imutils-0.5.4 joblib-1.5.2 kiwisolver-1.4.9 lightning-utilities-0.15.2 matplotlib-3.10.7 opencv-contrib-python-4.11.0.86 protobuf-6.33.1 pydantic-2.12.5 pydantic-core-2.41.5 pyparsing-3.2.5 python-dateutil-2.9.0.post0 scikit-learn-1.7.2 scipy-1.15.3 sentry-sdk-2.47.0 smmap-5.0.2 threadpoolctl-3.6.0 torchmetrics-1.8.2 typing-extensions-4.15.0 typing-inspection-0.4.2 wandb-0.23.1
+Successfully installed annotated-types-0.7.0 contourpy-1.3.2 cycler-0.12.1 fonttools-4.61.0 gitdb-4.0.12 gitpython-3.1.45 imutils-0.5.4 joblib-1.5.2 kiwisolver-1.4.9 lightning-utilities-0.15.2 matplotlib-3.10.7 opencv-contrib-python-4.11.0.86 protobuf-6.33.2 pydantic-2.12.5 pydantic-core-2.41.5 pyparsing-3.2.5 python-dateutil-2.9.0.post0 scikit-learn-1.7.2 scipy-1.15.3 sentry-sdk-2.47.0 smmap-5.0.2 threadpoolctl-3.6.0 torchmetrics-1.8.2 typing-extensions-4.15.0 typing-inspection-0.4.2 wandb-0.23.1
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
 useradd: warning: the home directory /mnt/hdd/tatsuki already exists.
 useradd: Not copying any file from skel directory into it.
-GPU 0: NVIDIA GeForce RTX 2080 Ti (UUID: GPU-46691a0f-72ba-5a8e-3a3a-d58d1fe25299)
-wandb: Appending key for api.wandb.ai to your netrc file: /mnt/hdd/tatsuki/.netrc
-wandb: Currently logged in as: gktatsu (gktatsu-) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-wandb: setting up run uez36xyp
-wandb: Tracking run with wandb version 0.23.1
-wandb: Run data is saved locally in /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network/wandb/run-20251203_220338-uez36xyp
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run training_run_20251203_220338_p4054_c64c4c54
-wandb: ⭐️ View project at https://wandb.ai/gktatsu-/Segmentation%20Network
-wandb: 🚀 View run at https://wandb.ai/gktatsu-/Segmentation%20Network/runs/uez36xyp
-/opt/conda/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
-  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
-[INFO] found 6990 examples in the training set...
-[INFO] found 25 examples in the validation set...
-[INFO] found 65 examples in the test set...
-[INFO] training the network...
-  0%|          | 0/5000 [00:00<?, ?it/s]  0%|          | 1/5000 [08:03<671:11:39, 483.36s/it]  0%|          | 2/5000 [16:03<668:26:44, 481.47s/it]  0%|          | 3/5000 [24:04<667:47:18, 481.10s/it]  0%|          | 4/5000 [32:05<667:35:43, 481.05s/it]  0%|          | 5/5000 [40:06<667:26:54, 481.04s/it]  0%|          | 6/5000 [48:07<667:14:21, 480.99s/it]  0%|          | 7/5000 [56:07<666:58:19, 480.89s/it]  0%|          | 8/5000 [1:04:07<666:30:32, 480.66s/it]  0%|          | 9/5000 [1:12:07<665:58:44, 480.37s/it]  0%|          | 10/5000 [1:20:06<665:17:28, 479.97s/it]  0%|          | 11/5000 [1:28:06<665:10:17, 479.98s/it]  0%|          | 12/5000 [1:36:06<664:49:09, 479.82s/it]  0%|          | 13/5000 [1:44:03<663:43:52, 479.13s/it]  0%|          | 14/5000 [1:52:02<663:28:51, 479.05s/it]  0%|          | 15/5000 [2:00:01<663:17:52, 479.01s/it]  0%|          | 16/5000 [2:08:00<662:57:03, 478.86s/it]  0%|          | 17/5000 [2:15:58<662:32:08, 478.65s/it]  0%|          | 18/5000 [2:23:57<662:32:26, 478.75s/it]  0%|          | 19/5000 [2:31:57<663:06:08, 479.25s/it]  0%|          | 20/5000 [2:39:56<662:38:12, 479.01s/it]  0%|          | 21/5000 [2:47:55<662:37:08, 479.10s/it]  0%|          | 22/5000 [2:55:53<662:02:18, 478.77s/it]  0%|          | 23/5000 [3:03:51<661:41:08, 478.62s/it]  0%|          | 24/5000 [3:11:48<660:58:02, 478.19s/it]  0%|          | 25/5000 [3:19:46<660:49:47, 478.19s/it]  1%|          | 26/5000 [3:27:45<660:53:10, 478.33s/it]  1%|          | 27/5000 [3:35:43<660:26:41, 478.10s/it]  1%|          | 28/5000 [3:43:41<660:21:10, 478.13s/it]  1%|          | 29/5000 [3:51:38<659:58:17, 477.95s/it]  1%|          | 30/5000 [3:59:36<659:44:07, 477.88s/it]  1%|          | 31/5000 [4:07:36<660:26:41, 478.49s/it]  1%|          | 32/5000 [4:15:36<660:49:50, 478.86s/it]  1%|          | 33/5000 [4:23:34<660:26:34, 478.68s/it]  1%|          | 34/5000 [4:31:32<659:56:30, 478.41s/it]  1%|          | 35/5000 [4:39:29<659:26:58, 478.15s/it]  1%|          | 36/5000 [4:47:27<659:11:34, 478.06s/it]  1%|          | 37/5000 [4:55:25<659:03:46, 478.06s/it]  1%|          | 38/5000 [5:03:24<659:06:30, 478.19s/it]  1%|          | 39/5000 [5:11:23<659:23:28, 478.49s/it]  1%|          | 40/5000 [5:19:22<659:33:17, 478.71s/it]  1%|          | 41/5000 [5:27:21<659:31:38, 478.79s/it]  1%|          | 42/5000 [5:35:20<659:16:36, 478.70s/it]  1%|          | 43/5000 [5:43:19<659:17:53, 478.81s/it]  1%|          | 44/5000 [5:51:19<659:33:36, 479.10s/it]  1%|          | 45/5000 [5:59:19<659:48:11, 479.37s/it]  1%|          | 46/5000 [6:07:17<659:20:20, 479.13s/it]  1%|          | 47/5000 [6:15:14<658:25:00, 478.56s/it]  1%|          | 48/5000 [6:23:12<658:02:44, 478.39s/it]  1%|          | 49/5000 [6:31:11<658:00:56, 478.46s/it]  1%|          | 50/5000 [6:39:10<657:58:55, 478.53s/it]  1%|          | 51/5000 [6:47:09<658:18:43, 478.87s/it]  1%|          | 52/5000 [6:55:09<658:21:32, 479.00s/it]  1%|          | 53/5000 [7:03:07<658:11:02, 478.97s/it]  1%|          | 54/5000 [7:11:06<657:55:06, 478.87s/it]  1%|          | 55/5000 [7:19:05<657:39:40, 478.78s/it]  1%|          | 56/5000 [7:27:04<657:32:35, 478.79s/it]  1%|          | 57/5000 [7:35:02<657:27:57, 478.83s/it]  1%|          | 58/5000 [7:43:01<657:05:50, 478.66s/it]  1%|          | 59/5000 [7:50:59<656:49:09, 478.56s/it]  1%|          | 60/5000 [7:58:57<656:39:05, 478.53s/it]  1%|          | 61/5000 [8:06:55<656:17:27, 478.37s/it]  1%|          | 62/5000 [8:14:54<656:09:00, 478.36s/it]  1%|▏         | 63/5000 [8:22:52<656:02:40, 478.38s/it]  1%|▏         | 64/5000 [8:30:50<655:46:05, 478.28s/it]  1%|▏         | 65/5000 [8:38:49<655:44:25, 478.35s/it]  1%|▏         | 66/5000 [8:46:48<655:48:16, 478.50s/it]  1%|▏         | 67/5000 [8:54:46<655:44:52, 478.55s/it]  1%|▏         | 68/5000 [9:02:45<655:30:04, 478.47s/it]  1%|▏         | 69/5000 [9:10:44<655:46:03, 478.76s/it]  1%|▏         | 70/5000 [9:18:43<655:36:25, 478.74s/it]  1%|▏         | 71/5000 [9:26:40<655:01:48, 478.42s/it]  1%|▏         | 72/5000 [9:34:39<654:56:56, 478.45s/it]  1%|▏         | 73/5000 [9:42:37<654:31:19, 478.24s/it]  1%|▏         | 74/5000 [9:50:35<654:20:56, 478.21s/it]  2%|▏         | 75/5000 [9:58:33<654:02:46, 478.08s/it]  2%|▏         | 76/5000 [10:06:30<653:43:21, 477.95s/it]  2%|▏         | 77/5000 [10:14:28<653:40:48, 478.01s/it]  2%|▏         | 78/5000 [10:22:27<653:41:38, 478.12s/it]  2%|▏         | 79/5000 [10:30:26<654:07:08, 478.53s/it]  2%|▏         | 80/5000 [10:38:25<654:16:21, 478.74s/it]  2%|▏         | 81/5000 [10:46:24<653:59:27, 478.63s/it]  2%|▏         | 82/5000 [10:54:23<654:05:53, 478.80s/it]  2%|▏         | 83/5000 [11:02:20<653:15:24, 478.28s/it]  2%|▏         | 84/5000 [11:10:18<652:54:45, 478.13s/it]  2%|▏         | 85/5000 [11:18:17<653:15:29, 478.48s/it]  2%|▏         | 86/5000 [11:26:17<653:37:48, 478.85s/it]  2%|▏         | 87/5000 [11:34:16<653:39:45, 478.97s/it]  2%|▏         | 88/5000 [11:42:15<653:35:15, 479.01s/it]  2%|▏         | 89/5000 [11:50:14<653:14:40, 478.86s/it]  2%|▏         | 90/5000 [11:58:12<653:00:29, 478.78s/it]  2%|▏         | 91/5000 [12:06:10<652:34:20, 478.56s/it]  2%|▏         | 92/5000 [12:14:09<652:22:56, 478.52s/it]  2%|▏         | 93/5000 [12:22:07<652:17:33, 478.55s/it]  2%|▏         | 94/5000 [12:30:07<652:23:21, 478.72s/it]  2%|▏         | 95/5000 [12:38:05<651:59:43, 478.53s/it]  2%|▏         | 96/5000 [12:46:03<651:47:07, 478.47s/it]  2%|▏         | 97/5000 [12:54:01<651:27:59, 478.34s/it]  2%|▏         | 98/5000 [13:02:00<651:32:33, 478.49s/it]  2%|▏         | 99/5000 [13:10:00<651:56:10, 478.88s/it]  2%|▏         | 100/5000 [13:17:58<651:41:44, 478.80s/it]  2%|▏         | 101/5000 [13:25:57<651:35:54, 478.82s/it]  2%|▏         | 102/5000 [13:33:57<651:42:14, 479.00s/it]  2%|▏         | 103/5000 [13:41:56<651:44:25, 479.12s/it]  2%|▏         | 104/5000 [13:49:55<651:36:00, 479.12s/it]  2%|▏         | 105/5000 [13:57:53<651:01:15, 478.79s/it]  2%|▏         | 106/5000 [14:05:52<650:53:38, 478.79s/it]  2%|▏         | 107/5000 [14:13:50<650:26:38, 478.56s/it]  2%|▏         | 108/5000 [14:21:48<650:19:12, 478.57s/it]  2%|▏         | 109/5000 [14:29:47<650:02:39, 478.46s/it]  2%|▏         | 110/5000 [14:37:45<649:49:08, 478.39s/it]  2%|▏         | 111/5000 [14:45:43<649:23:10, 478.17s/it]  2%|▏         | 112/5000 [14:53:40<648:57:13, 477.95s/it]  2%|▏         | 113/5000 [15:01:38<648:57:51, 478.06s/it]  2%|▏         | 114/5000 [15:09:37<648:59:11, 478.17s/it]  2%|▏         | 115/5000 [15:17:35<649:03:52, 478.33s/it]  2%|▏         | 116/5000 [15:25:36<649:41:02, 478.88s/it]  2%|▏         | 117/5000 [15:33:36<650:14:05, 479.39s/it]  2%|▏         | 118/5000 [15:41:35<649:47:43, 479.16s/it]  2%|▏         | 119/5000 [15:49:32<649:01:53, 478.70s/it]  2%|▏         | 120/5000 [15:57:32<649:04:20, 478.82s/it]  2%|▏         | 121/5000 [16:05:30<648:49:40, 478.74s/it]  2%|▏         | 122/5000 [16:13:28<648:26:50, 478.56s/it]  2%|▏         | 123/5000 [16:21:26<648:05:47, 478.40s/it]  2%|▏         | 124/5000 [16:29:23<647:16:01, 477.88s/it]  2%|▎         | 125/5000 [16:37:21<647:14:10, 477.96s/it]  3%|▎         | 126/5000 [16:45:19<647:11:51, 478.03s/it]  3%|▎         | 127/5000 [16:53:18<647:18:53, 478.21s/it]  3%|▎         | 128/5000 [17:01:17<647:29:50, 478.45s/it]  3%|▎         | 129/5000 [17:09:14<646:51:45, 478.08s/it]  3%|▎         | 130/5000 [17:17:13<647:02:47, 478.31s/it]  3%|▎         | 131/5000 [17:25:12<647:21:22, 478.64s/it]  3%|▎         | 132/5000 [17:33:12<647:30:59, 478.85s/it]  3%|▎         | 133/5000 [17:41:10<646:58:51, 478.56s/it]  3%|▎         | 134/5000 [17:49:07<646:27:48, 478.27s/it][INFO] EPOCH: 1/5000
-Train loss: 0.533281, Val loss: 0.3824
-[INFO] EPOCH: 2/5000
-Train loss: 0.347863, Val loss: 0.2876
-[INFO] EPOCH: 3/5000
-Train loss: 0.279277, Val loss: 0.2637
-[INFO] EPOCH: 4/5000
-Train loss: 0.244858, Val loss: 0.2362
-[INFO] EPOCH: 5/5000
-Train loss: 0.216447, Val loss: 0.2000
-[INFO] EPOCH: 6/5000
-Train loss: 0.199696, Val loss: 0.1869
-[INFO] EPOCH: 7/5000
-Train loss: 0.182793, Val loss: 0.1883
-[INFO] EPOCH: 8/5000
-Train loss: 0.173647, Val loss: 0.1622
-[INFO] EPOCH: 9/5000
-Train loss: 0.164922, Val loss: 0.1640
-[INFO] EPOCH: 10/5000
-Train loss: 0.155799, Val loss: 0.1554
-[INFO] EPOCH: 11/5000
-Train loss: 0.154370, Val loss: 0.1598
-[INFO] EPOCH: 12/5000
-Train loss: 0.147417, Val loss: 0.1467
-[INFO] EPOCH: 13/5000
-Train loss: 0.142101, Val loss: 0.1497
-[INFO] EPOCH: 14/5000
-Train loss: 0.139091, Val loss: 0.1400
-[INFO] EPOCH: 15/5000
-Train loss: 0.135324, Val loss: 0.1382
-[INFO] EPOCH: 16/5000
-Train loss: 0.133884, Val loss: 0.1400
-[INFO] EPOCH: 17/5000
-Train loss: 0.130699, Val loss: 0.1364
-[INFO] EPOCH: 18/5000
-Train loss: 0.127441, Val loss: 0.1252
-[INFO] EPOCH: 19/5000
-Train loss: 0.347248, Val loss: 0.4135
-[INFO] EPOCH: 20/5000
-Train loss: 0.369132, Val loss: 0.2981
-[INFO] EPOCH: 21/5000
-Train loss: 0.288978, Val loss: 0.2679
-[INFO] EPOCH: 22/5000
-Train loss: 0.256963, Val loss: 0.2407
-[INFO] EPOCH: 23/5000
-Train loss: 0.237032, Val loss: 0.2203
-[INFO] EPOCH: 24/5000
-Train loss: 0.218178, Val loss: 0.2026
-[INFO] EPOCH: 25/5000
-Train loss: 0.204661, Val loss: 0.2008
-[INFO] EPOCH: 26/5000
-Train loss: 0.194339, Val loss: 0.1958
-[INFO] EPOCH: 27/5000
-Train loss: 0.184597, Val loss: 0.1884
-[INFO] EPOCH: 28/5000
-Train loss: 0.176244, Val loss: 0.1692
-[INFO] EPOCH: 29/5000
-Train loss: 0.171643, Val loss: 0.1687
-[INFO] EPOCH: 30/5000
-Train loss: 0.164692, Val loss: 0.1672
-[INFO] EPOCH: 31/5000
-Train loss: 0.162594, Val loss: 0.1643
-[INFO] EPOCH: 32/5000
-Train loss: 0.156482, Val loss: 0.1524
-[INFO] EPOCH: 33/5000
-Train loss: 0.153104, Val loss: 0.1647
-[INFO] EPOCH: 34/5000
-Train loss: 0.149725, Val loss: 0.1489
-[INFO] EPOCH: 35/5000
-Train loss: 0.144345, Val loss: 0.1475
-[INFO] EPOCH: 36/5000
-Train loss: 0.141919, Val loss: 0.1372
-[INFO] EPOCH: 37/5000
-Train loss: 0.139106, Val loss: 0.1463
-[INFO] EPOCH: 38/5000
-Train loss: 0.136141, Val loss: 0.1460
-[INFO] EPOCH: 39/5000
-Train loss: 0.134695, Val loss: 0.1340
-[INFO] EPOCH: 40/5000
-Train loss: 0.131677, Val loss: 0.1338
-[INFO] EPOCH: 41/5000
-Train loss: 0.128257, Val loss: 0.1306
-[INFO] EPOCH: 42/5000
-Train loss: 0.127375, Val loss: 0.1425
-[INFO] EPOCH: 43/5000
-Train loss: 0.126359, Val loss: 0.1417
-[INFO] EPOCH: 44/5000
-Train loss: 0.124450, Val loss: 0.1312
-[INFO] EPOCH: 45/5000
-Train loss: 0.121473, Val loss: 0.1253
-[INFO] EPOCH: 46/5000
-Train loss: 0.120184, Val loss: 0.1294
-[INFO] EPOCH: 47/5000
-Train loss: 0.121406, Val loss: 0.1204
-[INFO] EPOCH: 48/5000
-Train loss: 0.117297, Val loss: 0.1259
-[INFO] EPOCH: 49/5000
-Train loss: 0.117395, Val loss: 0.1217
-[INFO] EPOCH: 50/5000
-Train loss: 0.116385, Val loss: 0.1204
-[INFO] EPOCH: 51/5000
-Train loss: 0.113725, Val loss: 0.1172
-[INFO] EPOCH: 52/5000
-Train loss: 0.112530, Val loss: 0.1176
-[INFO] EPOCH: 53/5000
-Train loss: 0.112215, Val loss: 0.1101
-[INFO] EPOCH: 54/5000
-Train loss: 0.110068, Val loss: 0.1173
-[INFO] EPOCH: 55/5000
-Train loss: 0.109714, Val loss: 0.1148
-[INFO] EPOCH: 56/5000
-Train loss: 0.107460, Val loss: 0.1077
-[INFO] EPOCH: 57/5000
-Train loss: 0.506326, Val loss: 0.3222
-[INFO] EPOCH: 58/5000
-Train loss: 0.299976, Val loss: 0.2866
-[INFO] EPOCH: 59/5000
-Train loss: 0.255267, Val loss: 0.2366
-[INFO] EPOCH: 60/5000
-Train loss: 0.228737, Val loss: 0.2138
-[INFO] EPOCH: 61/5000
-Train loss: 0.216039, Val loss: 0.2100
-[INFO] EPOCH: 62/5000
-Train loss: 0.202462, Val loss: 0.2037
-[INFO] EPOCH: 63/5000
-Train loss: 0.190960, Val loss: 0.1856
-[INFO] EPOCH: 64/5000
-Train loss: 0.184057, Val loss: 0.1933
-[INFO] EPOCH: 65/5000
-Train loss: 0.178826, Val loss: 0.1759
-[INFO] EPOCH: 66/5000
-Train loss: 0.171069, Val loss: 0.1690
-[INFO] EPOCH: 67/5000
-Train loss: 0.164835, Val loss: 0.1646
-[INFO] EPOCH: 68/5000
-Train loss: 0.161297, Val loss: 0.1618
-[INFO] EPOCH: 69/5000
-Train loss: 0.156481, Val loss: 0.1537
-[INFO] EPOCH: 70/5000
-Train loss: 0.153679, Val loss: 0.1631
-[INFO] EPOCH: 71/5000
-Train loss: 0.150264, Val loss: 0.1459
-[INFO] EPOCH: 72/5000
-Train loss: 0.147444, Val loss: 0.1502
-[INFO] EPOCH: 73/5000
-Train loss: 0.146056, Val loss: 0.1518
-[INFO] EPOCH: 74/5000
-Train loss: 0.142094, Val loss: 0.1467
-[INFO] EPOCH: 75/5000
-Train loss: 0.139812, Val loss: 0.1393
-[INFO] EPOCH: 76/5000
-Train loss: 0.137303, Val loss: 0.1472
-[INFO] EPOCH: 77/5000
-Train loss: 0.136355, Val loss: 0.1426
-[INFO] EPOCH: 78/5000
-Train loss: 0.134189, Val loss: 0.1343
-[INFO] EPOCH: 79/5000
-Train loss: 0.134173, Val loss: 0.1371
-[INFO] EPOCH: 80/5000
-Train loss: 0.130288, Val loss: 0.1391
-[INFO] EPOCH: 81/5000
-Train loss: 0.129550, Val loss: 0.1377
-[INFO] EPOCH: 82/5000
-Train loss: 0.127289, Val loss: 0.1344
-[INFO] EPOCH: 83/5000
-Train loss: 0.125047, Val loss: 0.1292
-[INFO] EPOCH: 84/5000
-Train loss: 0.124837, Val loss: 0.1503
-[INFO] EPOCH: 85/5000
-Train loss: 0.122328, Val loss: 0.1317
-[INFO] EPOCH: 86/5000
-Train loss: 0.121368, Val loss: 0.1270
-[INFO] EPOCH: 87/5000
-Train loss: 0.120541, Val loss: 0.1570
-[INFO] EPOCH: 88/5000
-Train loss: 0.119329, Val loss: 0.1274
-[INFO] EPOCH: 89/5000
-Train loss: 0.116850, Val loss: 0.1291
-[INFO] EPOCH: 90/5000
-Train loss: 0.117153, Val loss: 0.1233
-[INFO] EPOCH: 91/5000
-Train loss: 0.114895, Val loss: 0.1190
-[INFO] EPOCH: 92/5000
-Train loss: 0.113919, Val loss: 0.1194
-[INFO] EPOCH: 93/5000
-Train loss: 0.112812, Val loss: 0.1148
-[INFO] EPOCH: 94/5000
-Train loss: 0.112492, Val loss: 0.1152
-[INFO] EPOCH: 95/5000
-Train loss: 0.111499, Val loss: 0.1291
-[INFO] EPOCH: 96/5000
-Train loss: 0.109982, Val loss: 0.1207
-[INFO] EPOCH: 97/5000
-Train loss: 0.109017, Val loss: 0.1095
-[INFO] EPOCH: 98/5000
-Train loss: 0.109413, Val loss: 0.1189
-[INFO] EPOCH: 99/5000
-Train loss: 0.110834, Val loss: 0.1121
-[INFO] EPOCH: 100/5000
-Train loss: 0.106569, Val loss: 0.1130
-[INFO] EPOCH: 101/5000
-Train loss: 0.105091, Val loss: 0.1102
-[INFO] EPOCH: 102/5000
-Train loss: 0.104156, Val loss: 0.1055
-[INFO] EPOCH: 103/5000
-Train loss: 0.108840, Val loss: 0.1069
-[INFO] EPOCH: 104/5000
-Train loss: 0.103339, Val loss: 0.1102
-[INFO] EPOCH: 105/5000
-Train loss: 0.101923, Val loss: 0.1079
-[INFO] EPOCH: 106/5000
-Train loss: 0.101133, Val loss: 0.1060
-[INFO] EPOCH: 107/5000
-Train loss: 0.100937, Val loss: 0.1087
-[INFO] EPOCH: 108/5000
-Train loss: 0.100531, Val loss: 0.1121
-[INFO] EPOCH: 109/5000
-Train loss: 0.099790, Val loss: 0.1039
-[INFO] EPOCH: 110/5000
-Train loss: 0.099291, Val loss: 0.1060
-[INFO] EPOCH: 111/5000
-Train loss: 0.223928, Val loss: 0.2574
-[INFO] EPOCH: 112/5000
-Train loss: 0.188843, Val loss: 0.1697
-[INFO] EPOCH: 113/5000
-Train loss: 0.154055, Val loss: 0.1599
-[INFO] EPOCH: 114/5000
-Train loss: 0.141637, Val loss: 0.1403
-[INFO] EPOCH: 115/5000
-Train loss: 0.133979, Val loss: 0.1417
-[INFO] EPOCH: 116/5000
-Train loss: 0.128722, Val loss: 0.1323
-[INFO] EPOCH: 117/5000
-Train loss: 0.125062, Val loss: 0.1285
-[INFO] EPOCH: 118/5000
-Train loss: 0.123623, Val loss: 0.1259
-[INFO] EPOCH: 119/5000
-Train loss: 0.119384, Val loss: 0.1234
-[INFO] EPOCH: 120/5000
-Train loss: 0.117456, Val loss: 0.1215
-[INFO] EPOCH: 121/5000
-Train loss: 0.115787, Val loss: 0.1214
-[INFO] EPOCH: 122/5000
-Train loss: 0.114205, Val loss: 0.1167
-[INFO] EPOCH: 123/5000
-Train loss: 0.113561, Val loss: 0.1191
-[INFO] EPOCH: 124/5000
-Train loss: 0.111671, Val loss: 0.1186
-[INFO] EPOCH: 125/5000
-Train loss: 0.110329, Val loss: 0.1115
-[INFO] EPOCH: 126/5000
-Train loss: 0.109370, Val loss: 0.1159
-[INFO] EPOCH: 127/5000
-Train loss: 0.108108, Val loss: 0.1119
-[INFO] EPOCH: 128/5000
-Train loss: 0.107421, Val loss: 0.1125
-[INFO] EPOCH: 129/5000
-Train loss: 0.106288, Val loss: 0.1142
-[INFO] EPOCH: 130/5000
-Train loss: 0.108482, Val loss: 0.1090
-[INFO] EPOCH: 131/5000
-Train loss: 0.103716, Val loss: 0.1099
-[INFO] EPOCH: 132/5000
-Train loss: 0.103887, Val loss: 0.1093
-[INFO] EPOCH: 133/5000
-Train loss: 0.102470, Val loss: 0.1083
-[INFO] EPOCH: 134/5000
-  3%|▎         | 135/5000 [17:57:06<646:25:35, 478.34s/it]  3%|▎         | 136/5000 [18:05:03<645:52:56, 478.04s/it]  3%|▎         | 137/5000 [18:13:01<645:44:38, 478.03s/it]  3%|▎         | 138/5000 [18:20:59<645:45:13, 478.14s/it]  3%|▎         | 139/5000 [18:28:57<645:22:15, 477.95s/it]  3%|▎         | 140/5000 [18:36:55<645:12:33, 477.93s/it]  3%|▎         | 141/5000 [18:44:52<644:55:49, 477.82s/it]  3%|▎         | 142/5000 [18:52:50<644:40:36, 477.73s/it]  3%|▎         | 143/5000 [19:00:49<645:11:05, 478.21s/it]  3%|▎         | 144/5000 [19:08:48<645:13:05, 478.33s/it]  3%|▎         | 145/5000 [19:16:48<645:36:28, 478.72s/it]  3%|▎         | 146/5000 [19:24:45<645:06:40, 478.45s/it]  3%|▎         | 147/5000 [19:32:43<644:35:15, 478.16s/it]  3%|▎         | 148/5000 [19:40:40<644:14:20, 478.00s/it]  3%|▎         | 149/5000 [19:48:38<643:57:37, 477.89s/it]  3%|▎         | 150/5000 [19:56:36<643:53:32, 477.94s/it]  3%|▎         | 151/5000 [20:04:34<643:52:56, 478.03s/it]  3%|▎         | 152/5000 [20:12:32<643:27:39, 477.82s/it]  3%|▎         | 153/5000 [20:20:30<643:37:46, 478.04s/it]  3%|▎         | 154/5000 [20:28:27<643:05:20, 477.74s/it]  3%|▎         | 155/5000 [20:36:29<644:42:33, 479.04s/it]  3%|▎         | 156/5000 [20:44:28<644:31:31, 479.00s/it]  3%|▎         | 157/5000 [20:52:27<644:09:06, 478.82s/it]  3%|▎         | 158/5000 [21:00:25<643:44:26, 478.62s/it]  3%|▎         | 159/5000 [21:08:23<643:35:47, 478.61s/it]  3%|▎         | 160/5000 [21:16:21<643:07:16, 478.35s/it]  3%|▎         | 161/5000 [21:24:21<643:35:31, 478.80s/it]  3%|▎         | 162/5000 [21:32:19<643:05:24, 478.53s/it]  3%|▎         | 163/5000 [21:40:18<643:08:19, 478.66s/it]  3%|▎         | 164/5000 [21:48:18<643:29:58, 479.03s/it]  3%|▎         | 165/5000 [21:56:16<643:10:46, 478.89s/it]  3%|▎         | 166/5000 [22:04:15<643:01:11, 478.87s/it]  3%|▎         | 167/5000 [22:12:12<642:05:21, 478.28s/it]  3%|▎         | 168/5000 [22:20:11<642:21:30, 478.58s/it]  3%|▎         | 169/5000 [22:28:07<641:12:33, 477.82s/it]  3%|▎         | 170/5000 [22:36:03<640:22:06, 477.29s/it]  3%|▎         | 171/5000 [22:44:01<640:20:26, 477.37s/it]  3%|▎         | 172/5000 [22:52:00<640:51:17, 477.85s/it]  3%|▎         | 173/5000 [22:59:59<641:09:19, 478.18s/it]  3%|▎         | 174/5000 [23:07:57<640:47:22, 478.00s/it]  4%|▎         | 175/5000 [23:15:55<640:53:04, 478.17s/it]  4%|▎         | 176/5000 [23:23:54<641:03:53, 478.41s/it]  4%|▎         | 177/5000 [23:31:52<640:36:37, 478.17s/it]  4%|▎         | 178/5000 [23:39:51<640:53:10, 478.47s/it]  4%|▎         | 179/5000 [23:47:49<640:46:36, 478.49s/it]  4%|▎         | 180/5000 [23:55:48<640:39:35, 478.50s/it]  4%|▎         | 181/5000 [24:03:44<639:43:16, 477.90s/it]  4%|▎         | 182/5000 [24:11:42<639:24:19, 477.76s/it]  4%|▎         | 183/5000 [24:19:41<639:40:55, 478.07s/it]  4%|▎         | 184/5000 [24:27:38<639:07:35, 477.75s/it]  4%|▎         | 185/5000 [24:35:36<639:12:10, 477.91s/it]  4%|▎         | 186/5000 [24:43:35<639:40:55, 478.37s/it]  4%|▎         | 187/5000 [24:51:33<639:20:35, 478.21s/it]  4%|▍         | 188/5000 [24:59:32<639:23:27, 478.35s/it]  4%|▍         | 189/5000 [25:07:31<639:37:11, 478.62s/it]  4%|▍         | 190/5000 [25:15:31<640:06:13, 479.08s/it]  4%|▍         | 191/5000 [25:23:28<638:52:41, 478.26s/it]  4%|▍         | 192/5000 [25:31:28<639:25:06, 478.77s/it]  4%|▍         | 193/5000 [25:39:26<639:12:36, 478.71s/it]  4%|▍         | 194/5000 [25:47:22<638:00:31, 477.91s/it]  4%|▍         | 195/5000 [25:55:21<638:19:04, 478.24s/it]  4%|▍         | 196/5000 [26:03:20<638:28:25, 478.46s/it]  4%|▍         | 197/5000 [26:11:19<638:21:28, 478.47s/it]  4%|▍         | 198/5000 [26:19:16<637:44:47, 478.11s/it]  4%|▍         | 199/5000 [26:27:14<637:43:17, 478.19s/it]  4%|▍         | 200/5000 [26:35:13<637:44:41, 478.31s/it]  4%|▍         | 201/5000 [26:43:11<637:43:10, 478.39s/it]  4%|▍         | 202/5000 [26:51:10<637:40:42, 478.46s/it]  4%|▍         | 203/5000 [26:59:09<637:54:46, 478.73s/it]  4%|▍         | 204/5000 [27:07:08<637:42:55, 478.69s/it]  4%|▍         | 205/5000 [27:15:04<636:40:36, 478.01s/it]  4%|▍         | 206/5000 [27:23:03<636:52:48, 478.26s/it]  4%|▍         | 207/5000 [27:31:02<636:54:23, 478.38s/it]  4%|▍         | 208/5000 [27:38:57<635:29:26, 477.41s/it]  4%|▍         | 209/5000 [27:46:56<635:46:06, 477.72s/it]  4%|▍         | 210/5000 [27:54:54<635:49:45, 477.87s/it]  4%|▍         | 211/5000 [28:02:52<635:59:43, 478.09s/it]  4%|▍         | 212/5000 [28:10:50<635:49:23, 478.06s/it]  4%|▍         | 213/5000 [28:18:49<635:49:35, 478.16s/it]  4%|▍         | 214/5000 [28:26:47<635:38:18, 478.12s/it]  4%|▍         | 215/5000 [28:34:45<635:24:21, 478.05s/it]  4%|▍         | 216/5000 [28:42:44<635:37:41, 478.32s/it]  4%|▍         | 217/5000 [28:50:43<635:51:45, 478.59s/it]  4%|▍         | 218/5000 [28:58:42<635:48:15, 478.65s/it]  4%|▍         | 219/5000 [29:06:40<635:41:24, 478.66s/it]  4%|▍         | 220/5000 [29:14:38<635:13:43, 478.42s/it]  4%|▍         | 221/5000 [29:22:37<635:07:14, 478.43s/it]  4%|▍         | 222/5000 [29:30:35<634:54:11, 478.37s/it]  4%|▍         | 223/5000 [29:38:33<634:41:16, 478.31s/it]  4%|▍         | 224/5000 [29:46:32<634:37:21, 478.36s/it]  4%|▍         | 225/5000 [29:54:29<634:18:50, 478.23s/it]  5%|▍         | 226/5000 [30:02:27<634:00:03, 478.09s/it]  5%|▍         | 227/5000 [30:10:29<635:26:44, 479.28s/it]  5%|▍         | 228/5000 [30:18:30<636:02:50, 479.83s/it]  5%|▍         | 229/5000 [30:26:30<635:48:02, 479.75s/it]  5%|▍         | 230/5000 [30:34:28<635:09:12, 479.36s/it]  5%|▍         | 231/5000 [30:42:27<634:53:10, 479.26s/it]  5%|▍         | 232/5000 [30:50:25<634:14:38, 478.88s/it]  5%|▍         | 233/5000 [30:58:24<633:50:38, 478.67s/it]  5%|▍         | 234/5000 [31:06:22<633:36:28, 478.60s/it]  5%|▍         | 235/5000 [31:14:21<633:32:58, 478.65s/it]  5%|▍         | 236/5000 [31:22:20<633:28:04, 478.69s/it]  5%|▍         | 237/5000 [31:30:19<633:31:42, 478.84s/it]  5%|▍         | 238/5000 [31:38:18<633:22:11, 478.82s/it]  5%|▍         | 239/5000 [31:46:16<633:10:32, 478.77s/it]  5%|▍         | 240/5000 [31:54:15<633:02:17, 478.77s/it]  5%|▍         | 241/5000 [32:02:13<632:37:30, 478.56s/it]  5%|▍         | 242/5000 [32:10:11<632:12:34, 478.34s/it]  5%|▍         | 243/5000 [32:18:09<631:59:12, 478.27s/it]  5%|▍         | 244/5000 [32:26:07<631:50:44, 478.27s/it]  5%|▍         | 245/5000 [32:34:05<631:25:54, 478.06s/it]  5%|▍         | 246/5000 [32:42:03<631:24:07, 478.13s/it]  5%|▍         | 247/5000 [32:50:01<631:20:37, 478.19s/it]  5%|▍         | 248/5000 [32:58:00<631:29:46, 478.41s/it]  5%|▍         | 249/5000 [33:05:57<630:33:50, 477.80s/it]  5%|▌         | 250/5000 [33:13:56<631:05:27, 478.30s/it]  5%|▌         | 251/5000 [33:21:55<631:13:13, 478.50s/it]  5%|▌         | 252/5000 [33:29:54<631:16:23, 478.64s/it]  5%|▌         | 253/5000 [33:37:52<630:55:03, 478.47s/it]  5%|▌         | 254/5000 [33:45:51<630:53:15, 478.55s/it]  5%|▌         | 255/5000 [33:53:50<631:07:47, 478.83s/it]  5%|▌         | 256/5000 [34:01:46<629:39:46, 477.82s/it]  5%|▌         | 257/5000 [34:09:44<629:44:44, 477.99s/it]  5%|▌         | 258/5000 [34:17:43<629:45:36, 478.10s/it]  5%|▌         | 259/5000 [34:25:41<629:35:49, 478.07s/it]  5%|▌         | 260/5000 [34:33:39<629:40:43, 478.24s/it]  5%|▌         | 261/5000 [34:41:37<629:22:19, 478.10s/it]  5%|▌         | 262/5000 [34:49:36<629:31:07, 478.32s/it]  5%|▌         | 263/5000 [34:57:32<628:42:38, 477.80s/it]  5%|▌         | 264/5000 [35:05:32<629:03:04, 478.16s/it]  5%|▌         | 265/5000 [35:13:31<629:16:56, 478.44s/it]  5%|▌         | 266/5000 [35:21:28<628:37:06, 478.04s/it]Train loss: 0.101912, Val loss: 0.1077
-[INFO] EPOCH: 135/5000
-Train loss: 0.102025, Val loss: 0.1041
-[INFO] EPOCH: 136/5000
-Train loss: 0.100432, Val loss: 0.1062
-[INFO] EPOCH: 137/5000
-Train loss: 0.101057, Val loss: 0.1069
-[INFO] EPOCH: 138/5000
-Train loss: 0.099564, Val loss: 0.1020
-[INFO] EPOCH: 139/5000
-Train loss: 0.098438, Val loss: 0.1105
-[INFO] EPOCH: 140/5000
-Train loss: 0.098310, Val loss: 0.1023
-[INFO] EPOCH: 141/5000
-Train loss: 0.097876, Val loss: 0.1039
-[INFO] EPOCH: 142/5000
-Train loss: 0.097446, Val loss: 0.1033
-[INFO] EPOCH: 143/5000
-Train loss: 0.096684, Val loss: 0.1031
-[INFO] EPOCH: 144/5000
-Train loss: 0.098915, Val loss: 0.1026
-[INFO] EPOCH: 145/5000
-Train loss: 0.097660, Val loss: 0.1028
-[INFO] EPOCH: 146/5000
-Train loss: 0.094711, Val loss: 0.1015
-[INFO] EPOCH: 147/5000
-Train loss: 0.094051, Val loss: 0.1016
-[INFO] EPOCH: 148/5000
-Train loss: 0.093639, Val loss: 0.1008
-[INFO] EPOCH: 149/5000
-Train loss: 0.093487, Val loss: 0.1030
-[INFO] EPOCH: 150/5000
-Train loss: 0.093000, Val loss: 0.0979
-[INFO] EPOCH: 151/5000
-Train loss: 0.092564, Val loss: 0.0992
-[INFO] EPOCH: 152/5000
-Train loss: 0.092226, Val loss: 0.0986
-[INFO] EPOCH: 153/5000
-Train loss: 0.172942, Val loss: 0.5708
-[INFO] EPOCH: 154/5000
-Train loss: 0.387596, Val loss: 0.3187
-[INFO] EPOCH: 155/5000
-Train loss: 0.287408, Val loss: 0.2782
-[INFO] EPOCH: 156/5000
-Train loss: 0.246546, Val loss: 0.2332
-[INFO] EPOCH: 157/5000
-Train loss: 0.216480, Val loss: 0.2067
-[INFO] EPOCH: 158/5000
-Train loss: 0.199040, Val loss: 0.2014
-[INFO] EPOCH: 159/5000
-Train loss: 0.186793, Val loss: 0.1799
-[INFO] EPOCH: 160/5000
-Train loss: 0.177105, Val loss: 0.1745
-[INFO] EPOCH: 161/5000
-Train loss: 0.169554, Val loss: 0.1688
-[INFO] EPOCH: 162/5000
-Train loss: 0.162150, Val loss: 0.1685
-[INFO] EPOCH: 163/5000
-Train loss: 0.156769, Val loss: 0.1567
-[INFO] EPOCH: 164/5000
-Train loss: 0.151838, Val loss: 0.1537
-[INFO] EPOCH: 165/5000
-Train loss: 0.147607, Val loss: 0.1527
-[INFO] EPOCH: 166/5000
-Train loss: 0.143654, Val loss: 0.1543
-[INFO] EPOCH: 167/5000
-Train loss: 0.140610, Val loss: 0.1475
-[INFO] EPOCH: 168/5000
-Train loss: 0.137541, Val loss: 0.1449
-[INFO] EPOCH: 169/5000
-Train loss: 0.135007, Val loss: 0.1402
-[INFO] EPOCH: 170/5000
-Train loss: 0.131452, Val loss: 0.1333
-[INFO] EPOCH: 171/5000
-Train loss: 0.129905, Val loss: 0.1301
-[INFO] EPOCH: 172/5000
-Train loss: 0.127058, Val loss: 0.1357
-[INFO] EPOCH: 173/5000
-Train loss: 0.124765, Val loss: 0.1286
-[INFO] EPOCH: 174/5000
-Train loss: 0.124128, Val loss: 0.1279
-[INFO] EPOCH: 175/5000
-Train loss: 0.120962, Val loss: 0.1227
-[INFO] EPOCH: 176/5000
-Train loss: 0.119906, Val loss: 0.1200
-[INFO] EPOCH: 177/5000
-Train loss: 0.118376, Val loss: 0.1255
-[INFO] EPOCH: 178/5000
-Train loss: 0.118227, Val loss: 0.1178
-[INFO] EPOCH: 179/5000
-Train loss: 0.115726, Val loss: 0.1173
-[INFO] EPOCH: 180/5000
-Train loss: 0.113973, Val loss: 0.1153
-[INFO] EPOCH: 181/5000
-Train loss: 0.112628, Val loss: 0.1149
-[INFO] EPOCH: 182/5000
-Train loss: 0.111271, Val loss: 0.1133
-[INFO] EPOCH: 183/5000
-Train loss: 0.110409, Val loss: 0.1144
-[INFO] EPOCH: 184/5000
-Train loss: 0.112813, Val loss: 0.1085
-[INFO] EPOCH: 185/5000
-Train loss: 0.108453, Val loss: 0.1089
-[INFO] EPOCH: 186/5000
-Train loss: 0.107792, Val loss: 0.1135
-[INFO] EPOCH: 187/5000
-Train loss: 0.200986, Val loss: 0.1617
-[INFO] EPOCH: 188/5000
-Train loss: 0.141429, Val loss: 0.1374
-[INFO] EPOCH: 189/5000
-Train loss: 0.127999, Val loss: 0.1276
-[INFO] EPOCH: 190/5000
-Train loss: 0.122765, Val loss: 0.1234
-[INFO] EPOCH: 191/5000
-Train loss: 0.118380, Val loss: 0.1297
-[INFO] EPOCH: 192/5000
-Train loss: 0.116086, Val loss: 0.1170
-[INFO] EPOCH: 193/5000
-Train loss: 0.113990, Val loss: 0.1172
-[INFO] EPOCH: 194/5000
-Train loss: 0.111773, Val loss: 0.1124
-[INFO] EPOCH: 195/5000
-Train loss: 0.110211, Val loss: 0.1158
-[INFO] EPOCH: 196/5000
-Train loss: 0.109479, Val loss: 0.1142
-[INFO] EPOCH: 197/5000
-Train loss: 0.108221, Val loss: 0.1093
-[INFO] EPOCH: 198/5000
-Train loss: 0.106693, Val loss: 0.1086
-[INFO] EPOCH: 199/5000
-Train loss: 0.106216, Val loss: 0.1100
-[INFO] EPOCH: 200/5000
-Train loss: 0.104688, Val loss: 0.1068
-[INFO] EPOCH: 201/5000
-Train loss: 0.104889, Val loss: 0.1049
-[INFO] EPOCH: 202/5000
-Train loss: 0.103155, Val loss: 0.1032
-[INFO] EPOCH: 203/5000
-Train loss: 0.102610, Val loss: 0.1054
-[INFO] EPOCH: 204/5000
-Train loss: 0.101680, Val loss: 0.1036
-[INFO] EPOCH: 205/5000
-Train loss: 0.101885, Val loss: 0.1053
-[INFO] EPOCH: 206/5000
-Train loss: 0.101502, Val loss: 0.1030
-[INFO] EPOCH: 207/5000
-Train loss: 0.099436, Val loss: 0.1013
-[INFO] EPOCH: 208/5000
-Train loss: 0.099053, Val loss: 0.1028
-[INFO] EPOCH: 209/5000
-Train loss: 0.102241, Val loss: 0.1000
-[INFO] EPOCH: 210/5000
-Train loss: 0.097720, Val loss: 0.1013
-[INFO] EPOCH: 211/5000
-Train loss: 0.097576, Val loss: 0.0992
-[INFO] EPOCH: 212/5000
-Train loss: 0.097567, Val loss: 0.0986
-[INFO] EPOCH: 213/5000
-Train loss: 0.097561, Val loss: 0.1068
-[INFO] EPOCH: 214/5000
-Train loss: 0.096675, Val loss: 0.0985
-[INFO] EPOCH: 215/5000
-Train loss: 0.097123, Val loss: 0.0996
-[INFO] EPOCH: 216/5000
-Train loss: 0.094948, Val loss: 0.0976
-[INFO] EPOCH: 217/5000
-Train loss: 0.094440, Val loss: 0.0965
-[INFO] EPOCH: 218/5000
-Train loss: 0.094189, Val loss: 0.1007
-[INFO] EPOCH: 219/5000
-Train loss: 0.093894, Val loss: 0.0985
-[INFO] EPOCH: 220/5000
-Train loss: 0.208471, Val loss: 0.5582
-[INFO] EPOCH: 221/5000
-Train loss: 0.371240, Val loss: 0.2749
-[INFO] EPOCH: 222/5000
-Train loss: 0.247032, Val loss: 0.2237
-[INFO] EPOCH: 223/5000
-Train loss: 0.211220, Val loss: 0.2027
-[INFO] EPOCH: 224/5000
-Train loss: 0.192303, Val loss: 0.1854
-[INFO] EPOCH: 225/5000
-Train loss: 0.178250, Val loss: 0.1789
-[INFO] EPOCH: 226/5000
-Train loss: 0.170592, Val loss: 0.1760
-[INFO] EPOCH: 227/5000
-Train loss: 0.163556, Val loss: 0.1627
-[INFO] EPOCH: 228/5000
-Train loss: 0.158895, Val loss: 0.1650
-[INFO] EPOCH: 229/5000
-Train loss: 0.154796, Val loss: 0.1555
-[INFO] EPOCH: 230/5000
-Train loss: 0.149962, Val loss: 0.1576
-[INFO] EPOCH: 231/5000
-Train loss: 0.147606, Val loss: 0.1495
-[INFO] EPOCH: 232/5000
-Train loss: 0.144507, Val loss: 0.1560
-[INFO] EPOCH: 233/5000
-Train loss: 0.141363, Val loss: 0.1424
-[INFO] EPOCH: 234/5000
-Train loss: 0.138312, Val loss: 0.1529
-[INFO] EPOCH: 235/5000
-Train loss: 0.135832, Val loss: 0.1354
-[INFO] EPOCH: 236/5000
-Train loss: 0.133851, Val loss: 0.1362
-[INFO] EPOCH: 237/5000
-Train loss: 0.131779, Val loss: 0.1349
-[INFO] EPOCH: 238/5000
-Train loss: 0.129179, Val loss: 0.1322
-[INFO] EPOCH: 239/5000
-Train loss: 0.130670, Val loss: 0.1292
-[INFO] EPOCH: 240/5000
-Train loss: 0.127266, Val loss: 0.1307
-[INFO] EPOCH: 241/5000
-Train loss: 0.125380, Val loss: 0.1326
-[INFO] EPOCH: 242/5000
-Train loss: 0.124388, Val loss: 0.1261
-[INFO] EPOCH: 243/5000
-Train loss: 0.122497, Val loss: 0.1248
-[INFO] EPOCH: 244/5000
-Train loss: 0.121280, Val loss: 0.1275
-[INFO] EPOCH: 245/5000
-Train loss: 0.119482, Val loss: 0.1199
-[INFO] EPOCH: 246/5000
-Train loss: 0.118743, Val loss: 0.1269
-[INFO] EPOCH: 247/5000
-Train loss: 0.116957, Val loss: 0.1204
-[INFO] EPOCH: 248/5000
-Train loss: 0.116281, Val loss: 0.1200
-[INFO] EPOCH: 249/5000
-Train loss: 0.114692, Val loss: 0.1196
-[INFO] EPOCH: 250/5000
-Train loss: 0.114555, Val loss: 0.1284
-[INFO] EPOCH: 251/5000
-Train loss: 0.113108, Val loss: 0.1160
-[INFO] EPOCH: 252/5000
-Train loss: 0.112460, Val loss: 0.1151
-[INFO] EPOCH: 253/5000
-Train loss: 0.112873, Val loss: 0.1145
-[INFO] EPOCH: 254/5000
-Train loss: 0.110078, Val loss: 0.1125
-[INFO] EPOCH: 255/5000
-Train loss: 0.109556, Val loss: 0.1137
-[INFO] EPOCH: 256/5000
-Train loss: 0.108278, Val loss: 0.1179
-[INFO] EPOCH: 257/5000
-Train loss: 0.108221, Val loss: 0.1102
-[INFO] EPOCH: 258/5000
-Train loss: 0.106700, Val loss: 0.1120
-[INFO] EPOCH: 259/5000
-Train loss: 0.107291, Val loss: 0.1072
-[INFO] EPOCH: 260/5000
-Train loss: 0.105496, Val loss: 0.1093
-[INFO] EPOCH: 261/5000
-Train loss: 0.104527, Val loss: 0.1111
-[INFO] EPOCH: 262/5000
-Train loss: 0.103966, Val loss: 0.1098
-[INFO] EPOCH: 263/5000
-Train loss: 0.112349, Val loss: 0.1777
-[INFO] EPOCH: 264/5000
-Train loss: 0.111504, Val loss: 0.1116
-[INFO] EPOCH: 265/5000
-Train loss: 0.104039, Val loss: 0.1063
-[INFO] EPOCH: 266/5000
-  5%|▌         | 267/5000 [35:29:26<628:35:58, 478.12s/it]  5%|▌         | 268/5000 [35:37:25<628:57:22, 478.50s/it]  5%|▌         | 269/5000 [35:45:24<628:42:04, 478.40s/it]  5%|▌         | 270/5000 [35:53:22<628:44:41, 478.54s/it]  5%|▌         | 271/5000 [36:01:21<628:37:26, 478.55s/it]  5%|▌         | 272/5000 [36:09:20<628:32:20, 478.58s/it]  5%|▌         | 273/5000 [36:17:15<627:06:31, 477.59s/it]  5%|▌         | 274/5000 [36:25:13<627:16:31, 477.82s/it]  6%|▌         | 275/5000 [36:33:11<627:14:17, 477.90s/it]  6%|▌         | 276/5000 [36:41:10<627:31:03, 478.21s/it]  6%|▌         | 277/5000 [36:49:09<627:44:51, 478.49s/it]  6%|▌         | 278/5000 [36:57:07<627:24:20, 478.33s/it]  6%|▌         | 279/5000 [37:05:06<627:29:34, 478.49s/it]  6%|▌         | 280/5000 [37:13:04<627:11:29, 478.37s/it]  6%|▌         | 281/5000 [37:21:03<627:03:12, 478.36s/it]  6%|▌         | 282/5000 [37:29:01<627:01:05, 478.44s/it]  6%|▌         | 283/5000 [37:37:00<627:08:58, 478.64s/it]  6%|▌         | 284/5000 [37:44:59<626:49:49, 478.50s/it]  6%|▌         | 285/5000 [37:52:58<626:58:10, 478.70s/it]  6%|▌         | 286/5000 [38:00:58<627:29:06, 479.20s/it]  6%|▌         | 287/5000 [38:08:58<627:36:00, 479.39s/it]  6%|▌         | 288/5000 [38:16:57<627:21:37, 479.31s/it]  6%|▌         | 289/5000 [38:24:55<626:52:48, 479.04s/it]  6%|▌         | 290/5000 [38:32:55<627:04:20, 479.29s/it]  6%|▌         | 291/5000 [38:40:54<626:32:16, 478.98s/it]  6%|▌         | 292/5000 [38:48:53<626:29:29, 479.05s/it]  6%|▌         | 293/5000 [38:56:52<626:29:18, 479.15s/it]  6%|▌         | 294/5000 [39:04:51<626:14:09, 479.06s/it]  6%|▌         | 295/5000 [39:12:50<625:55:30, 478.92s/it]  6%|▌         | 296/5000 [39:20:48<625:31:05, 478.71s/it]  6%|▌         | 297/5000 [39:28:47<625:23:24, 478.72s/it]  6%|▌         | 298/5000 [39:36:45<625:16:46, 478.73s/it]  6%|▌         | 299/5000 [39:44:44<625:10:41, 478.76s/it]  6%|▌         | 300/5000 [39:52:43<625:01:27, 478.74s/it]  6%|▌         | 301/5000 [40:00:42<624:56:25, 478.78s/it]  6%|▌         | 302/5000 [40:08:41<624:48:12, 478.78s/it]  6%|▌         | 303/5000 [40:16:40<624:53:21, 478.94s/it]  6%|▌         | 304/5000 [40:24:38<624:36:23, 478.83s/it]  6%|▌         | 305/5000 [40:32:38<624:40:27, 478.98s/it]  6%|▌         | 306/5000 [40:40:35<623:52:13, 478.47s/it]  6%|▌         | 307/5000 [40:48:34<623:48:53, 478.53s/it]  6%|▌         | 308/5000 [40:56:33<624:02:47, 478.81s/it]  6%|▌         | 309/5000 [41:04:32<623:56:19, 478.83s/it]  6%|▌         | 310/5000 [41:12:31<623:53:02, 478.89s/it]  6%|▌         | 311/5000 [41:20:30<623:38:36, 478.80s/it]  6%|▌         | 312/5000 [41:28:29<623:37:16, 478.89s/it]  6%|▋         | 313/5000 [41:36:28<623:38:40, 479.01s/it]  6%|▋         | 314/5000 [41:44:27<623:21:02, 478.89s/it]  6%|▋         | 315/5000 [41:52:26<623:25:48, 479.05s/it]  6%|▋         | 316/5000 [42:00:25<623:17:38, 479.05s/it]  6%|▋         | 317/5000 [42:08:24<622:58:49, 478.91s/it]  6%|▋         | 318/5000 [42:16:22<622:39:05, 478.76s/it]  6%|▋         | 319/5000 [42:24:20<622:14:06, 478.54s/it]  6%|▋         | 320/5000 [42:32:18<621:57:30, 478.43s/it]  6%|▋         | 321/5000 [42:40:16<621:42:32, 478.34s/it]  6%|▋         | 322/5000 [42:48:15<621:45:43, 478.48s/it]  6%|▋         | 323/5000 [42:56:13<621:28:10, 478.36s/it]  6%|▋         | 324/5000 [43:04:12<621:35:47, 478.56s/it]  6%|▋         | 325/5000 [43:12:12<621:49:36, 478.84s/it]  7%|▋         | 326/5000 [43:20:11<621:49:28, 478.94s/it]  7%|▋         | 327/5000 [43:28:11<621:53:15, 479.09s/it]  7%|▋         | 328/5000 [43:36:10<621:44:35, 479.08s/it]  7%|▋         | 329/5000 [43:44:09<621:36:03, 479.08s/it]  7%|▋         | 330/5000 [43:52:07<621:12:52, 478.88s/it]  7%|▋         | 331/5000 [44:00:06<621:15:39, 479.02s/it]  7%|▋         | 332/5000 [44:08:03<620:07:00, 478.24s/it]  7%|▋         | 333/5000 [44:16:02<620:13:39, 478.43s/it]  7%|▋         | 334/5000 [44:24:01<620:20:36, 478.62s/it]  7%|▋         | 335/5000 [44:31:58<619:46:05, 478.28s/it]  7%|▋         | 336/5000 [44:39:58<620:09:21, 478.68s/it]  7%|▋         | 337/5000 [44:47:57<620:15:17, 478.86s/it]  7%|▋         | 338/5000 [44:55:57<620:25:20, 479.09s/it]  7%|▋         | 339/5000 [45:03:57<620:32:44, 479.29s/it]  7%|▋         | 340/5000 [45:11:56<620:27:20, 479.32s/it]  7%|▋         | 341/5000 [45:19:56<620:37:45, 479.56s/it]  7%|▋         | 342/5000 [45:27:55<620:26:03, 479.51s/it]  7%|▋         | 343/5000 [45:35:55<620:12:23, 479.44s/it]  7%|▋         | 344/5000 [45:43:53<619:49:06, 479.24s/it]  7%|▋         | 345/5000 [45:51:52<619:30:06, 479.10s/it]  7%|▋         | 346/5000 [45:59:51<619:10:04, 478.94s/it]  7%|▋         | 347/5000 [46:07:50<619:00:58, 478.93s/it]  7%|▋         | 348/5000 [46:15:48<618:43:44, 478.81s/it]  7%|▋         | 349/5000 [46:23:47<618:33:41, 478.78s/it]  7%|▋         | 350/5000 [46:31:46<618:23:06, 478.75s/it]  7%|▋         | 351/5000 [46:39:44<618:16:03, 478.76s/it]  7%|▋         | 352/5000 [46:47:44<618:22:20, 478.95s/it]  7%|▋         | 353/5000 [46:55:43<618:10:44, 478.90s/it]  7%|▋         | 354/5000 [47:03:42<618:08:09, 478.97s/it]  7%|▋         | 355/5000 [47:11:41<618:04:11, 479.02s/it]  7%|▋         | 356/5000 [47:19:40<617:47:29, 478.91s/it]  7%|▋         | 357/5000 [47:27:38<617:19:27, 478.65s/it]  7%|▋         | 358/5000 [47:35:37<617:19:40, 478.76s/it]  7%|▋         | 359/5000 [47:43:35<616:55:45, 478.55s/it]  7%|▋         | 360/5000 [47:51:33<616:38:54, 478.43s/it]  7%|▋         | 361/5000 [47:59:31<616:30:43, 478.43s/it]  7%|▋         | 362/5000 [48:07:30<616:32:13, 478.55s/it]  7%|▋         | 363/5000 [48:15:29<616:37:53, 478.73s/it]  7%|▋         | 364/5000 [48:23:28<616:24:10, 478.66s/it]  7%|▋         | 365/5000 [48:31:27<616:27:18, 478.80s/it]  7%|▋         | 366/5000 [48:39:26<616:26:57, 478.90s/it]  7%|▋         | 367/5000 [48:47:25<616:15:46, 478.86s/it]  7%|▋         | 368/5000 [48:55:23<615:45:11, 478.56s/it]  7%|▋         | 369/5000 [49:03:21<615:26:39, 478.43s/it]  7%|▋         | 370/5000 [49:11:19<615:12:00, 478.34s/it]  7%|▋         | 371/5000 [49:19:17<615:04:34, 478.35s/it]  7%|▋         | 372/5000 [49:27:17<615:28:44, 478.77s/it]  7%|▋         | 373/5000 [49:35:16<615:18:03, 478.73s/it]  7%|▋         | 374/5000 [49:43:14<615:13:43, 478.78s/it]  8%|▊         | 375/5000 [49:51:14<615:15:23, 478.90s/it]  8%|▊         | 376/5000 [49:59:12<615:03:42, 478.85s/it]  8%|▊         | 377/5000 [50:07:11<614:57:59, 478.88s/it]  8%|▊         | 378/5000 [50:15:10<614:49:58, 478.88s/it]  8%|▊         | 379/5000 [50:23:10<614:53:49, 479.04s/it]  8%|▊         | 380/5000 [50:31:09<614:55:11, 479.16s/it]  8%|▊         | 381/5000 [50:39:08<614:49:27, 479.19s/it]  8%|▊         | 382/5000 [50:47:07<614:31:03, 479.05s/it]  8%|▊         | 383/5000 [50:55:03<613:18:25, 478.21s/it]  8%|▊         | 384/5000 [51:03:02<613:26:18, 478.42s/it]  8%|▊         | 385/5000 [51:11:01<613:18:43, 478.42s/it]  8%|▊         | 386/5000 [51:19:00<613:24:08, 478.60s/it]  8%|▊         | 387/5000 [51:27:00<613:47:41, 479.01s/it]  8%|▊         | 388/5000 [51:34:58<613:26:41, 478.84s/it]  8%|▊         | 389/5000 [51:42:57<613:31:54, 479.01s/it]  8%|▊         | 390/5000 [51:50:56<613:16:30, 478.91s/it]  8%|▊         | 391/5000 [51:58:56<613:31:22, 479.21s/it]  8%|▊         | 392/5000 [52:06:55<613:14:20, 479.09s/it]  8%|▊         | 393/5000 [52:14:53<612:50:49, 478.89s/it]  8%|▊         | 394/5000 [52:22:52<612:47:26, 478.95s/it]  8%|▊         | 395/5000 [52:30:50<612:12:24, 478.60s/it]  8%|▊         | 396/5000 [52:38:49<612:15:19, 478.74s/it]  8%|▊         | 397/5000 [52:46:47<611:38:41, 478.37s/it]Train loss: 0.103016, Val loss: 0.1061
-[INFO] EPOCH: 267/5000
-Train loss: 0.102005, Val loss: 0.1056
-[INFO] EPOCH: 268/5000
-Train loss: 0.101451, Val loss: 0.1072
-[INFO] EPOCH: 269/5000
-Train loss: 0.100828, Val loss: 0.1074
-[INFO] EPOCH: 270/5000
-Train loss: 0.100118, Val loss: 0.1543
-[INFO] EPOCH: 271/5000
-Train loss: 0.102423, Val loss: 0.1042
-[INFO] EPOCH: 272/5000
-Train loss: 0.098271, Val loss: 0.1036
-[INFO] EPOCH: 273/5000
-Train loss: 0.098086, Val loss: 0.1030
-[INFO] EPOCH: 274/5000
-Train loss: 0.097541, Val loss: 0.1025
-[INFO] EPOCH: 275/5000
-Train loss: 0.097339, Val loss: 0.1020
-[INFO] EPOCH: 276/5000
-Train loss: 0.098986, Val loss: 0.1004
-[INFO] EPOCH: 277/5000
-Train loss: 0.095968, Val loss: 0.1015
-[INFO] EPOCH: 278/5000
-Train loss: 0.095627, Val loss: 0.1009
-[INFO] EPOCH: 279/5000
-Train loss: 0.095308, Val loss: 0.0999
-[INFO] EPOCH: 280/5000
-Train loss: 0.095115, Val loss: 0.1002
-[INFO] EPOCH: 281/5000
-Train loss: 0.094061, Val loss: 0.0999
-[INFO] EPOCH: 282/5000
-Train loss: 0.094476, Val loss: 0.0957
-[INFO] EPOCH: 283/5000
-Train loss: 0.093230, Val loss: 0.0975
-[INFO] EPOCH: 284/5000
-Train loss: 0.093472, Val loss: 0.0952
-[INFO] EPOCH: 285/5000
-Train loss: 0.092554, Val loss: 0.0992
-[INFO] EPOCH: 286/5000
-Train loss: 0.092480, Val loss: 0.0965
-[INFO] EPOCH: 287/5000
-Train loss: 0.093225, Val loss: 0.0951
-[INFO] EPOCH: 288/5000
-Train loss: 0.091244, Val loss: 0.0971
-[INFO] EPOCH: 289/5000
-Train loss: 0.091519, Val loss: 0.0960
-[INFO] EPOCH: 290/5000
-Train loss: 0.091156, Val loss: 0.0948
-[INFO] EPOCH: 291/5000
-Train loss: 0.090486, Val loss: 0.0949
-[INFO] EPOCH: 292/5000
-Train loss: 0.140436, Val loss: 0.1648
-[INFO] EPOCH: 293/5000
-Train loss: 0.137986, Val loss: 0.1268
-[INFO] EPOCH: 294/5000
-Train loss: 0.116708, Val loss: 0.1161
-[INFO] EPOCH: 295/5000
-Train loss: 0.108585, Val loss: 0.1103
-[INFO] EPOCH: 296/5000
-Train loss: 0.104082, Val loss: 0.1124
-[INFO] EPOCH: 297/5000
-Train loss: 0.100981, Val loss: 0.1064
-[INFO] EPOCH: 298/5000
-Train loss: 0.098899, Val loss: 0.1002
-[INFO] EPOCH: 299/5000
-Train loss: 0.096980, Val loss: 0.0976
-[INFO] EPOCH: 300/5000
-Train loss: 0.095694, Val loss: 0.0987
-[INFO] EPOCH: 301/5000
-Train loss: 0.095235, Val loss: 0.1000
-[INFO] EPOCH: 302/5000
-Train loss: 0.093613, Val loss: 0.0995
-[INFO] EPOCH: 303/5000
-Train loss: 0.093663, Val loss: 0.0946
-[INFO] EPOCH: 304/5000
-Train loss: 0.092079, Val loss: 0.0945
-[INFO] EPOCH: 305/5000
-Train loss: 0.091990, Val loss: 0.0960
-[INFO] EPOCH: 306/5000
-Train loss: 0.091469, Val loss: 0.0938
-[INFO] EPOCH: 307/5000
-Train loss: 0.093885, Val loss: 0.0944
-[INFO] EPOCH: 308/5000
-Train loss: 0.090054, Val loss: 0.0963
-[INFO] EPOCH: 309/5000
-Train loss: 0.091415, Val loss: 0.0950
-[INFO] EPOCH: 310/5000
-Train loss: 0.089551, Val loss: 0.0924
-[INFO] EPOCH: 311/5000
-Train loss: 0.089009, Val loss: 0.0933
-[INFO] EPOCH: 312/5000
-Train loss: 0.088823, Val loss: 0.0928
-[INFO] EPOCH: 313/5000
-Train loss: 0.089957, Val loss: 0.0913
-[INFO] EPOCH: 314/5000
-Train loss: 0.087910, Val loss: 0.0911
-[INFO] EPOCH: 315/5000
-Train loss: 0.088286, Val loss: 0.0911
-[INFO] EPOCH: 316/5000
-Train loss: 0.088129, Val loss: 0.0926
-[INFO] EPOCH: 317/5000
-Train loss: 0.087557, Val loss: 0.0901
-[INFO] EPOCH: 318/5000
-Train loss: 0.087374, Val loss: 0.0929
-[INFO] EPOCH: 319/5000
-Train loss: 0.086984, Val loss: 0.0975
-[INFO] EPOCH: 320/5000
-Train loss: 0.091092, Val loss: 0.0978
-[INFO] EPOCH: 321/5000
-Train loss: 0.086982, Val loss: 0.0897
-[INFO] EPOCH: 322/5000
-Train loss: 0.085706, Val loss: 0.0889
-[INFO] EPOCH: 323/5000
-Train loss: 0.085282, Val loss: 0.0892
-[INFO] EPOCH: 324/5000
-Train loss: 0.085366, Val loss: 0.0902
-[INFO] EPOCH: 325/5000
-Train loss: 0.087735, Val loss: 0.0976
-[INFO] EPOCH: 326/5000
-Train loss: 0.085671, Val loss: 0.0881
-[INFO] EPOCH: 327/5000
-Train loss: 0.084580, Val loss: 0.0885
-[INFO] EPOCH: 328/5000
-Train loss: 0.084552, Val loss: 0.0892
-[INFO] EPOCH: 329/5000
-Train loss: 0.084523, Val loss: 0.0964
-[INFO] EPOCH: 330/5000
-Train loss: 0.084779, Val loss: 0.0908
-[INFO] EPOCH: 331/5000
-Train loss: 0.084105, Val loss: 0.0896
-[INFO] EPOCH: 332/5000
-Train loss: 0.085079, Val loss: 0.0891
-[INFO] EPOCH: 333/5000
-Train loss: 0.083794, Val loss: 0.0876
-[INFO] EPOCH: 334/5000
-Train loss: 0.083673, Val loss: 0.0889
-[INFO] EPOCH: 335/5000
-Train loss: 0.083807, Val loss: 0.0903
-[INFO] EPOCH: 336/5000
-Train loss: 0.083771, Val loss: 0.0915
-[INFO] EPOCH: 337/5000
-Train loss: 0.082999, Val loss: 0.0883
-[INFO] EPOCH: 338/5000
-Train loss: 0.082889, Val loss: 0.0869
-[INFO] EPOCH: 339/5000
-Train loss: 0.105123, Val loss: 0.0913
-[INFO] EPOCH: 340/5000
-Train loss: 0.085033, Val loss: 0.0879
-[INFO] EPOCH: 341/5000
-Train loss: 0.083340, Val loss: 0.0870
-[INFO] EPOCH: 342/5000
-Train loss: 0.082616, Val loss: 0.0876
-[INFO] EPOCH: 343/5000
-Train loss: 0.082485, Val loss: 0.0881
-[INFO] EPOCH: 344/5000
-Train loss: 0.082947, Val loss: 0.0903
-[INFO] EPOCH: 345/5000
-Train loss: 0.084979, Val loss: 0.0862
-[INFO] EPOCH: 346/5000
-Train loss: 0.082145, Val loss: 0.0869
-[INFO] EPOCH: 347/5000
-Train loss: 0.081813, Val loss: 0.0866
-[INFO] EPOCH: 348/5000
-Train loss: 0.081671, Val loss: 0.0866
-[INFO] EPOCH: 349/5000
-Train loss: 0.095449, Val loss: 0.1628
-[INFO] EPOCH: 350/5000
-Train loss: 0.098277, Val loss: 0.0922
-[INFO] EPOCH: 351/5000
-Train loss: 0.085105, Val loss: 0.0881
-[INFO] EPOCH: 352/5000
-Train loss: 0.083224, Val loss: 0.0891
-[INFO] EPOCH: 353/5000
-Train loss: 0.082487, Val loss: 0.0883
-[INFO] EPOCH: 354/5000
-Train loss: 0.082503, Val loss: 0.0877
-[INFO] EPOCH: 355/5000
-Train loss: 0.081888, Val loss: 0.0872
-[INFO] EPOCH: 356/5000
-Train loss: 0.081824, Val loss: 0.0870
-[INFO] EPOCH: 357/5000
-Train loss: 0.081419, Val loss: 0.0863
-[INFO] EPOCH: 358/5000
-Train loss: 0.081012, Val loss: 0.0839
-[INFO] EPOCH: 359/5000
-Train loss: 0.081306, Val loss: 0.0863
-[INFO] EPOCH: 360/5000
-Train loss: 0.081415, Val loss: 0.0850
-[INFO] EPOCH: 361/5000
-Train loss: 0.080755, Val loss: 0.0852
-[INFO] EPOCH: 362/5000
-Train loss: 0.080919, Val loss: 0.0896
-[INFO] EPOCH: 363/5000
-Train loss: 0.080854, Val loss: 0.0893
-[INFO] EPOCH: 364/5000
-Train loss: 0.080398, Val loss: 0.0868
-[INFO] EPOCH: 365/5000
-Train loss: 0.080076, Val loss: 0.0856
-[INFO] EPOCH: 366/5000
-Train loss: 0.080415, Val loss: 0.0848
-[INFO] EPOCH: 367/5000
-Train loss: 0.079905, Val loss: 0.0860
-[INFO] EPOCH: 368/5000
-Train loss: 0.080108, Val loss: 0.0865
-[INFO] EPOCH: 369/5000
-Train loss: 0.087485, Val loss: 0.0873
-[INFO] EPOCH: 370/5000
-Train loss: 0.079907, Val loss: 0.0841
-[INFO] EPOCH: 371/5000
-Train loss: 0.079305, Val loss: 0.0841
-[INFO] EPOCH: 372/5000
-Train loss: 0.079179, Val loss: 0.0853
-[INFO] EPOCH: 373/5000
-Train loss: 0.079271, Val loss: 0.0886
-[INFO] EPOCH: 374/5000
-Train loss: 0.086498, Val loss: 0.0853
-[INFO] EPOCH: 375/5000
-Train loss: 0.078917, Val loss: 0.0840
-[INFO] EPOCH: 376/5000
-Train loss: 0.078646, Val loss: 0.0842
-[INFO] EPOCH: 377/5000
-Train loss: 0.078565, Val loss: 0.0833
-[INFO] EPOCH: 378/5000
-Train loss: 0.078799, Val loss: 0.0844
-[INFO] EPOCH: 379/5000
-Train loss: 0.078479, Val loss: 0.0831
-[INFO] EPOCH: 380/5000
-Train loss: 0.078743, Val loss: 0.0837
-[INFO] EPOCH: 381/5000
-Train loss: 0.079100, Val loss: 0.0841
-[INFO] EPOCH: 382/5000
-Train loss: 0.078657, Val loss: 0.0850
-[INFO] EPOCH: 383/5000
-Train loss: 0.191759, Val loss: 0.1590
-[INFO] EPOCH: 384/5000
-Train loss: 0.133530, Val loss: 0.1279
-[INFO] EPOCH: 385/5000
-Train loss: 0.115196, Val loss: 0.1164
-[INFO] EPOCH: 386/5000
-Train loss: 0.105667, Val loss: 0.1067
-[INFO] EPOCH: 387/5000
-Train loss: 0.097667, Val loss: 0.1021
-[INFO] EPOCH: 388/5000
-Train loss: 0.092141, Val loss: 0.0931
-[INFO] EPOCH: 389/5000
-Train loss: 0.088843, Val loss: 0.0909
-[INFO] EPOCH: 390/5000
-Train loss: 0.086284, Val loss: 0.0898
-[INFO] EPOCH: 391/5000
-Train loss: 0.084641, Val loss: 0.0881
-[INFO] EPOCH: 392/5000
-Train loss: 0.083114, Val loss: 0.0869
-[INFO] EPOCH: 393/5000
-Train loss: 0.082047, Val loss: 0.0886
-[INFO] EPOCH: 394/5000
-Train loss: 0.081487, Val loss: 0.0913
-[INFO] EPOCH: 395/5000
-Train loss: 0.081027, Val loss: 0.0871
-[INFO] EPOCH: 396/5000
-Train loss: 0.080487, Val loss: 0.0858
-[INFO] EPOCH: 397/5000
-Train loss: 0.080160, Val loss: 0.0889
-[INFO] EPOCH: 398/5000
-  8%|▊         | 398/5000 [52:54:46<611:45:24, 478.56s/it]  8%|▊         | 399/5000 [53:02:44<611:35:59, 478.54s/it]  8%|▊         | 400/5000 [53:10:43<611:33:03, 478.61s/it]  8%|▊         | 401/5000 [53:18:42<611:31:26, 478.69s/it]  8%|▊         | 402/5000 [53:26:39<610:44:02, 478.17s/it]  8%|▊         | 403/5000 [53:34:38<611:01:00, 478.50s/it]  8%|▊         | 404/5000 [53:42:37<611:05:51, 478.67s/it]  8%|▊         | 405/5000 [53:50:36<611:02:23, 478.73s/it]  8%|▊         | 406/5000 [53:58:35<610:52:23, 478.70s/it]  8%|▊         | 407/5000 [54:06:34<611:02:43, 478.94s/it]  8%|▊         | 408/5000 [54:14:34<611:08:08, 479.11s/it]  8%|▊         | 409/5000 [54:22:36<612:17:48, 480.13s/it]  8%|▊         | 410/5000 [54:30:35<611:43:27, 479.78s/it]  8%|▊         | 411/5000 [54:38:35<611:27:33, 479.68s/it]  8%|▊         | 412/5000 [54:46:33<611:00:22, 479.43s/it]  8%|▊         | 413/5000 [54:54:33<610:56:33, 479.48s/it]  8%|▊         | 414/5000 [55:02:33<610:51:16, 479.52s/it]  8%|▊         | 415/5000 [55:10:32<610:50:27, 479.61s/it]  8%|▊         | 416/5000 [55:18:32<610:35:43, 479.53s/it]  8%|▊         | 417/5000 [55:26:32<610:44:56, 479.75s/it]  8%|▊         | 418/5000 [55:34:31<610:10:36, 479.41s/it]  8%|▊         | 419/5000 [55:42:30<609:52:29, 479.27s/it]  8%|▊         | 420/5000 [55:50:29<609:35:07, 479.15s/it]  8%|▊         | 421/5000 [55:58:25<608:33:11, 478.44s/it]  8%|▊         | 422/5000 [56:06:24<608:25:38, 478.45s/it]  8%|▊         | 423/5000 [56:14:23<608:32:02, 478.64s/it]  8%|▊         | 424/5000 [56:22:21<608:11:33, 478.47s/it]  8%|▊         | 425/5000 [56:30:20<608:28:08, 478.80s/it]  9%|▊         | 426/5000 [56:38:19<608:10:59, 478.68s/it]  9%|▊         | 427/5000 [56:46:18<608:20:44, 478.91s/it]  9%|▊         | 428/5000 [56:54:18<608:19:52, 479.00s/it]  9%|▊         | 429/5000 [57:02:16<608:06:16, 478.93s/it]  9%|▊         | 430/5000 [57:10:14<607:40:23, 478.69s/it]  9%|▊         | 431/5000 [57:18:13<607:30:07, 478.66s/it]  9%|▊         | 432/5000 [57:26:12<607:30:44, 478.78s/it]  9%|▊         | 433/5000 [57:34:11<607:31:23, 478.89s/it]  9%|▊         | 434/5000 [57:42:10<607:27:00, 478.94s/it]  9%|▊         | 435/5000 [57:50:10<607:34:04, 479.13s/it]  9%|▊         | 436/5000 [57:58:09<607:29:55, 479.18s/it]  9%|▊         | 437/5000 [58:06:09<607:26:07, 479.24s/it]  9%|▉         | 438/5000 [58:14:08<607:14:03, 479.19s/it]  9%|▉         | 439/5000 [58:22:07<607:06:17, 479.19s/it]  9%|▉         | 440/5000 [58:30:07<607:17:22, 479.44s/it]  9%|▉         | 441/5000 [58:38:06<606:59:05, 479.30s/it]  9%|▉         | 442/5000 [58:46:04<606:35:37, 479.10s/it]  9%|▉         | 443/5000 [58:54:03<606:15:20, 478.94s/it]  9%|▉         | 444/5000 [59:02:02<606:10:53, 478.98s/it]  9%|▉         | 445/5000 [59:10:01<605:51:48, 478.84s/it]  9%|▉         | 446/5000 [59:18:00<605:51:13, 478.94s/it]  9%|▉         | 447/5000 [59:25:59<605:54:43, 479.09s/it]  9%|▉         | 448/5000 [59:33:59<606:03:49, 479.31s/it]  9%|▉         | 449/5000 [59:41:58<605:47:55, 479.21s/it]  9%|▉         | 450/5000 [59:49:58<605:56:15, 479.42s/it]  9%|▉         | 451/5000 [59:57:57<605:32:47, 479.22s/it]  9%|▉         | 452/5000 [60:05:56<605:30:27, 479.29s/it]  9%|▉         | 453/5000 [60:13:55<605:15:10, 479.20s/it]  9%|▉         | 454/5000 [60:21:55<605:18:18, 479.34s/it]  9%|▉         | 455/5000 [60:29:54<605:04:39, 479.27s/it]  9%|▉         | 456/5000 [60:37:53<604:49:51, 479.18s/it]  9%|▉         | 457/5000 [60:45:52<604:35:17, 479.09s/it]  9%|▉         | 458/5000 [60:53:50<604:08:07, 478.84s/it]  9%|▉         | 459/5000 [61:01:49<604:00:24, 478.84s/it]  9%|▉         | 460/5000 [61:09:47<603:36:18, 478.63s/it]  9%|▉         | 461/5000 [61:17:46<603:39:41, 478.78s/it]  9%|▉         | 462/5000 [61:25:47<604:14:05, 479.34s/it]  9%|▉         | 463/5000 [61:33:45<603:47:31, 479.09s/it]  9%|▉         | 464/5000 [61:41:44<603:40:35, 479.11s/it]  9%|▉         | 465/5000 [61:49:44<603:41:29, 479.23s/it]  9%|▉         | 466/5000 [61:57:42<603:18:54, 479.03s/it]  9%|▉         | 467/5000 [62:05:45<604:27:40, 480.05s/it]  9%|▉         | 468/5000 [62:13:44<604:04:41, 479.85s/it]  9%|▉         | 469/5000 [62:21:42<603:18:04, 479.34s/it]  9%|▉         | 470/5000 [62:29:41<602:55:42, 479.15s/it]  9%|▉         | 471/5000 [62:37:44<604:21:22, 480.39s/it]  9%|▉         | 472/5000 [62:45:43<603:43:00, 479.99s/it]  9%|▉         | 473/5000 [62:53:42<603:03:03, 479.56s/it]  9%|▉         | 474/5000 [63:01:41<602:45:02, 479.43s/it] 10%|▉         | 475/5000 [63:09:41<602:36:35, 479.42s/it] 10%|▉         | 476/5000 [63:17:40<602:37:25, 479.54s/it] 10%|▉         | 477/5000 [63:25:40<602:29:10, 479.54s/it] 10%|▉         | 478/5000 [63:33:39<602:12:03, 479.42s/it] 10%|▉         | 479/5000 [63:41:38<601:43:48, 479.15s/it] 10%|▉         | 480/5000 [63:49:37<601:46:07, 479.28s/it] 10%|▉         | 481/5000 [63:57:36<601:22:59, 479.08s/it] 10%|▉         | 482/5000 [64:05:34<600:57:28, 478.85s/it] 10%|▉         | 483/5000 [64:13:33<600:52:35, 478.89s/it] 10%|▉         | 484/5000 [64:21:32<600:42:39, 478.87s/it] 10%|▉         | 485/5000 [64:29:30<600:26:46, 478.76s/it] 10%|▉         | 486/5000 [64:37:30<600:39:27, 479.04s/it] 10%|▉         | 487/5000 [64:45:29<600:26:55, 478.98s/it] 10%|▉         | 488/5000 [64:53:27<600:05:51, 478.80s/it] 10%|▉         | 489/5000 [65:01:24<599:02:53, 478.07s/it] 10%|▉         | 490/5000 [65:09:23<599:21:02, 478.42s/it] 10%|▉         | 491/5000 [65:17:21<599:12:25, 478.41s/it] 10%|▉         | 492/5000 [65:25:20<599:09:18, 478.47s/it] 10%|▉         | 493/5000 [65:33:18<599:03:00, 478.50s/it] 10%|▉         | 494/5000 [65:41:17<598:46:13, 478.38s/it] 10%|▉         | 495/5000 [65:49:15<598:49:48, 478.53s/it] 10%|▉         | 496/5000 [65:57:15<598:57:19, 478.74s/it] 10%|▉         | 497/5000 [66:05:15<599:13:28, 479.06s/it] 10%|▉         | 498/5000 [66:13:14<599:12:35, 479.15s/it] 10%|▉         | 499/5000 [66:21:11<598:20:29, 478.57s/it] 10%|█         | 500/5000 [66:29:11<598:37:00, 478.89s/it] 10%|█         | 501/5000 [66:37:10<598:26:17, 478.86s/it] 10%|█         | 502/5000 [66:45:09<598:21:26, 478.90s/it] 10%|█         | 503/5000 [66:53:08<598:24:08, 479.04s/it] 10%|█         | 504/5000 [67:01:07<598:18:52, 479.08s/it] 10%|█         | 505/5000 [67:09:06<598:00:59, 478.95s/it] 10%|█         | 506/5000 [67:17:04<597:45:51, 478.85s/it] 10%|█         | 507/5000 [67:25:04<597:50:40, 479.02s/it] 10%|█         | 508/5000 [67:33:03<597:43:49, 479.04s/it] 10%|█         | 509/5000 [67:41:01<597:18:04, 478.80s/it] 10%|█         | 510/5000 [67:49:01<597:25:29, 479.00s/it] 10%|█         | 511/5000 [67:57:00<597:18:04, 479.01s/it] 10%|█         | 512/5000 [68:04:59<597:25:26, 479.22s/it] 10%|█         | 513/5000 [68:12:59<597:30:09, 479.39s/it] 10%|█         | 514/5000 [68:20:58<597:18:28, 479.34s/it] 10%|█         | 515/5000 [68:28:57<597:07:38, 479.30s/it] 10%|█         | 516/5000 [68:36:57<596:54:59, 479.24s/it] 10%|█         | 517/5000 [68:44:56<596:45:38, 479.22s/it] 10%|█         | 518/5000 [68:52:55<596:33:09, 479.16s/it] 10%|█         | 519/5000 [69:00:53<596:10:06, 478.96s/it] 10%|█         | 520/5000 [69:08:53<596:14:19, 479.12s/it] 10%|█         | 521/5000 [69:16:51<595:48:35, 478.88s/it] 10%|█         | 522/5000 [69:24:51<595:53:19, 479.05s/it] 10%|█         | 523/5000 [69:32:49<595:38:01, 478.95s/it] 10%|█         | 524/5000 [69:40:48<595:30:04, 478.96s/it] 10%|█         | 525/5000 [69:48:47<595:13:02, 478.83s/it] 11%|█         | 526/5000 [69:56:46<595:13:24, 478.95s/it] 11%|█         | 527/5000 [70:04:44<594:54:52, 478.80s/it] 11%|█         | 528/5000 [70:12:43<594:37:25, 478.68s/it] 11%|█         | 529/5000 [70:20:42<594:37:37, 478.79s/it] 11%|█         | 530/5000 [70:28:39<593:59:23, 478.38s/it]Train loss: 0.080048, Val loss: 0.0852
-[INFO] EPOCH: 399/5000
-Train loss: 0.079440, Val loss: 0.0823
-[INFO] EPOCH: 400/5000
-Train loss: 0.149599, Val loss: 0.1299
-[INFO] EPOCH: 401/5000
-Train loss: 0.106551, Val loss: 0.1013
-[INFO] EPOCH: 402/5000
-Train loss: 0.090337, Val loss: 0.0917
-[INFO] EPOCH: 403/5000
-Train loss: 0.085486, Val loss: 0.0883
-[INFO] EPOCH: 404/5000
-Train loss: 0.082823, Val loss: 0.0859
-[INFO] EPOCH: 405/5000
-Train loss: 0.081547, Val loss: 0.0866
-[INFO] EPOCH: 406/5000
-Train loss: 0.080827, Val loss: 0.0851
-[INFO] EPOCH: 407/5000
-Train loss: 0.080132, Val loss: 0.0842
-[INFO] EPOCH: 408/5000
-Train loss: 0.079443, Val loss: 0.0836
-[INFO] EPOCH: 409/5000
-Train loss: 0.079494, Val loss: 0.0832
-[INFO] EPOCH: 410/5000
-Train loss: 0.078851, Val loss: 0.0844
-[INFO] EPOCH: 411/5000
-Train loss: 0.078707, Val loss: 0.0849
-[INFO] EPOCH: 412/5000
-Train loss: 0.079026, Val loss: 0.0854
-[INFO] EPOCH: 413/5000
-Train loss: 0.078394, Val loss: 0.0823
-[INFO] EPOCH: 414/5000
-Train loss: 0.079369, Val loss: 0.0949
-[INFO] EPOCH: 415/5000
-Train loss: 0.080227, Val loss: 0.0844
-[INFO] EPOCH: 416/5000
-Train loss: 0.077772, Val loss: 0.0847
-[INFO] EPOCH: 417/5000
-Train loss: 0.077524, Val loss: 0.0836
-[INFO] EPOCH: 418/5000
-Train loss: 0.077538, Val loss: 0.0829
-[INFO] EPOCH: 419/5000
-Train loss: 0.129183, Val loss: 0.3040
-[INFO] EPOCH: 420/5000
-Train loss: 0.185266, Val loss: 0.1505
-[INFO] EPOCH: 421/5000
-Train loss: 0.127348, Val loss: 0.1206
-[INFO] EPOCH: 422/5000
-Train loss: 0.109505, Val loss: 0.1051
-[INFO] EPOCH: 423/5000
-Train loss: 0.098322, Val loss: 0.0969
-[INFO] EPOCH: 424/5000
-Train loss: 0.091780, Val loss: 0.0944
-[INFO] EPOCH: 425/5000
-Train loss: 0.088081, Val loss: 0.0905
-[INFO] EPOCH: 426/5000
-Train loss: 0.085392, Val loss: 0.0892
-[INFO] EPOCH: 427/5000
-Train loss: 0.083300, Val loss: 0.0860
-[INFO] EPOCH: 428/5000
-Train loss: 0.081818, Val loss: 0.0860
-[INFO] EPOCH: 429/5000
-Train loss: 0.080766, Val loss: 0.0847
-[INFO] EPOCH: 430/5000
-Train loss: 0.080166, Val loss: 0.0846
-[INFO] EPOCH: 431/5000
-Train loss: 0.079383, Val loss: 0.0824
-[INFO] EPOCH: 432/5000
-Train loss: 0.078585, Val loss: 0.0832
-[INFO] EPOCH: 433/5000
-Train loss: 0.078443, Val loss: 0.0835
-[INFO] EPOCH: 434/5000
-Train loss: 0.078138, Val loss: 0.0826
-[INFO] EPOCH: 435/5000
-Train loss: 0.077796, Val loss: 0.0836
-[INFO] EPOCH: 436/5000
-Train loss: 0.077626, Val loss: 0.0830
-[INFO] EPOCH: 437/5000
-Train loss: 0.077277, Val loss: 0.0824
-[INFO] EPOCH: 438/5000
-Train loss: 0.077464, Val loss: 0.0835
-[INFO] EPOCH: 439/5000
-Train loss: 0.077329, Val loss: 0.0825
-[INFO] EPOCH: 440/5000
-Train loss: 0.077277, Val loss: 0.0819
-[INFO] EPOCH: 441/5000
-Train loss: 0.076850, Val loss: 0.0814
-[INFO] EPOCH: 442/5000
-Train loss: 0.077453, Val loss: 0.0807
-[INFO] EPOCH: 443/5000
-Train loss: 0.076705, Val loss: 0.0827
-[INFO] EPOCH: 444/5000
-Train loss: 0.106419, Val loss: 0.1644
-[INFO] EPOCH: 445/5000
-Train loss: 0.114132, Val loss: 0.0996
-[INFO] EPOCH: 446/5000
-Train loss: 0.089148, Val loss: 0.0899
-[INFO] EPOCH: 447/5000
-Train loss: 0.083363, Val loss: 0.0876
-[INFO] EPOCH: 448/5000
-Train loss: 0.080781, Val loss: 0.0851
-[INFO] EPOCH: 449/5000
-Train loss: 0.079259, Val loss: 0.0832
-[INFO] EPOCH: 450/5000
-Train loss: 0.078301, Val loss: 0.0831
-[INFO] EPOCH: 451/5000
-Train loss: 0.077591, Val loss: 0.0812
-[INFO] EPOCH: 452/5000
-Train loss: 0.077167, Val loss: 0.0829
-[INFO] EPOCH: 453/5000
-Train loss: 0.077061, Val loss: 0.0807
-[INFO] EPOCH: 454/5000
-Train loss: 0.076551, Val loss: 0.0816
-[INFO] EPOCH: 455/5000
-Train loss: 0.077039, Val loss: 0.0834
-[INFO] EPOCH: 456/5000
-Train loss: 0.076402, Val loss: 0.0810
-[INFO] EPOCH: 457/5000
-Train loss: 0.076223, Val loss: 0.0834
-[INFO] EPOCH: 458/5000
-Train loss: 0.077553, Val loss: 0.0821
-[INFO] EPOCH: 459/5000
-Train loss: 0.076229, Val loss: 0.0818
-[INFO] EPOCH: 460/5000
-Train loss: 0.075929, Val loss: 0.0807
-[INFO] EPOCH: 461/5000
-Train loss: 0.075590, Val loss: 0.0798
-[INFO] EPOCH: 462/5000
-Train loss: 0.075652, Val loss: 0.0809
-[INFO] EPOCH: 463/5000
-Train loss: 0.107285, Val loss: 0.0931
-[INFO] EPOCH: 464/5000
-Train loss: 0.082793, Val loss: 0.0844
-[INFO] EPOCH: 465/5000
-Train loss: 0.078574, Val loss: 0.0828
-[INFO] EPOCH: 466/5000
-Train loss: 0.077268, Val loss: 0.0827
-[INFO] EPOCH: 467/5000
-Train loss: 0.076744, Val loss: 0.0822
-[INFO] EPOCH: 468/5000
-Train loss: 0.076214, Val loss: 0.0814
-[INFO] EPOCH: 469/5000
-Train loss: 0.076003, Val loss: 0.0812
-[INFO] EPOCH: 470/5000
-Train loss: 0.075791, Val loss: 0.0811
-[INFO] EPOCH: 471/5000
-Train loss: 0.075878, Val loss: 0.0802
-[INFO] EPOCH: 472/5000
-Train loss: 0.075955, Val loss: 0.0811
-[INFO] EPOCH: 473/5000
-Train loss: 0.075627, Val loss: 0.0812
-[INFO] EPOCH: 474/5000
-Train loss: 0.075552, Val loss: 0.0816
-[INFO] EPOCH: 475/5000
-Train loss: 0.075421, Val loss: 0.0816
-[INFO] EPOCH: 476/5000
-Train loss: 0.076503, Val loss: 0.0816
-[INFO] EPOCH: 477/5000
-Train loss: 0.120961, Val loss: 0.1064
-[INFO] EPOCH: 478/5000
-Train loss: 0.092427, Val loss: 0.0926
-[INFO] EPOCH: 479/5000
-Train loss: 0.082152, Val loss: 0.0856
-[INFO] EPOCH: 480/5000
-Train loss: 0.078695, Val loss: 0.0832
-[INFO] EPOCH: 481/5000
-Train loss: 0.077149, Val loss: 0.0828
-[INFO] EPOCH: 482/5000
-Train loss: 0.076327, Val loss: 0.0825
-[INFO] EPOCH: 483/5000
-Train loss: 0.076012, Val loss: 0.0818
-[INFO] EPOCH: 484/5000
-Train loss: 0.075795, Val loss: 0.0812
-[INFO] EPOCH: 485/5000
-Train loss: 0.075368, Val loss: 0.0806
-[INFO] EPOCH: 486/5000
-Train loss: 0.075360, Val loss: 0.0799
-[INFO] EPOCH: 487/5000
-Train loss: 0.075101, Val loss: 0.0796
-[INFO] EPOCH: 488/5000
-Train loss: 0.074987, Val loss: 0.0777
-[INFO] EPOCH: 489/5000
-Train loss: 0.075878, Val loss: 0.0814
-[INFO] EPOCH: 490/5000
-Train loss: 0.074711, Val loss: 0.0816
-[INFO] EPOCH: 491/5000
-Train loss: 0.074703, Val loss: 0.0800
-[INFO] EPOCH: 492/5000
-Train loss: 0.087661, Val loss: 0.4737
-[INFO] EPOCH: 493/5000
-Train loss: 0.176042, Val loss: 0.1294
-[INFO] EPOCH: 494/5000
-Train loss: 0.102902, Val loss: 0.1010
-[INFO] EPOCH: 495/5000
-Train loss: 0.092215, Val loss: 0.1012
-[INFO] EPOCH: 496/5000
-Train loss: 0.086558, Val loss: 0.0908
-[INFO] EPOCH: 497/5000
-Train loss: 0.083278, Val loss: 0.0865
-[INFO] EPOCH: 498/5000
-Train loss: 0.080875, Val loss: 0.0847
-[INFO] EPOCH: 499/5000
-Train loss: 0.079214, Val loss: 0.0844
-[INFO] EPOCH: 500/5000
-Train loss: 0.077590, Val loss: 0.0826
-[INFO] EPOCH: 501/5000
-Train loss: 0.076718, Val loss: 0.0824
-[INFO] EPOCH: 502/5000
-Train loss: 0.076071, Val loss: 0.0825
-[INFO] EPOCH: 503/5000
-Train loss: 0.075560, Val loss: 0.0805
-[INFO] EPOCH: 504/5000
-Train loss: 0.075243, Val loss: 0.0804
-[INFO] EPOCH: 505/5000
-Train loss: 0.074716, Val loss: 0.0791
-[INFO] EPOCH: 506/5000
-Train loss: 0.074657, Val loss: 0.0812
-[INFO] EPOCH: 507/5000
-Train loss: 0.074593, Val loss: 0.0790
-[INFO] EPOCH: 508/5000
-Train loss: 0.074655, Val loss: 0.0789
-[INFO] EPOCH: 509/5000
-Train loss: 0.074527, Val loss: 0.0809
-[INFO] EPOCH: 510/5000
-Train loss: 0.074084, Val loss: 0.0807
-[INFO] EPOCH: 511/5000
-Train loss: 0.074251, Val loss: 0.0819
-[INFO] EPOCH: 512/5000
-Train loss: 0.074156, Val loss: 0.0828
-[INFO] EPOCH: 513/5000
-Train loss: 0.074484, Val loss: 0.0812
-[INFO] EPOCH: 514/5000
-Train loss: 0.074795, Val loss: 0.0801
-[INFO] EPOCH: 515/5000
-Train loss: 0.073680, Val loss: 0.0797
-[INFO] EPOCH: 516/5000
-Train loss: 0.074581, Val loss: 0.0839
-[INFO] EPOCH: 517/5000
-Train loss: 0.076845, Val loss: 0.2091
-[INFO] EPOCH: 518/5000
-Train loss: 0.093383, Val loss: 0.0808
-[INFO] EPOCH: 519/5000
-Train loss: 0.075967, Val loss: 0.0809
-[INFO] EPOCH: 520/5000
-Train loss: 0.074500, Val loss: 0.0796
-[INFO] EPOCH: 521/5000
-Train loss: 0.073959, Val loss: 0.0795
-[INFO] EPOCH: 522/5000
-Train loss: 0.073785, Val loss: 0.0790
-[INFO] EPOCH: 523/5000
-Train loss: 0.073413, Val loss: 0.0793
-[INFO] EPOCH: 524/5000
-Train loss: 0.073441, Val loss: 0.0779
-[INFO] EPOCH: 525/5000
-Train loss: 0.073743, Val loss: 0.0790
-[INFO] EPOCH: 526/5000
-Train loss: 0.073360, Val loss: 0.0785
-[INFO] EPOCH: 527/5000
-Train loss: 0.073393, Val loss: 0.0790
-[INFO] EPOCH: 528/5000
-Train loss: 0.090271, Val loss: 0.2775
-[INFO] EPOCH: 529/5000
-Train loss: 0.110977, Val loss: 0.0896
-[INFO] EPOCH: 530/5000
- 11%|█         | 531/5000 [70:36:36<593:17:44, 477.93s/it] 11%|█         | 532/5000 [70:44:35<593:24:22, 478.12s/it] 11%|█         | 533/5000 [70:52:33<593:25:44, 478.25s/it] 11%|█         | 534/5000 [71:00:32<593:25:06, 478.35s/it] 11%|█         | 535/5000 [71:08:31<593:32:39, 478.56s/it] 11%|█         | 536/5000 [71:16:30<593:33:49, 478.68s/it] 11%|█         | 537/5000 [71:24:29<593:33:32, 478.78s/it] 11%|█         | 538/5000 [71:32:29<593:54:01, 479.17s/it] 11%|█         | 539/5000 [71:40:28<593:44:46, 479.15s/it] 11%|█         | 540/5000 [71:48:28<593:49:44, 479.32s/it] 11%|█         | 541/5000 [71:56:27<593:29:16, 479.16s/it] 11%|█         | 542/5000 [72:04:26<593:16:36, 479.09s/it] 11%|█         | 543/5000 [72:12:25<593:07:55, 479.08s/it] 11%|█         | 544/5000 [72:20:24<593:03:42, 479.13s/it] 11%|█         | 545/5000 [72:28:23<592:53:59, 479.11s/it] 11%|█         | 546/5000 [72:36:22<592:53:17, 479.21s/it] 11%|█         | 547/5000 [72:44:22<593:02:49, 479.45s/it] 11%|█         | 548/5000 [72:52:21<592:46:31, 479.33s/it] 11%|█         | 549/5000 [73:00:21<592:44:57, 479.42s/it] 11%|█         | 550/5000 [73:08:20<592:35:22, 479.40s/it] 11%|█         | 551/5000 [73:16:20<592:43:36, 479.62s/it] 11%|█         | 552/5000 [73:24:20<592:22:22, 479.44s/it] 11%|█         | 553/5000 [73:32:17<591:39:28, 478.97s/it] 11%|█         | 554/5000 [73:40:16<591:32:54, 478.99s/it] 11%|█         | 555/5000 [73:48:15<591:17:12, 478.88s/it] 11%|█         | 556/5000 [73:56:13<590:55:05, 478.69s/it] 11%|█         | 557/5000 [74:04:15<591:44:52, 479.47s/it] 11%|█         | 558/5000 [74:12:13<591:18:06, 479.22s/it] 11%|█         | 559/5000 [74:20:12<591:09:10, 479.21s/it] 11%|█         | 560/5000 [74:28:12<590:59:09, 479.18s/it] 11%|█         | 561/5000 [74:36:11<590:52:40, 479.20s/it] 11%|█         | 562/5000 [74:44:09<590:23:54, 478.92s/it] 11%|█▏        | 563/5000 [74:52:09<590:29:51, 479.11s/it] 11%|█▏        | 564/5000 [75:00:08<590:28:58, 479.20s/it] 11%|█▏        | 565/5000 [75:08:07<590:13:14, 479.10s/it] 11%|█▏        | 566/5000 [75:16:06<590:09:08, 479.15s/it] 11%|█▏        | 567/5000 [75:24:06<590:12:22, 479.30s/it] 11%|█▏        | 568/5000 [75:32:05<590:05:42, 479.32s/it] 11%|█▏        | 569/5000 [75:40:05<590:05:43, 479.43s/it] 11%|█▏        | 570/5000 [75:48:04<589:47:28, 479.29s/it] 11%|█▏        | 571/5000 [75:56:00<588:41:51, 478.51s/it] 11%|█▏        | 572/5000 [76:03:59<588:40:24, 478.60s/it] 11%|█▏        | 573/5000 [76:11:59<588:47:25, 478.80s/it] 11%|█▏        | 574/5000 [76:19:58<588:57:56, 479.05s/it] 12%|█▏        | 575/5000 [76:27:58<589:14:51, 479.39s/it] 12%|█▏        | 576/5000 [76:35:58<589:05:45, 479.37s/it] 12%|█▏        | 577/5000 [76:43:56<588:39:43, 479.13s/it] 12%|█▏        | 578/5000 [76:51:56<588:42:32, 479.27s/it] 12%|█▏        | 579/5000 [76:59:55<588:24:33, 479.14s/it] 12%|█▏        | 580/5000 [77:07:54<588:30:31, 479.33s/it] 12%|█▏        | 581/5000 [77:15:54<588:26:14, 479.38s/it] 12%|█▏        | 582/5000 [77:23:54<588:31:18, 479.56s/it] 12%|█▏        | 583/5000 [77:31:53<588:15:17, 479.45s/it] 12%|█▏        | 584/5000 [77:39:53<588:14:34, 479.55s/it] 12%|█▏        | 585/5000 [77:47:53<588:09:50, 479.59s/it] 12%|█▏        | 586/5000 [77:55:52<587:52:21, 479.46s/it] 12%|█▏        | 587/5000 [78:03:51<587:37:28, 479.37s/it] 12%|█▏        | 588/5000 [78:11:50<587:16:56, 479.20s/it] 12%|█▏        | 589/5000 [78:19:49<587:19:43, 479.34s/it] 12%|█▏        | 590/5000 [78:27:48<586:51:59, 479.07s/it] 12%|█▏        | 591/5000 [78:35:47<586:57:02, 479.25s/it] 12%|█▏        | 592/5000 [78:43:47<586:46:03, 479.21s/it] 12%|█▏        | 593/5000 [78:51:45<586:15:14, 478.90s/it] 12%|█▏        | 594/5000 [78:59:45<586:25:22, 479.15s/it] 12%|█▏        | 595/5000 [79:07:44<586:33:11, 479.36s/it] 12%|█▏        | 596/5000 [79:15:44<586:34:34, 479.49s/it] 12%|█▏        | 597/5000 [79:23:45<586:53:58, 479.86s/it] 12%|█▏        | 598/5000 [79:31:42<585:38:35, 478.94s/it] 12%|█▏        | 599/5000 [79:39:41<585:39:28, 479.07s/it] 12%|█▏        | 600/5000 [79:47:40<585:36:14, 479.13s/it] 12%|█▏        | 601/5000 [79:55:40<585:32:19, 479.19s/it] 12%|█▏        | 602/5000 [80:03:39<585:19:55, 479.13s/it] 12%|█▏        | 603/5000 [80:11:38<585:15:48, 479.18s/it] 12%|█▏        | 604/5000 [80:19:37<585:04:17, 479.13s/it] 12%|█▏        | 605/5000 [80:27:37<585:11:46, 479.34s/it] 12%|█▏        | 606/5000 [80:35:36<585:04:17, 479.35s/it] 12%|█▏        | 607/5000 [80:43:36<585:00:43, 479.41s/it] 12%|█▏        | 608/5000 [80:51:36<585:20:50, 479.79s/it] 12%|█▏        | 609/5000 [80:59:36<585:12:17, 479.79s/it] 12%|█▏        | 610/5000 [81:07:36<584:55:03, 479.66s/it] 12%|█▏        | 611/5000 [81:15:35<584:42:11, 479.59s/it] 12%|█▏        | 612/5000 [81:23:34<584:28:37, 479.52s/it] 12%|█▏        | 613/5000 [81:31:34<584:23:41, 479.56s/it] 12%|█▏        | 614/5000 [81:39:32<583:50:42, 479.22s/it] 12%|█▏        | 615/5000 [81:47:32<583:48:05, 479.29s/it] 12%|█▏        | 616/5000 [81:55:30<583:25:17, 479.09s/it] 12%|█▏        | 617/5000 [82:03:30<583:20:57, 479.14s/it] 12%|█▏        | 618/5000 [82:11:28<582:57:51, 478.93s/it] 12%|█▏        | 619/5000 [82:19:28<583:08:20, 479.18s/it] 12%|█▏        | 620/5000 [82:27:27<582:54:23, 479.10s/it] 12%|█▏        | 621/5000 [82:35:26<582:39:47, 479.01s/it] 12%|█▏        | 622/5000 [82:43:25<582:41:29, 479.14s/it] 12%|█▏        | 623/5000 [82:51:25<582:42:21, 479.26s/it] 12%|█▏        | 624/5000 [82:59:24<582:32:56, 479.25s/it] 12%|█▎        | 625/5000 [83:07:23<582:13:51, 479.09s/it] 13%|█▎        | 626/5000 [83:15:21<581:46:13, 478.82s/it] 13%|█▎        | 627/5000 [83:23:20<581:50:34, 478.99s/it] 13%|█▎        | 628/5000 [83:31:19<581:42:52, 479.00s/it] 13%|█▎        | 629/5000 [83:39:19<581:46:44, 479.16s/it] 13%|█▎        | 630/5000 [83:47:18<581:47:11, 479.27s/it] 13%|█▎        | 631/5000 [83:55:17<581:36:47, 479.24s/it] 13%|█▎        | 632/5000 [84:03:17<581:31:52, 479.28s/it] 13%|█▎        | 633/5000 [84:11:16<581:33:17, 479.41s/it] 13%|█▎        | 634/5000 [84:19:16<581:31:13, 479.49s/it] 13%|█▎        | 635/5000 [84:27:16<581:21:04, 479.47s/it] 13%|█▎        | 636/5000 [84:35:15<581:17:19, 479.52s/it] 13%|█▎        | 637/5000 [84:43:15<581:10:19, 479.54s/it] 13%|█▎        | 638/5000 [84:51:15<581:05:54, 479.59s/it] 13%|█▎        | 639/5000 [84:59:11<580:01:11, 478.81s/it] 13%|█▎        | 640/5000 [85:07:10<579:54:35, 478.82s/it] 13%|█▎        | 641/5000 [85:15:09<579:40:00, 478.73s/it] 13%|█▎        | 642/5000 [85:23:09<580:01:20, 479.14s/it] 13%|█▎        | 643/5000 [85:31:04<578:30:13, 477.99s/it] 13%|█▎        | 644/5000 [85:39:04<578:57:10, 478.47s/it] 13%|█▎        | 645/5000 [85:47:03<579:11:01, 478.77s/it] 13%|█▎        | 646/5000 [85:55:02<579:06:27, 478.82s/it] 13%|█▎        | 647/5000 [86:03:02<579:24:39, 479.18s/it] 13%|█▎        | 648/5000 [86:11:02<579:25:52, 479.31s/it] 13%|█▎        | 649/5000 [86:19:00<578:43:20, 478.83s/it] 13%|█▎        | 650/5000 [86:26:59<578:43:28, 478.94s/it] 13%|█▎        | 651/5000 [86:34:58<578:35:39, 478.95s/it] 13%|█▎        | 652/5000 [86:42:57<578:27:09, 478.94s/it] 13%|█▎        | 653/5000 [86:50:55<578:13:43, 478.86s/it] 13%|█▎        | 654/5000 [86:58:53<577:47:48, 478.62s/it] 13%|█▎        | 655/5000 [87:06:53<577:57:27, 478.86s/it] 13%|█▎        | 656/5000 [87:14:50<577:07:25, 478.28s/it] 13%|█▎        | 657/5000 [87:22:49<577:14:09, 478.48s/it] 13%|█▎        | 658/5000 [87:30:49<577:41:49, 478.97s/it] 13%|█▎        | 659/5000 [87:38:46<576:56:44, 478.46s/it] 13%|█▎        | 660/5000 [87:46:46<577:26:14, 478.98s/it] 13%|█▎        | 661/5000 [87:54:46<577:32:56, 479.18s/it] 13%|█▎        | 662/5000 [88:02:45<577:28:39, 479.23s/it]Train loss: 0.079364, Val loss: 0.0854
-[INFO] EPOCH: 531/5000
-Train loss: 0.076353, Val loss: 0.0802
-[INFO] EPOCH: 532/5000
-Train loss: 0.075226, Val loss: 0.0798
-[INFO] EPOCH: 533/5000
-Train loss: 0.074583, Val loss: 0.0812
-[INFO] EPOCH: 534/5000
-Train loss: 0.074162, Val loss: 0.0793
-[INFO] EPOCH: 535/5000
-Train loss: 0.073854, Val loss: 0.0779
-[INFO] EPOCH: 536/5000
-Train loss: 0.073989, Val loss: 0.0793
-[INFO] EPOCH: 537/5000
-Train loss: 0.073844, Val loss: 0.0804
-[INFO] EPOCH: 538/5000
-Train loss: 0.073442, Val loss: 0.0783
-[INFO] EPOCH: 539/5000
-Train loss: 0.073450, Val loss: 0.0795
-[INFO] EPOCH: 540/5000
-Train loss: 0.073543, Val loss: 0.0795
-[INFO] EPOCH: 541/5000
-Train loss: 0.073332, Val loss: 0.0784
-[INFO] EPOCH: 542/5000
-Train loss: 0.073220, Val loss: 0.0766
-[INFO] EPOCH: 543/5000
-Train loss: 0.073130, Val loss: 0.0792
-[INFO] EPOCH: 544/5000
-Train loss: 0.073190, Val loss: 0.0788
-[INFO] EPOCH: 545/5000
-Train loss: 0.073075, Val loss: 0.0794
-[INFO] EPOCH: 546/5000
-Train loss: 0.135808, Val loss: 0.1528
-[INFO] EPOCH: 547/5000
-Train loss: 0.127676, Val loss: 0.1144
-[INFO] EPOCH: 548/5000
-Train loss: 0.105012, Val loss: 0.1032
-[INFO] EPOCH: 549/5000
-Train loss: 0.094918, Val loss: 0.0954
-[INFO] EPOCH: 550/5000
-Train loss: 0.089180, Val loss: 0.0910
-[INFO] EPOCH: 551/5000
-Train loss: 0.085745, Val loss: 0.0878
-[INFO] EPOCH: 552/5000
-Train loss: 0.082972, Val loss: 0.0869
-[INFO] EPOCH: 553/5000
-Train loss: 0.081124, Val loss: 0.0872
-[INFO] EPOCH: 554/5000
-Train loss: 0.080139, Val loss: 0.0878
-[INFO] EPOCH: 555/5000
-Train loss: 0.078803, Val loss: 0.0841
-[INFO] EPOCH: 556/5000
-Train loss: 0.078295, Val loss: 0.0846
-[INFO] EPOCH: 557/5000
-Train loss: 0.077432, Val loss: 0.0827
-[INFO] EPOCH: 558/5000
-Train loss: 0.076770, Val loss: 0.0818
-[INFO] EPOCH: 559/5000
-Train loss: 0.076267, Val loss: 0.0805
-[INFO] EPOCH: 560/5000
-Train loss: 0.075709, Val loss: 0.0813
-[INFO] EPOCH: 561/5000
-Train loss: 0.077056, Val loss: 0.0812
-[INFO] EPOCH: 562/5000
-Train loss: 0.074844, Val loss: 0.0799
-[INFO] EPOCH: 563/5000
-Train loss: 0.074523, Val loss: 0.0802
-[INFO] EPOCH: 564/5000
-Train loss: 0.074189, Val loss: 0.0774
-[INFO] EPOCH: 565/5000
-Train loss: 0.077323, Val loss: 0.0794
-[INFO] EPOCH: 566/5000
-Train loss: 0.073591, Val loss: 0.0791
-[INFO] EPOCH: 567/5000
-Train loss: 0.073336, Val loss: 0.0783
-[INFO] EPOCH: 568/5000
-Train loss: 0.073447, Val loss: 0.0785
-[INFO] EPOCH: 569/5000
-Train loss: 0.073082, Val loss: 0.0784
-[INFO] EPOCH: 570/5000
-Train loss: 0.073163, Val loss: 0.0788
-[INFO] EPOCH: 571/5000
-Train loss: 0.073315, Val loss: 0.0799
-[INFO] EPOCH: 572/5000
-Train loss: 0.073024, Val loss: 0.0781
-[INFO] EPOCH: 573/5000
-Train loss: 0.073182, Val loss: 0.0794
-[INFO] EPOCH: 574/5000
-Train loss: 0.170814, Val loss: 0.1464
-[INFO] EPOCH: 575/5000
-Train loss: 0.113004, Val loss: 0.1024
-[INFO] EPOCH: 576/5000
-Train loss: 0.090805, Val loss: 0.0903
-[INFO] EPOCH: 577/5000
-Train loss: 0.083451, Val loss: 0.0871
-[INFO] EPOCH: 578/5000
-Train loss: 0.079627, Val loss: 0.0840
-[INFO] EPOCH: 579/5000
-Train loss: 0.077367, Val loss: 0.0818
-[INFO] EPOCH: 580/5000
-Train loss: 0.075934, Val loss: 0.0807
-[INFO] EPOCH: 581/5000
-Train loss: 0.075049, Val loss: 0.0808
-[INFO] EPOCH: 582/5000
-Train loss: 0.074523, Val loss: 0.0811
-[INFO] EPOCH: 583/5000
-Train loss: 0.074150, Val loss: 0.0806
-[INFO] EPOCH: 584/5000
-Train loss: 0.074019, Val loss: 0.0795
-[INFO] EPOCH: 585/5000
-Train loss: 0.073515, Val loss: 0.0826
-[INFO] EPOCH: 586/5000
-Train loss: 0.073642, Val loss: 0.0791
-[INFO] EPOCH: 587/5000
-Train loss: 0.073236, Val loss: 0.0784
-[INFO] EPOCH: 588/5000
-Train loss: 0.073353, Val loss: 0.0809
-[INFO] EPOCH: 589/5000
-Train loss: 0.073108, Val loss: 0.0800
-[INFO] EPOCH: 590/5000
-Train loss: 0.072803, Val loss: 0.0810
-[INFO] EPOCH: 591/5000
-Train loss: 0.073207, Val loss: 0.0777
-[INFO] EPOCH: 592/5000
-Train loss: 0.072998, Val loss: 0.0786
-[INFO] EPOCH: 593/5000
-Train loss: 0.084172, Val loss: 0.0800
-[INFO] EPOCH: 594/5000
-Train loss: 0.072642, Val loss: 0.0781
-[INFO] EPOCH: 595/5000
-Train loss: 0.072165, Val loss: 0.0786
-[INFO] EPOCH: 596/5000
-Train loss: 0.072290, Val loss: 0.0785
-[INFO] EPOCH: 597/5000
-Train loss: 0.072236, Val loss: 0.0780
-[INFO] EPOCH: 598/5000
-Train loss: 0.072153, Val loss: 0.0779
-[INFO] EPOCH: 599/5000
-Train loss: 0.072007, Val loss: 0.0789
-[INFO] EPOCH: 600/5000
-Train loss: 0.072158, Val loss: 0.0768
-[INFO] EPOCH: 601/5000
-Train loss: 0.072166, Val loss: 0.0797
-[INFO] EPOCH: 602/5000
-Train loss: 0.072102, Val loss: 0.0784
-[INFO] EPOCH: 603/5000
-Train loss: 0.072342, Val loss: 0.0769
-[INFO] EPOCH: 604/5000
-Train loss: 0.072077, Val loss: 0.0784
-[INFO] EPOCH: 605/5000
-Train loss: 0.155665, Val loss: 0.1195
-[INFO] EPOCH: 606/5000
-Train loss: 0.099565, Val loss: 0.0926
-[INFO] EPOCH: 607/5000
-Train loss: 0.084520, Val loss: 0.0870
-[INFO] EPOCH: 608/5000
-Train loss: 0.079633, Val loss: 0.0819
-[INFO] EPOCH: 609/5000
-Train loss: 0.077302, Val loss: 0.0812
-[INFO] EPOCH: 610/5000
-Train loss: 0.076075, Val loss: 0.0802
-[INFO] EPOCH: 611/5000
-Train loss: 0.074798, Val loss: 0.0801
-[INFO] EPOCH: 612/5000
-Train loss: 0.074246, Val loss: 0.0796
-[INFO] EPOCH: 613/5000
-Train loss: 0.074041, Val loss: 0.0786
-[INFO] EPOCH: 614/5000
-Train loss: 0.073667, Val loss: 0.0789
-[INFO] EPOCH: 615/5000
-Train loss: 0.073329, Val loss: 0.0779
-[INFO] EPOCH: 616/5000
-Train loss: 0.073478, Val loss: 0.0802
-[INFO] EPOCH: 617/5000
-Train loss: 0.073047, Val loss: 0.0804
-[INFO] EPOCH: 618/5000
-Train loss: 0.073015, Val loss: 0.0783
-[INFO] EPOCH: 619/5000
-Train loss: 0.073057, Val loss: 0.0783
-[INFO] EPOCH: 620/5000
-Train loss: 0.091949, Val loss: 0.1145
-[INFO] EPOCH: 621/5000
-Train loss: 0.080695, Val loss: 0.0787
-[INFO] EPOCH: 622/5000
-Train loss: 0.073979, Val loss: 0.0779
-[INFO] EPOCH: 623/5000
-Train loss: 0.072754, Val loss: 0.0772
-[INFO] EPOCH: 624/5000
-Train loss: 0.072382, Val loss: 0.0774
-[INFO] EPOCH: 625/5000
-Train loss: 0.072271, Val loss: 0.0772
-[INFO] EPOCH: 626/5000
-Train loss: 0.072005, Val loss: 0.0782
-[INFO] EPOCH: 627/5000
-Train loss: 0.072066, Val loss: 0.0785
-[INFO] EPOCH: 628/5000
-Train loss: 0.072106, Val loss: 0.0784
-[INFO] EPOCH: 629/5000
-Train loss: 0.072181, Val loss: 0.0790
-[INFO] EPOCH: 630/5000
-Train loss: 0.073272, Val loss: 0.0774
-[INFO] EPOCH: 631/5000
-Train loss: 0.071856, Val loss: 0.0777
-[INFO] EPOCH: 632/5000
-Train loss: 0.071836, Val loss: 0.0776
-[INFO] EPOCH: 633/5000
-Train loss: 0.071938, Val loss: 0.0771
-[INFO] EPOCH: 634/5000
-Train loss: 0.071662, Val loss: 0.0785
-[INFO] EPOCH: 635/5000
-Train loss: 0.072403, Val loss: 0.0768
-[INFO] EPOCH: 636/5000
-Train loss: 0.071703, Val loss: 0.0788
-[INFO] EPOCH: 637/5000
-Train loss: 0.071530, Val loss: 0.0768
-[INFO] EPOCH: 638/5000
-Train loss: 0.071704, Val loss: 0.0771
-[INFO] EPOCH: 639/5000
-Train loss: 0.071943, Val loss: 0.0776
-[INFO] EPOCH: 640/5000
-Train loss: 0.139672, Val loss: 0.0968
-[INFO] EPOCH: 641/5000
-Train loss: 0.082811, Val loss: 0.0845
-[INFO] EPOCH: 642/5000
-Train loss: 0.076348, Val loss: 0.0811
-[INFO] EPOCH: 643/5000
-Train loss: 0.074196, Val loss: 0.0810
-[INFO] EPOCH: 644/5000
-Train loss: 0.073334, Val loss: 0.0801
-[INFO] EPOCH: 645/5000
-Train loss: 0.072717, Val loss: 0.0784
-[INFO] EPOCH: 646/5000
-Train loss: 0.072384, Val loss: 0.0771
-[INFO] EPOCH: 647/5000
-Train loss: 0.071941, Val loss: 0.0777
-[INFO] EPOCH: 648/5000
-Train loss: 0.072050, Val loss: 0.0783
-[INFO] EPOCH: 649/5000
-Train loss: 0.071932, Val loss: 0.0784
-[INFO] EPOCH: 650/5000
-Train loss: 0.072104, Val loss: 0.0783
-[INFO] EPOCH: 651/5000
-Train loss: 0.071664, Val loss: 0.0781
-[INFO] EPOCH: 652/5000
-Train loss: 0.071559, Val loss: 0.0772
-[INFO] EPOCH: 653/5000
-Train loss: 0.071626, Val loss: 0.0770
-[INFO] EPOCH: 654/5000
-Train loss: 0.071385, Val loss: 0.0772
-[INFO] EPOCH: 655/5000
-Train loss: 0.071625, Val loss: 0.0781
-[INFO] EPOCH: 656/5000
-Train loss: 0.071611, Val loss: 0.0770
-[INFO] EPOCH: 657/5000
-Train loss: 0.071458, Val loss: 0.0784
-[INFO] EPOCH: 658/5000
-Train loss: 0.071633, Val loss: 0.0759
-[INFO] EPOCH: 659/5000
-Train loss: 0.072489, Val loss: 0.0777
-[INFO] EPOCH: 660/5000
-Train loss: 0.071086, Val loss: 0.0774
-[INFO] EPOCH: 661/5000
-Train loss: 0.071321, Val loss: 0.0774
-[INFO] EPOCH: 662/5000
- 13%|█▎        | 663/5000 [88:10:44<577:16:29, 479.18s/it] 13%|█▎        | 664/5000 [88:18:44<577:08:22, 479.17s/it] 13%|█▎        | 665/5000 [88:26:42<576:48:04, 479.00s/it] 13%|█▎        | 666/5000 [88:34:41<576:43:16, 479.05s/it] 13%|█▎        | 667/5000 [88:42:40<576:31:58, 479.00s/it] 13%|█▎        | 668/5000 [88:50:39<576:30:22, 479.09s/it] 13%|█▎        | 669/5000 [88:58:44<578:16:16, 480.67s/it] 13%|█▎        | 670/5000 [89:06:44<577:49:59, 480.42s/it] 13%|█▎        | 671/5000 [89:14:44<577:30:02, 480.25s/it] 13%|█▎        | 672/5000 [89:22:43<576:55:42, 479.88s/it] 13%|█▎        | 673/5000 [89:30:42<576:41:28, 479.80s/it] 13%|█▎        | 674/5000 [89:38:43<576:55:22, 480.10s/it] 14%|█▎        | 675/5000 [89:46:43<576:38:15, 479.98s/it] 14%|█▎        | 676/5000 [89:54:41<576:00:19, 479.56s/it] 14%|█▎        | 677/5000 [90:02:40<575:27:11, 479.21s/it] 14%|█▎        | 678/5000 [90:10:50<579:14:34, 482.48s/it] 14%|█▎        | 679/5000 [90:18:50<578:12:27, 481.73s/it] 14%|█▎        | 680/5000 [90:26:48<576:55:35, 480.77s/it] 14%|█▎        | 681/5000 [90:34:47<575:59:58, 480.11s/it] 14%|█▎        | 682/5000 [90:42:45<575:16:19, 479.62s/it] 14%|█▎        | 683/5000 [90:50:44<574:56:33, 479.45s/it] 14%|█▎        | 684/5000 [90:58:43<574:31:09, 479.21s/it] 14%|█▎        | 685/5000 [91:06:41<574:07:17, 478.99s/it] 14%|█▎        | 686/5000 [91:14:40<573:55:28, 478.94s/it] 14%|█▎        | 687/5000 [91:22:38<573:18:00, 478.53s/it] 14%|█▍        | 688/5000 [91:30:36<572:52:42, 478.28s/it] 14%|█▍        | 689/5000 [91:38:34<572:39:04, 478.21s/it] 14%|█▍        | 690/5000 [91:46:32<572:24:24, 478.11s/it] 14%|█▍        | 691/5000 [91:54:30<572:20:23, 478.17s/it] 14%|█▍        | 692/5000 [92:02:28<572:09:38, 478.13s/it] 14%|█▍        | 693/5000 [92:10:26<571:53:24, 478.01s/it] 14%|█▍        | 694/5000 [92:18:24<571:57:44, 478.18s/it] 14%|█▍        | 695/5000 [92:26:23<571:55:38, 478.27s/it] 14%|█▍        | 696/5000 [92:34:22<572:09:29, 478.57s/it] 14%|█▍        | 697/5000 [92:42:20<571:51:24, 478.43s/it] 14%|█▍        | 698/5000 [92:50:18<571:40:36, 478.39s/it] 14%|█▍        | 699/5000 [92:58:17<571:31:40, 478.38s/it] 14%|█▍        | 700/5000 [93:06:15<571:32:11, 478.50s/it] 14%|█▍        | 701/5000 [93:14:14<571:22:23, 478.47s/it] 14%|█▍        | 702/5000 [93:22:12<571:09:00, 478.39s/it] 14%|█▍        | 703/5000 [93:30:11<571:04:50, 478.45s/it] 14%|█▍        | 704/5000 [93:38:10<571:06:56, 478.59s/it] 14%|█▍        | 705/5000 [93:46:08<570:57:59, 478.57s/it] 14%|█▍        | 706/5000 [93:54:07<570:56:38, 478.67s/it] 14%|█▍        | 707/5000 [94:02:04<570:22:14, 478.30s/it] 14%|█▍        | 708/5000 [94:10:03<570:11:44, 478.26s/it] 14%|█▍        | 709/5000 [94:18:01<570:04:59, 478.28s/it] 14%|█▍        | 710/5000 [94:26:00<570:15:53, 478.54s/it] 14%|█▍        | 711/5000 [94:33:57<569:25:28, 477.95s/it] 14%|█▍        | 712/5000 [94:41:53<568:53:58, 477.62s/it] 14%|█▍        | 713/5000 [94:49:53<569:19:49, 478.09s/it] 14%|█▍        | 714/5000 [94:57:52<569:41:18, 478.51s/it] 14%|█▍        | 715/5000 [95:05:51<569:39:55, 478.60s/it] 14%|█▍        | 716/5000 [95:13:50<569:38:01, 478.68s/it] 14%|█▍        | 717/5000 [95:21:49<569:49:21, 478.95s/it] 14%|█▍        | 718/5000 [95:29:49<570:04:25, 479.28s/it] 14%|█▍        | 719/5000 [95:37:48<569:48:36, 479.17s/it] 14%|█▍        | 720/5000 [95:45:48<569:54:57, 479.37s/it] 14%|█▍        | 721/5000 [95:53:47<569:27:43, 479.10s/it] 14%|█▍        | 722/5000 [96:01:46<569:26:12, 479.19s/it] 14%|█▍        | 723/5000 [96:09:45<569:18:39, 479.20s/it] 14%|█▍        | 724/5000 [96:17:42<568:17:35, 478.45s/it] 14%|█▍        | 725/5000 [96:25:41<568:19:18, 478.59s/it] 15%|█▍        | 726/5000 [96:33:41<568:44:53, 479.06s/it] 15%|█▍        | 727/5000 [96:41:40<568:28:29, 478.94s/it] 15%|█▍        | 728/5000 [96:49:39<568:37:30, 479.18s/it] 15%|█▍        | 729/5000 [96:57:39<568:38:38, 479.31s/it] 15%|█▍        | 730/5000 [97:05:38<568:27:13, 479.26s/it] 15%|█▍        | 731/5000 [97:13:37<568:16:18, 479.22s/it] 15%|█▍        | 732/5000 [97:21:37<568:11:30, 479.26s/it] 15%|█▍        | 733/5000 [97:29:36<567:54:37, 479.14s/it] 15%|█▍        | 734/5000 [97:37:35<567:49:15, 479.17s/it] 15%|█▍        | 735/5000 [97:45:34<567:35:34, 479.09s/it] 15%|█▍        | 736/5000 [97:53:33<567:21:45, 479.01s/it] 15%|█▍        | 737/5000 [98:01:32<567:21:29, 479.12s/it] 15%|█▍        | 738/5000 [98:09:32<567:24:16, 479.27s/it] 15%|█▍        | 739/5000 [98:17:33<568:02:00, 479.92s/it] 15%|█▍        | 740/5000 [98:25:32<567:34:39, 479.64s/it] 15%|█▍        | 741/5000 [98:33:31<567:14:51, 479.48s/it] 15%|█▍        | 742/5000 [98:41:30<566:58:58, 479.37s/it] 15%|█▍        | 743/5000 [98:49:28<566:23:38, 478.98s/it] 15%|█▍        | 744/5000 [98:57:27<566:09:19, 478.89s/it] 15%|█▍        | 745/5000 [99:05:26<566:14:48, 479.08s/it] 15%|█▍        | 746/5000 [99:13:26<566:19:03, 479.25s/it] 15%|█▍        | 747/5000 [99:21:25<566:13:01, 479.28s/it] 15%|█▍        | 748/5000 [99:29:25<566:16:20, 479.44s/it] 15%|█▍        | 749/5000 [99:37:25<566:18:53, 479.59s/it] 15%|█▌        | 750/5000 [99:45:25<566:11:46, 479.60s/it] 15%|█▌        | 751/5000 [99:53:25<566:15:22, 479.77s/it] 15%|█▌        | 752/5000 [100:01:24<565:56:47, 479.62s/it] 15%|█▌        | 753/5000 [100:09:24<565:48:57, 479.62s/it] 15%|█▌        | 754/5000 [100:17:23<565:30:14, 479.47s/it] 15%|█▌        | 755/5000 [100:25:22<565:16:08, 479.38s/it] 15%|█▌        | 756/5000 [100:33:21<565:05:14, 479.34s/it] 15%|█▌        | 757/5000 [100:41:22<565:21:53, 479.69s/it] 15%|█▌        | 758/5000 [100:49:21<565:10:15, 479.64s/it] 15%|█▌        | 759/5000 [100:57:21<564:54:22, 479.52s/it] 15%|█▌        | 760/5000 [101:05:20<564:43:41, 479.49s/it] 15%|█▌        | 761/5000 [101:13:18<564:12:23, 479.16s/it] 15%|█▌        | 762/5000 [101:21:13<562:31:02, 477.83s/it] 15%|█▌        | 763/5000 [101:29:13<562:54:35, 478.28s/it] 15%|█▌        | 764/5000 [101:37:12<563:11:45, 478.64s/it] 15%|█▌        | 765/5000 [101:45:11<563:19:35, 478.86s/it] 15%|█▌        | 766/5000 [101:53:10<563:09:46, 478.83s/it] 15%|█▌        | 767/5000 [102:01:08<562:36:41, 478.48s/it] 15%|█▌        | 768/5000 [102:09:06<562:26:23, 478.45s/it] 15%|█▌        | 769/5000 [102:17:03<561:49:17, 478.03s/it] 15%|█▌        | 770/5000 [102:25:03<562:21:01, 478.60s/it] 15%|█▌        | 771/5000 [102:33:02<562:28:23, 478.81s/it] 15%|█▌        | 772/5000 [102:40:59<561:30:32, 478.11s/it] 15%|█▌        | 773/5000 [102:48:58<561:44:16, 478.41s/it] 15%|█▌        | 774/5000 [102:56:58<561:59:05, 478.74s/it] 16%|█▌        | 775/5000 [103:04:58<562:24:24, 479.21s/it] 16%|█▌        | 776/5000 [103:12:56<562:01:23, 479.00s/it] 16%|█▌        | 777/5000 [103:20:56<562:07:11, 479.19s/it] 16%|█▌        | 778/5000 [103:28:54<561:36:01, 478.86s/it] 16%|█▌        | 779/5000 [103:36:54<561:55:59, 479.26s/it] 16%|█▌        | 780/5000 [103:44:53<561:33:59, 479.06s/it] 16%|█▌        | 781/5000 [103:52:51<561:11:33, 478.86s/it] 16%|█▌        | 782/5000 [104:00:54<562:16:29, 479.89s/it] 16%|█▌        | 783/5000 [104:08:53<561:48:22, 479.61s/it] 16%|█▌        | 784/5000 [104:16:51<561:19:24, 479.31s/it] 16%|█▌        | 785/5000 [104:24:50<561:01:35, 479.17s/it] 16%|█▌        | 786/5000 [104:32:49<560:56:24, 479.21s/it] 16%|█▌        | 787/5000 [104:40:49<560:50:43, 479.24s/it] 16%|█▌        | 788/5000 [104:48:48<560:41:19, 479.22s/it] 16%|█▌        | 789/5000 [104:56:47<560:36:36, 479.27s/it] 16%|█▌        | 790/5000 [105:04:47<560:38:01, 479.40s/it] 16%|█▌        | 791/5000 [105:12:46<560:28:15, 479.38s/it] 16%|█▌        | 792/5000 [105:20:45<560:18:18, 479.35s/it] 16%|█▌        | 793/5000 [105:28:44<559:59:12, 479.19s/it] 16%|█▌        | 794/5000 [105:36:43<559:45:48, 479.11s/it]Train loss: 0.071766, Val loss: 0.0762
-[INFO] EPOCH: 663/5000
-Train loss: 0.071251, Val loss: 0.0781
-[INFO] EPOCH: 664/5000
-Train loss: 0.071249, Val loss: 0.0776
-[INFO] EPOCH: 665/5000
-Train loss: 0.070969, Val loss: 0.0771
-[INFO] EPOCH: 666/5000
-Train loss: 0.071140, Val loss: 0.0773
-[INFO] EPOCH: 667/5000
-Train loss: 0.071393, Val loss: 0.0781
-[INFO] EPOCH: 668/5000
-Train loss: 0.071429, Val loss: 0.0776
-[INFO] EPOCH: 669/5000
-Train loss: 0.071166, Val loss: 0.0768
-[INFO] EPOCH: 670/5000
-Train loss: 0.070957, Val loss: 0.0768
-[INFO] EPOCH: 671/5000
-Train loss: 0.115431, Val loss: 0.1050
-[INFO] EPOCH: 672/5000
-Train loss: 0.085388, Val loss: 0.0855
-[INFO] EPOCH: 673/5000
-Train loss: 0.076441, Val loss: 0.0812
-[INFO] EPOCH: 674/5000
-Train loss: 0.074178, Val loss: 0.0793
-[INFO] EPOCH: 675/5000
-Train loss: 0.072888, Val loss: 0.0773
-[INFO] EPOCH: 676/5000
-Train loss: 0.072196, Val loss: 0.0773
-[INFO] EPOCH: 677/5000
-Train loss: 0.071526, Val loss: 0.0765
-[INFO] EPOCH: 678/5000
-Train loss: 0.071437, Val loss: 0.0762
-[INFO] EPOCH: 679/5000
-Train loss: 0.071074, Val loss: 0.0773
-[INFO] EPOCH: 680/5000
-Train loss: 0.070952, Val loss: 0.0766
-[INFO] EPOCH: 681/5000
-Train loss: 0.070837, Val loss: 0.0751
-[INFO] EPOCH: 682/5000
-Train loss: 0.070844, Val loss: 0.0768
-[INFO] EPOCH: 683/5000
-Train loss: 0.071022, Val loss: 0.0758
-[INFO] EPOCH: 684/5000
-Train loss: 0.071331, Val loss: 0.0773
-[INFO] EPOCH: 685/5000
-Train loss: 0.070849, Val loss: 0.0775
-[INFO] EPOCH: 686/5000
-Train loss: 0.071067, Val loss: 0.0788
-[INFO] EPOCH: 687/5000
-Train loss: 0.071178, Val loss: 0.0772
-[INFO] EPOCH: 688/5000
-Train loss: 0.070711, Val loss: 0.0770
-[INFO] EPOCH: 689/5000
-Train loss: 0.070535, Val loss: 0.0781
-[INFO] EPOCH: 690/5000
-Train loss: 0.071014, Val loss: 0.0756
-[INFO] EPOCH: 691/5000
-Train loss: 0.077075, Val loss: 0.4196
-[INFO] EPOCH: 692/5000
-Train loss: 0.176089, Val loss: 0.1206
-[INFO] EPOCH: 693/5000
-Train loss: 0.109371, Val loss: 0.1031
-[INFO] EPOCH: 694/5000
-Train loss: 0.096688, Val loss: 0.0947
-[INFO] EPOCH: 695/5000
-Train loss: 0.089241, Val loss: 0.0889
-[INFO] EPOCH: 696/5000
-Train loss: 0.084535, Val loss: 0.0871
-[INFO] EPOCH: 697/5000
-Train loss: 0.081552, Val loss: 0.0849
-[INFO] EPOCH: 698/5000
-Train loss: 0.079055, Val loss: 0.0841
-[INFO] EPOCH: 699/5000
-Train loss: 0.077586, Val loss: 0.0835
-[INFO] EPOCH: 700/5000
-Train loss: 0.076185, Val loss: 0.0813
-[INFO] EPOCH: 701/5000
-Train loss: 0.075317, Val loss: 0.0807
-[INFO] EPOCH: 702/5000
-Train loss: 0.074527, Val loss: 0.0807
-[INFO] EPOCH: 703/5000
-Train loss: 0.074404, Val loss: 0.0794
-[INFO] EPOCH: 704/5000
-Train loss: 0.073644, Val loss: 0.0791
-[INFO] EPOCH: 705/5000
-Train loss: 0.087621, Val loss: 0.0781
-[INFO] EPOCH: 706/5000
-Train loss: 0.073651, Val loss: 0.0782
-[INFO] EPOCH: 707/5000
-Train loss: 0.072868, Val loss: 0.0773
-[INFO] EPOCH: 708/5000
-Train loss: 0.072468, Val loss: 0.0772
-[INFO] EPOCH: 709/5000
-Train loss: 0.072081, Val loss: 0.0788
-[INFO] EPOCH: 710/5000
-Train loss: 0.071981, Val loss: 0.0783
-[INFO] EPOCH: 711/5000
-Train loss: 0.071854, Val loss: 0.0775
-[INFO] EPOCH: 712/5000
-Train loss: 0.071861, Val loss: 0.0782
-[INFO] EPOCH: 713/5000
-Train loss: 0.071532, Val loss: 0.0762
-[INFO] EPOCH: 714/5000
-Train loss: 0.071539, Val loss: 0.0763
-[INFO] EPOCH: 715/5000
-Train loss: 0.071574, Val loss: 0.0784
-[INFO] EPOCH: 716/5000
-Train loss: 0.071195, Val loss: 0.0785
-[INFO] EPOCH: 717/5000
-Train loss: 0.071526, Val loss: 0.0763
-[INFO] EPOCH: 718/5000
-Train loss: 0.071129, Val loss: 0.0771
-[INFO] EPOCH: 719/5000
-Train loss: 0.071016, Val loss: 0.0766
-[INFO] EPOCH: 720/5000
-Train loss: 0.074280, Val loss: 0.0832
-[INFO] EPOCH: 721/5000
-Train loss: 0.071058, Val loss: 0.0774
-[INFO] EPOCH: 722/5000
-Train loss: 0.070633, Val loss: 0.0757
-[INFO] EPOCH: 723/5000
-Train loss: 0.070608, Val loss: 0.0759
-[INFO] EPOCH: 724/5000
-Train loss: 0.070564, Val loss: 0.0772
-[INFO] EPOCH: 725/5000
-Train loss: 0.070602, Val loss: 0.0764
-[INFO] EPOCH: 726/5000
-Train loss: 0.070621, Val loss: 0.0763
-[INFO] EPOCH: 727/5000
-Train loss: 0.078597, Val loss: 0.0768
-[INFO] EPOCH: 728/5000
-Train loss: 0.070350, Val loss: 0.0755
-[INFO] EPOCH: 729/5000
-Train loss: 0.070203, Val loss: 0.0768
-[INFO] EPOCH: 730/5000
-Train loss: 0.070250, Val loss: 0.0755
-[INFO] EPOCH: 731/5000
-Train loss: 0.070303, Val loss: 0.0761
-[INFO] EPOCH: 732/5000
-Train loss: 0.070324, Val loss: 0.0756
-[INFO] EPOCH: 733/5000
-Train loss: 0.070117, Val loss: 0.0756
-[INFO] EPOCH: 734/5000
-Train loss: 0.070189, Val loss: 0.0763
-[INFO] EPOCH: 735/5000
-Train loss: 0.070368, Val loss: 0.0744
-[INFO] EPOCH: 736/5000
-Train loss: 0.107809, Val loss: 0.2276
-[INFO] EPOCH: 737/5000
-Train loss: 0.133545, Val loss: 0.1039
-[INFO] EPOCH: 738/5000
-Train loss: 0.096042, Val loss: 0.0905
-[INFO] EPOCH: 739/5000
-Train loss: 0.085667, Val loss: 0.0880
-[INFO] EPOCH: 740/5000
-Train loss: 0.079966, Val loss: 0.0829
-[INFO] EPOCH: 741/5000
-Train loss: 0.076843, Val loss: 0.0810
-[INFO] EPOCH: 742/5000
-Train loss: 0.074896, Val loss: 0.0795
-[INFO] EPOCH: 743/5000
-Train loss: 0.073822, Val loss: 0.0783
-[INFO] EPOCH: 744/5000
-Train loss: 0.072762, Val loss: 0.0779
-[INFO] EPOCH: 745/5000
-Train loss: 0.072205, Val loss: 0.0774
-[INFO] EPOCH: 746/5000
-Train loss: 0.071797, Val loss: 0.0768
-[INFO] EPOCH: 747/5000
-Train loss: 0.071493, Val loss: 0.0759
-[INFO] EPOCH: 748/5000
-Train loss: 0.071279, Val loss: 0.0770
-[INFO] EPOCH: 749/5000
-Train loss: 0.071305, Val loss: 0.0837
-[INFO] EPOCH: 750/5000
-Train loss: 0.071605, Val loss: 0.0759
-[INFO] EPOCH: 751/5000
-Train loss: 0.070945, Val loss: 0.0796
-[INFO] EPOCH: 752/5000
-Train loss: 0.070919, Val loss: 0.0776
-[INFO] EPOCH: 753/5000
-Train loss: 0.070820, Val loss: 0.0760
-[INFO] EPOCH: 754/5000
-Train loss: 0.072725, Val loss: 0.0759
-[INFO] EPOCH: 755/5000
-Train loss: 0.070474, Val loss: 0.0775
-[INFO] EPOCH: 756/5000
-Train loss: 0.070526, Val loss: 0.0762
-[INFO] EPOCH: 757/5000
-Train loss: 0.070571, Val loss: 0.0752
-[INFO] EPOCH: 758/5000
-Train loss: 0.070551, Val loss: 0.0799
-[INFO] EPOCH: 759/5000
-Train loss: 0.072250, Val loss: 0.0741
-[INFO] EPOCH: 760/5000
-Train loss: 0.070280, Val loss: 0.0768
-[INFO] EPOCH: 761/5000
-Train loss: 0.070032, Val loss: 0.0745
-[INFO] EPOCH: 762/5000
-Train loss: 0.070217, Val loss: 0.0750
-[INFO] EPOCH: 763/5000
-Train loss: 0.070106, Val loss: 0.0761
-[INFO] EPOCH: 764/5000
-Train loss: 0.070213, Val loss: 0.0760
-[INFO] EPOCH: 765/5000
-Train loss: 0.070343, Val loss: 0.0756
-[INFO] EPOCH: 766/5000
-Train loss: 0.070229, Val loss: 0.0789
-[INFO] EPOCH: 767/5000
-Train loss: 0.123375, Val loss: 0.0883
-[INFO] EPOCH: 768/5000
-Train loss: 0.079007, Val loss: 0.0806
-[INFO] EPOCH: 769/5000
-Train loss: 0.074284, Val loss: 0.0805
-[INFO] EPOCH: 770/5000
-Train loss: 0.072107, Val loss: 0.0773
-[INFO] EPOCH: 771/5000
-Train loss: 0.071175, Val loss: 0.0768
-[INFO] EPOCH: 772/5000
-Train loss: 0.070713, Val loss: 0.0758
-[INFO] EPOCH: 773/5000
-Train loss: 0.070548, Val loss: 0.0757
-[INFO] EPOCH: 774/5000
-Train loss: 0.070285, Val loss: 0.0761
-[INFO] EPOCH: 775/5000
-Train loss: 0.070084, Val loss: 0.0756
-[INFO] EPOCH: 776/5000
-Train loss: 0.070039, Val loss: 0.0766
-[INFO] EPOCH: 777/5000
-Train loss: 0.069985, Val loss: 0.0776
-[INFO] EPOCH: 778/5000
-Train loss: 0.070037, Val loss: 0.0773
-[INFO] EPOCH: 779/5000
-Train loss: 0.070312, Val loss: 0.0764
-[INFO] EPOCH: 780/5000
-Train loss: 0.069620, Val loss: 0.0761
-[INFO] EPOCH: 781/5000
-Train loss: 0.070059, Val loss: 0.0763
-[INFO] EPOCH: 782/5000
-Train loss: 0.069755, Val loss: 0.0759
-[INFO] EPOCH: 783/5000
-Train loss: 0.125187, Val loss: 0.1654
-[INFO] EPOCH: 784/5000
-Train loss: 0.118965, Val loss: 0.1011
-[INFO] EPOCH: 785/5000
-Train loss: 0.090898, Val loss: 0.0877
-[INFO] EPOCH: 786/5000
-Train loss: 0.082301, Val loss: 0.0843
-[INFO] EPOCH: 787/5000
-Train loss: 0.077872, Val loss: 0.0808
-[INFO] EPOCH: 788/5000
-Train loss: 0.074946, Val loss: 0.0792
-[INFO] EPOCH: 789/5000
-Train loss: 0.073388, Val loss: 0.0782
-[INFO] EPOCH: 790/5000
-Train loss: 0.072253, Val loss: 0.0775
-[INFO] EPOCH: 791/5000
-Train loss: 0.071618, Val loss: 0.0757
-[INFO] EPOCH: 792/5000
-Train loss: 0.070962, Val loss: 0.0762
-[INFO] EPOCH: 793/5000
-Train loss: 0.070740, Val loss: 0.0754
-[INFO] EPOCH: 794/5000
- 16%|█▌        | 795/5000 [105:44:42<559:40:26, 479.15s/it] 16%|█▌        | 796/5000 [105:52:42<559:32:28, 479.15s/it] 16%|█▌        | 797/5000 [106:00:40<559:07:20, 478.91s/it] 16%|█▌        | 798/5000 [106:08:39<558:52:56, 478.81s/it] 16%|█▌        | 799/5000 [106:16:38<558:58:45, 479.01s/it] 16%|█▌        | 800/5000 [106:24:38<559:06:38, 479.24s/it] 16%|█▌        | 801/5000 [106:32:37<558:57:00, 479.21s/it] 16%|█▌        | 802/5000 [106:40:36<558:42:01, 479.11s/it] 16%|█▌        | 803/5000 [106:48:32<557:37:06, 478.30s/it] 16%|█▌        | 804/5000 [106:56:31<557:48:07, 478.57s/it] 16%|█▌        | 805/5000 [107:04:30<557:45:32, 478.65s/it] 16%|█▌        | 806/5000 [107:12:28<557:10:20, 478.26s/it] 16%|█▌        | 807/5000 [107:20:28<557:47:25, 478.90s/it] 16%|█▌        | 808/5000 [107:28:28<557:53:48, 479.11s/it] 16%|█▌        | 809/5000 [107:36:27<558:00:39, 479.32s/it] 16%|█▌        | 810/5000 [107:44:27<558:04:02, 479.49s/it] 16%|█▌        | 811/5000 [107:52:28<558:17:16, 479.79s/it] 16%|█▌        | 812/5000 [108:00:28<558:07:58, 479.77s/it] 16%|█▋        | 813/5000 [108:08:26<557:29:31, 479.33s/it] 16%|█▋        | 814/5000 [108:16:25<557:21:05, 479.33s/it] 16%|█▋        | 815/5000 [108:24:23<556:47:22, 478.96s/it] 16%|█▋        | 816/5000 [108:32:22<556:43:42, 479.02s/it] 16%|█▋        | 817/5000 [108:40:20<556:14:28, 478.72s/it] 16%|█▋        | 818/5000 [108:48:18<555:51:03, 478.49s/it] 16%|█▋        | 819/5000 [108:56:18<556:08:37, 478.86s/it] 16%|█▋        | 820/5000 [109:04:18<556:14:53, 479.07s/it] 16%|█▋        | 821/5000 [109:12:18<556:28:37, 479.38s/it] 16%|█▋        | 822/5000 [109:20:17<556:14:12, 479.29s/it] 16%|█▋        | 823/5000 [109:28:15<555:38:23, 478.89s/it] 16%|█▋        | 824/5000 [109:36:14<555:43:46, 479.08s/it] 16%|█▋        | 825/5000 [109:44:15<556:04:08, 479.48s/it] 17%|█▋        | 826/5000 [109:52:14<555:49:09, 479.38s/it] 17%|█▋        | 827/5000 [110:00:13<555:26:35, 479.17s/it] 17%|█▋        | 828/5000 [110:08:12<555:23:14, 479.24s/it] 17%|█▋        | 829/5000 [110:16:12<555:24:20, 479.37s/it] 17%|█▋        | 830/5000 [110:24:10<554:58:06, 479.11s/it] 17%|█▋        | 831/5000 [110:32:09<554:52:46, 479.15s/it] 17%|█▋        | 832/5000 [110:40:08<554:32:44, 478.97s/it] 17%|█▋        | 833/5000 [110:48:08<554:38:39, 479.17s/it] 17%|█▋        | 834/5000 [110:56:06<554:10:04, 478.88s/it] 17%|█▋        | 835/5000 [111:04:05<554:12:43, 479.03s/it] 17%|█▋        | 836/5000 [111:12:04<553:55:17, 478.89s/it] 17%|█▋        | 837/5000 [111:20:01<553:10:15, 478.36s/it] 17%|█▋        | 838/5000 [111:28:00<553:20:36, 478.62s/it] 17%|█▋        | 839/5000 [111:35:59<553:12:56, 478.63s/it] 17%|█▋        | 840/5000 [111:43:57<552:59:57, 478.56s/it] 17%|█▋        | 841/5000 [111:51:56<553:05:42, 478.76s/it] 17%|█▋        | 842/5000 [111:59:55<553:02:39, 478.83s/it] 17%|█▋        | 843/5000 [112:07:55<553:15:05, 479.12s/it] 17%|█▋        | 844/5000 [112:15:52<552:13:22, 478.35s/it] 17%|█▋        | 845/5000 [112:23:51<552:20:40, 478.57s/it] 17%|█▋        | 846/5000 [112:31:49<552:04:10, 478.44s/it] 17%|█▋        | 847/5000 [112:40:00<556:21:37, 482.28s/it] 17%|█▋        | 848/5000 [112:47:59<554:56:29, 481.16s/it] 17%|█▋        | 849/5000 [112:55:57<553:50:58, 480.33s/it] 17%|█▋        | 850/5000 [113:03:57<553:29:08, 480.13s/it] 17%|█▋        | 851/5000 [113:11:55<552:48:03, 479.65s/it] 17%|█▋        | 852/5000 [113:19:54<552:24:34, 479.43s/it] 17%|█▋        | 853/5000 [113:27:53<552:11:18, 479.35s/it] 17%|█▋        | 854/5000 [113:35:51<551:22:45, 478.77s/it] 17%|█▋        | 855/5000 [113:43:50<551:30:25, 478.99s/it] 17%|█▋        | 856/5000 [113:51:49<551:26:26, 479.05s/it] 17%|█▋        | 857/5000 [113:59:49<551:29:02, 479.20s/it] 17%|█▋        | 858/5000 [114:07:47<550:45:05, 478.68s/it] 17%|█▋        | 859/5000 [114:15:47<551:14:36, 479.23s/it] 17%|█▋        | 860/5000 [114:23:47<551:29:19, 479.56s/it] 17%|█▋        | 861/5000 [114:31:44<550:30:21, 478.82s/it] 17%|█▋        | 862/5000 [114:39:45<550:49:17, 479.21s/it] 17%|█▋        | 863/5000 [114:47:45<551:05:54, 479.56s/it] 17%|█▋        | 864/5000 [114:55:45<551:11:55, 479.77s/it] 17%|█▋        | 865/5000 [115:03:44<550:51:12, 479.58s/it] 17%|█▋        | 866/5000 [115:11:44<550:49:36, 479.67s/it] 17%|█▋        | 867/5000 [115:19:44<550:42:28, 479.69s/it] 17%|█▋        | 868/5000 [115:27:42<550:05:06, 479.26s/it] 17%|█▋        | 869/5000 [115:35:45<551:10:08, 480.32s/it] 17%|█▋        | 870/5000 [115:43:45<550:54:49, 480.22s/it] 17%|█▋        | 871/5000 [115:51:45<550:39:48, 480.11s/it] 17%|█▋        | 872/5000 [115:59:46<551:01:44, 480.55s/it] 17%|█▋        | 873/5000 [116:07:45<550:10:31, 479.92s/it] 17%|█▋        | 874/5000 [116:15:44<549:48:28, 479.72s/it] 18%|█▊        | 875/5000 [116:23:46<550:20:57, 480.30s/it] 18%|█▊        | 876/5000 [116:31:46<550:17:09, 480.37s/it] 18%|█▊        | 877/5000 [116:39:46<550:02:01, 480.26s/it] 18%|█▊        | 878/5000 [116:47:46<549:51:14, 480.22s/it] 18%|█▊        | 879/5000 [116:55:45<549:14:34, 479.80s/it] 18%|█▊        | 880/5000 [117:03:44<548:41:12, 479.44s/it] 18%|█▊        | 881/5000 [117:11:43<548:30:30, 479.40s/it] 18%|█▊        | 882/5000 [117:19:43<548:29:15, 479.49s/it] 18%|█▊        | 883/5000 [117:27:42<548:16:41, 479.43s/it] 18%|█▊        | 884/5000 [117:35:42<548:12:33, 479.48s/it] 18%|█▊        | 885/5000 [117:43:41<548:04:37, 479.48s/it] 18%|█▊        | 886/5000 [117:51:42<548:19:20, 479.82s/it] 18%|█▊        | 887/5000 [117:59:41<547:51:36, 479.53s/it] 18%|█▊        | 888/5000 [118:07:40<547:42:29, 479.51s/it] 18%|█▊        | 889/5000 [118:15:40<547:50:21, 479.74s/it] 18%|█▊        | 890/5000 [118:23:40<547:36:42, 479.66s/it] 18%|█▊        | 891/5000 [118:31:39<547:09:02, 479.37s/it] 18%|█▊        | 892/5000 [118:39:35<546:07:54, 478.60s/it] 18%|█▊        | 893/5000 [118:47:35<546:13:24, 478.79s/it] 18%|█▊        | 894/5000 [118:55:32<545:41:55, 478.45s/it] 18%|█▊        | 895/5000 [119:03:32<546:08:55, 478.96s/it] 18%|█▊        | 896/5000 [119:11:34<546:45:42, 479.62s/it] 18%|█▊        | 897/5000 [119:19:32<546:21:00, 479.37s/it] 18%|█▊        | 898/5000 [119:27:32<546:20:57, 479.49s/it] 18%|█▊        | 899/5000 [119:35:33<546:44:10, 479.94s/it] 18%|█▊        | 900/5000 [119:43:34<546:59:05, 480.28s/it] 18%|█▊        | 901/5000 [119:51:33<546:19:15, 479.81s/it] 18%|█▊        | 902/5000 [119:59:31<545:35:31, 479.29s/it] 18%|█▊        | 903/5000 [120:07:30<545:11:17, 479.05s/it] 18%|█▊        | 904/5000 [120:15:28<544:43:31, 478.76s/it] 18%|█▊        | 905/5000 [120:23:25<544:14:52, 478.46s/it] 18%|█▊        | 906/5000 [120:31:25<544:33:05, 478.84s/it] 18%|█▊        | 907/5000 [120:39:23<544:13:40, 478.68s/it] 18%|█▊        | 908/5000 [120:47:22<544:08:28, 478.72s/it] 18%|█▊        | 909/5000 [120:55:19<543:14:39, 478.04s/it] 18%|█▊        | 910/5000 [121:03:19<543:43:45, 478.59s/it] 18%|█▊        | 911/5000 [121:11:17<543:29:38, 478.50s/it] 18%|█▊        | 912/5000 [121:19:17<543:52:01, 478.94s/it] 18%|█▊        | 913/5000 [121:27:16<543:55:35, 479.11s/it] 18%|█▊        | 914/5000 [121:35:15<543:41:27, 479.02s/it] 18%|█▊        | 915/5000 [121:43:14<543:31:36, 479.00s/it] 18%|█▊        | 916/5000 [121:51:13<543:29:26, 479.08s/it] 18%|█▊        | 917/5000 [121:59:13<543:32:31, 479.24s/it] 18%|█▊        | 918/5000 [122:07:13<543:35:55, 479.41s/it] 18%|█▊        | 919/5000 [122:15:12<543:31:15, 479.46s/it] 18%|█▊        | 920/5000 [122:23:12<543:34:37, 479.63s/it] 18%|█▊        | 921/5000 [122:31:13<543:39:08, 479.81s/it] 18%|█▊        | 922/5000 [122:39:12<543:30:25, 479.80s/it] 18%|█▊        | 923/5000 [122:47:11<542:56:53, 479.42s/it] 18%|█▊        | 924/5000 [122:55:11<543:07:09, 479.69s/it] 18%|█▊        | 925/5000 [123:03:10<542:43:27, 479.46s/it] 19%|█▊        | 926/5000 [123:11:09<542:22:20, 479.27s/it]Train loss: 0.070490, Val loss: 0.0769
-[INFO] EPOCH: 795/5000
-Train loss: 0.070348, Val loss: 0.0768
-[INFO] EPOCH: 796/5000
-Train loss: 0.070213, Val loss: 0.0761
-[INFO] EPOCH: 797/5000
-Train loss: 0.070304, Val loss: 0.0759
-[INFO] EPOCH: 798/5000
-Train loss: 0.073353, Val loss: 0.4066
-[INFO] EPOCH: 799/5000
-Train loss: 0.114295, Val loss: 0.0878
-[INFO] EPOCH: 800/5000
-Train loss: 0.077450, Val loss: 0.0820
-[INFO] EPOCH: 801/5000
-Train loss: 0.073832, Val loss: 0.0792
-[INFO] EPOCH: 802/5000
-Train loss: 0.072299, Val loss: 0.0768
-[INFO] EPOCH: 803/5000
-Train loss: 0.071456, Val loss: 0.0770
-[INFO] EPOCH: 804/5000
-Train loss: 0.071219, Val loss: 0.0763
-[INFO] EPOCH: 805/5000
-Train loss: 0.070681, Val loss: 0.0777
-[INFO] EPOCH: 806/5000
-Train loss: 0.070375, Val loss: 0.0758
-[INFO] EPOCH: 807/5000
-Train loss: 0.070509, Val loss: 0.0751
-[INFO] EPOCH: 808/5000
-Train loss: 0.070189, Val loss: 0.0763
-[INFO] EPOCH: 809/5000
-Train loss: 0.070115, Val loss: 0.0757
-[INFO] EPOCH: 810/5000
-Train loss: 0.070345, Val loss: 0.0753
-[INFO] EPOCH: 811/5000
-Train loss: 0.069812, Val loss: 0.0759
-[INFO] EPOCH: 812/5000
-Train loss: 0.070008, Val loss: 0.0765
-[INFO] EPOCH: 813/5000
-Train loss: 0.069781, Val loss: 0.0754
-[INFO] EPOCH: 814/5000
-Train loss: 0.069802, Val loss: 0.0757
-[INFO] EPOCH: 815/5000
-Train loss: 0.069884, Val loss: 0.0767
-[INFO] EPOCH: 816/5000
-Train loss: 0.069422, Val loss: 0.0765
-[INFO] EPOCH: 817/5000
-Train loss: 0.069901, Val loss: 0.0753
-[INFO] EPOCH: 818/5000
-Train loss: 0.069912, Val loss: 0.0743
-[INFO] EPOCH: 819/5000
-Train loss: 0.073967, Val loss: 0.0764
-[INFO] EPOCH: 820/5000
-Train loss: 0.069547, Val loss: 0.0744
-[INFO] EPOCH: 821/5000
-Train loss: 0.069290, Val loss: 0.0766
-[INFO] EPOCH: 822/5000
-Train loss: 0.069168, Val loss: 0.0747
-[INFO] EPOCH: 823/5000
-Train loss: 0.069546, Val loss: 0.0741
-[INFO] EPOCH: 824/5000
-Train loss: 0.069189, Val loss: 0.0763
-[INFO] EPOCH: 825/5000
-Train loss: 0.069584, Val loss: 0.0753
-[INFO] EPOCH: 826/5000
-Train loss: 0.069504, Val loss: 0.0739
-[INFO] EPOCH: 827/5000
-Train loss: 0.069616, Val loss: 0.0759
-[INFO] EPOCH: 828/5000
-Train loss: 0.069514, Val loss: 0.0851
-[INFO] EPOCH: 829/5000
-Train loss: 0.122495, Val loss: 0.0867
-[INFO] EPOCH: 830/5000
-Train loss: 0.077075, Val loss: 0.0796
-[INFO] EPOCH: 831/5000
-Train loss: 0.073124, Val loss: 0.0779
-[INFO] EPOCH: 832/5000
-Train loss: 0.071428, Val loss: 0.0767
-[INFO] EPOCH: 833/5000
-Train loss: 0.070888, Val loss: 0.0754
-[INFO] EPOCH: 834/5000
-Train loss: 0.070337, Val loss: 0.0764
-[INFO] EPOCH: 835/5000
-Train loss: 0.069967, Val loss: 0.0756
-[INFO] EPOCH: 836/5000
-Train loss: 0.069705, Val loss: 0.0747
-[INFO] EPOCH: 837/5000
-Train loss: 0.069661, Val loss: 0.0753
-[INFO] EPOCH: 838/5000
-Train loss: 0.069650, Val loss: 0.0746
-[INFO] EPOCH: 839/5000
-Train loss: 0.069592, Val loss: 0.0764
-[INFO] EPOCH: 840/5000
-Train loss: 0.069398, Val loss: 0.0745
-[INFO] EPOCH: 841/5000
-Train loss: 0.069540, Val loss: 0.0758
-[INFO] EPOCH: 842/5000
-Train loss: 0.069405, Val loss: 0.0754
-[INFO] EPOCH: 843/5000
-Train loss: 0.069185, Val loss: 0.0752
-[INFO] EPOCH: 844/5000
-Train loss: 0.069453, Val loss: 0.0741
-[INFO] EPOCH: 845/5000
-Train loss: 0.069199, Val loss: 0.0751
-[INFO] EPOCH: 846/5000
-Train loss: 0.069248, Val loss: 0.0769
-[INFO] EPOCH: 847/5000
-Train loss: 0.069235, Val loss: 0.0739
-[INFO] EPOCH: 848/5000
-Train loss: 0.069273, Val loss: 0.0739
-[INFO] EPOCH: 849/5000
-Train loss: 0.069567, Val loss: 0.0744
-[INFO] EPOCH: 850/5000
-Train loss: 0.069400, Val loss: 0.0753
-[INFO] EPOCH: 851/5000
-Train loss: 0.086621, Val loss: 0.0769
-[INFO] EPOCH: 852/5000
-Train loss: 0.069784, Val loss: 0.0734
-[INFO] EPOCH: 853/5000
-Train loss: 0.068893, Val loss: 0.0740
-[INFO] EPOCH: 854/5000
-Train loss: 0.068800, Val loss: 0.0752
-[INFO] EPOCH: 855/5000
-Train loss: 0.068896, Val loss: 0.0743
-[INFO] EPOCH: 856/5000
-Train loss: 0.068980, Val loss: 0.0754
-[INFO] EPOCH: 857/5000
-Train loss: 0.068856, Val loss: 0.0731
-[INFO] EPOCH: 858/5000
-Train loss: 0.069071, Val loss: 0.0762
-[INFO] EPOCH: 859/5000
-Train loss: 0.069065, Val loss: 0.0743
-[INFO] EPOCH: 860/5000
-Train loss: 0.068897, Val loss: 0.0739
-[INFO] EPOCH: 861/5000
-Train loss: 0.068886, Val loss: 0.0744
-[INFO] EPOCH: 862/5000
-Train loss: 0.069468, Val loss: 0.0741
-[INFO] EPOCH: 863/5000
-Train loss: 0.069055, Val loss: 0.0747
-[INFO] EPOCH: 864/5000
-Train loss: 0.069079, Val loss: 0.0749
-[INFO] EPOCH: 865/5000
-Train loss: 0.079780, Val loss: 0.2617
-[INFO] EPOCH: 866/5000
-Train loss: 0.100455, Val loss: 0.0802
-[INFO] EPOCH: 867/5000
-Train loss: 0.074417, Val loss: 0.0766
-[INFO] EPOCH: 868/5000
-Train loss: 0.071027, Val loss: 0.0757
-[INFO] EPOCH: 869/5000
-Train loss: 0.069835, Val loss: 0.0754
-[INFO] EPOCH: 870/5000
-Train loss: 0.069149, Val loss: 0.0736
-[INFO] EPOCH: 871/5000
-Train loss: 0.068936, Val loss: 0.0749
-[INFO] EPOCH: 872/5000
-Train loss: 0.069040, Val loss: 0.0750
-[INFO] EPOCH: 873/5000
-Train loss: 0.068861, Val loss: 0.0743
-[INFO] EPOCH: 874/5000
-Train loss: 0.068727, Val loss: 0.0755
-[INFO] EPOCH: 875/5000
-Train loss: 0.068605, Val loss: 0.0738
-[INFO] EPOCH: 876/5000
-Train loss: 0.068803, Val loss: 0.0767
-[INFO] EPOCH: 877/5000
-Train loss: 0.069167, Val loss: 0.0745
-[INFO] EPOCH: 878/5000
-Train loss: 0.068977, Val loss: 0.0758
-[INFO] EPOCH: 879/5000
-Train loss: 0.069081, Val loss: 0.0731
-[INFO] EPOCH: 880/5000
-Train loss: 0.069182, Val loss: 0.0742
-[INFO] EPOCH: 881/5000
-Train loss: 0.072382, Val loss: 0.0768
-[INFO] EPOCH: 882/5000
-Train loss: 0.068947, Val loss: 0.0756
-[INFO] EPOCH: 883/5000
-Train loss: 0.068584, Val loss: 0.0753
-[INFO] EPOCH: 884/5000
-Train loss: 0.068750, Val loss: 0.0748
-[INFO] EPOCH: 885/5000
-Train loss: 0.068855, Val loss: 0.0763
-[INFO] EPOCH: 886/5000
-Train loss: 0.068598, Val loss: 0.0749
-[INFO] EPOCH: 887/5000
-Train loss: 0.068767, Val loss: 0.0756
-[INFO] EPOCH: 888/5000
-Train loss: 0.069146, Val loss: 0.0753
-[INFO] EPOCH: 889/5000
-Train loss: 0.068639, Val loss: 0.0743
-[INFO] EPOCH: 890/5000
-Train loss: 0.069133, Val loss: 0.0744
-[INFO] EPOCH: 891/5000
-Train loss: 0.068653, Val loss: 0.0759
-[INFO] EPOCH: 892/5000
-Train loss: 0.140463, Val loss: 0.2810
-[INFO] EPOCH: 893/5000
-Train loss: 0.183850, Val loss: 0.1503
-[INFO] EPOCH: 894/5000
-Train loss: 0.137489, Val loss: 0.1325
-[INFO] EPOCH: 895/5000
-Train loss: 0.122195, Val loss: 0.1153
-[INFO] EPOCH: 896/5000
-Train loss: 0.110451, Val loss: 0.1091
-[INFO] EPOCH: 897/5000
-Train loss: 0.101329, Val loss: 0.0988
-[INFO] EPOCH: 898/5000
-Train loss: 0.094150, Val loss: 0.0943
-[INFO] EPOCH: 899/5000
-Train loss: 0.088318, Val loss: 0.0884
-[INFO] EPOCH: 900/5000
-Train loss: 0.083482, Val loss: 0.0848
-[INFO] EPOCH: 901/5000
-Train loss: 0.080299, Val loss: 0.0838
-[INFO] EPOCH: 902/5000
-Train loss: 0.077553, Val loss: 0.0814
-[INFO] EPOCH: 903/5000
-Train loss: 0.075567, Val loss: 0.0801
-[INFO] EPOCH: 904/5000
-Train loss: 0.074263, Val loss: 0.0813
-[INFO] EPOCH: 905/5000
-Train loss: 0.073292, Val loss: 0.0773
-[INFO] EPOCH: 906/5000
-Train loss: 0.072616, Val loss: 0.0784
-[INFO] EPOCH: 907/5000
-Train loss: 0.071902, Val loss: 0.0771
-[INFO] EPOCH: 908/5000
-Train loss: 0.071643, Val loss: 0.0776
-[INFO] EPOCH: 909/5000
-Train loss: 0.071388, Val loss: 0.0764
-[INFO] EPOCH: 910/5000
-Train loss: 0.071040, Val loss: 0.0768
-[INFO] EPOCH: 911/5000
-Train loss: 0.070858, Val loss: 0.0790
-[INFO] EPOCH: 912/5000
-Train loss: 0.070436, Val loss: 0.0756
-[INFO] EPOCH: 913/5000
-Train loss: 0.070123, Val loss: 0.0760
-[INFO] EPOCH: 914/5000
-Train loss: 0.070392, Val loss: 0.0842
-[INFO] EPOCH: 915/5000
-Train loss: 0.070768, Val loss: 0.0751
-[INFO] EPOCH: 916/5000
-Train loss: 0.069875, Val loss: 0.0759
-[INFO] EPOCH: 917/5000
-Train loss: 0.071232, Val loss: 0.0773
-[INFO] EPOCH: 918/5000
-Train loss: 0.069517, Val loss: 0.0760
-[INFO] EPOCH: 919/5000
-Train loss: 0.069352, Val loss: 0.0741
-[INFO] EPOCH: 920/5000
-Train loss: 0.069625, Val loss: 0.0741
-[INFO] EPOCH: 921/5000
-Train loss: 0.069653, Val loss: 0.0755
-[INFO] EPOCH: 922/5000
-Train loss: 0.069409, Val loss: 0.0755
-[INFO] EPOCH: 923/5000
-Train loss: 0.069922, Val loss: 0.0757
-[INFO] EPOCH: 924/5000
-Train loss: 0.136993, Val loss: 0.0954
-[INFO] EPOCH: 925/5000
-Train loss: 0.082877, Val loss: 0.0830
-[INFO] EPOCH: 926/5000
- 19%|█▊        | 927/5000 [123:19:08<542:09:47, 479.20s/it] 19%|█▊        | 928/5000 [123:27:07<541:56:31, 479.12s/it] 19%|█▊        | 929/5000 [123:35:06<541:55:42, 479.23s/it] 19%|█▊        | 930/5000 [123:43:06<542:01:05, 479.43s/it] 19%|█▊        | 931/5000 [123:51:06<541:54:23, 479.45s/it] 19%|█▊        | 932/5000 [123:59:05<541:51:11, 479.52s/it] 19%|█▊        | 933/5000 [124:07:05<541:48:22, 479.59s/it] 19%|█▊        | 934/5000 [124:15:05<541:38:59, 479.57s/it] 19%|█▊        | 935/5000 [124:23:04<541:20:58, 479.42s/it] 19%|█▊        | 936/5000 [124:31:03<541:17:10, 479.49s/it] 19%|█▊        | 937/5000 [124:39:03<541:13:44, 479.55s/it] 19%|█▉        | 938/5000 [124:47:01<540:34:32, 479.09s/it] 19%|█▉        | 939/5000 [124:54:59<540:09:03, 478.83s/it] 19%|█▉        | 940/5000 [125:02:59<540:08:07, 478.94s/it] 19%|█▉        | 941/5000 [125:10:58<540:14:22, 479.15s/it] 19%|█▉        | 942/5000 [125:18:57<540:07:29, 479.16s/it] 19%|█▉        | 943/5000 [125:26:56<539:49:12, 479.01s/it] 19%|█▉        | 944/5000 [125:34:54<539:22:06, 478.73s/it] 19%|█▉        | 945/5000 [125:42:53<539:15:36, 478.75s/it] 19%|█▉        | 946/5000 [125:50:52<539:11:30, 478.81s/it] 19%|█▉        | 947/5000 [125:58:51<539:18:22, 479.03s/it] 19%|█▉        | 948/5000 [126:06:52<539:49:02, 479.60s/it] 19%|█▉        | 949/5000 [126:14:53<539:56:32, 479.83s/it] 19%|█▉        | 950/5000 [126:22:49<538:33:51, 478.72s/it] 19%|█▉        | 951/5000 [126:30:48<538:31:45, 478.81s/it] 19%|█▉        | 952/5000 [126:38:46<538:12:11, 478.64s/it] 19%|█▉        | 953/5000 [126:46:45<537:59:34, 478.57s/it] 19%|█▉        | 954/5000 [126:54:44<538:06:31, 478.79s/it] 19%|█▉        | 955/5000 [127:02:43<537:55:05, 478.74s/it] 19%|█▉        | 956/5000 [127:10:42<538:04:04, 478.99s/it] 19%|█▉        | 957/5000 [127:18:40<537:30:42, 478.62s/it] 19%|█▉        | 958/5000 [127:26:39<537:40:30, 478.88s/it] 19%|█▉        | 959/5000 [127:34:39<537:39:28, 478.98s/it] 19%|█▉        | 960/5000 [127:42:37<537:23:36, 478.87s/it] 19%|█▉        | 961/5000 [127:50:37<537:36:21, 479.17s/it] 19%|█▉        | 962/5000 [127:58:36<537:27:59, 479.17s/it] 19%|█▉        | 963/5000 [128:06:34<536:53:49, 478.78s/it] 19%|█▉        | 964/5000 [128:14:34<537:07:53, 479.11s/it] 19%|█▉        | 965/5000 [128:22:33<536:58:42, 479.09s/it] 19%|█▉        | 966/5000 [128:30:32<536:39:57, 478.93s/it] 19%|█▉        | 967/5000 [128:38:31<536:36:48, 479.00s/it] 19%|█▉        | 968/5000 [128:46:31<536:45:46, 479.25s/it] 19%|█▉        | 969/5000 [128:54:30<536:35:39, 479.22s/it] 19%|█▉        | 970/5000 [129:02:29<536:34:55, 479.33s/it] 19%|█▉        | 971/5000 [129:10:29<536:28:02, 479.35s/it] 19%|█▉        | 972/5000 [129:18:28<536:18:09, 479.32s/it] 19%|█▉        | 973/5000 [129:26:27<536:04:49, 479.24s/it] 19%|█▉        | 974/5000 [129:34:24<535:18:12, 478.66s/it] 20%|█▉        | 975/5000 [129:42:23<535:07:21, 478.62s/it] 20%|█▉        | 976/5000 [129:50:21<534:56:28, 478.58s/it] 20%|█▉        | 977/5000 [129:58:21<535:18:47, 479.03s/it] 20%|█▉        | 978/5000 [130:06:20<535:00:16, 478.87s/it] 20%|█▉        | 979/5000 [130:14:19<534:50:56, 478.85s/it] 20%|█▉        | 980/5000 [130:22:17<534:39:27, 478.80s/it] 20%|█▉        | 981/5000 [130:30:16<534:24:30, 478.69s/it] 20%|█▉        | 982/5000 [130:38:15<534:17:31, 478.71s/it] 20%|█▉        | 983/5000 [130:46:14<534:19:41, 478.86s/it] 20%|█▉        | 984/5000 [130:54:14<534:31:58, 479.16s/it] 20%|█▉        | 985/5000 [131:02:14<534:52:36, 479.59s/it] 20%|█▉        | 986/5000 [131:10:14<534:45:16, 479.60s/it] 20%|█▉        | 987/5000 [131:18:12<534:09:26, 479.18s/it] 20%|█▉        | 988/5000 [131:26:12<534:18:06, 479.43s/it] 20%|█▉        | 989/5000 [131:34:12<534:22:46, 479.62s/it] 20%|█▉        | 990/5000 [131:42:12<534:17:23, 479.66s/it] 20%|█▉        | 991/5000 [131:50:12<534:09:47, 479.67s/it] 20%|█▉        | 992/5000 [131:58:11<534:05:37, 479.72s/it] 20%|█▉        | 993/5000 [132:06:11<533:51:46, 479.64s/it] 20%|█▉        | 994/5000 [132:14:08<532:58:38, 478.96s/it] 20%|█▉        | 995/5000 [132:22:09<533:24:03, 479.46s/it] 20%|█▉        | 996/5000 [132:30:09<533:37:18, 479.78s/it] 20%|█▉        | 997/5000 [132:38:09<533:24:30, 479.71s/it] 20%|█▉        | 998/5000 [132:46:07<532:51:08, 479.33s/it] 20%|█▉        | 999/5000 [132:54:06<532:25:33, 479.06s/it] 20%|██        | 1000/5000 [133:02:03<531:45:43, 478.59s/it] 20%|██        | 1001/5000 [133:10:03<531:57:12, 478.88s/it] 20%|██        | 1002/5000 [133:18:02<531:59:06, 479.03s/it] 20%|██        | 1003/5000 [133:26:01<531:51:47, 479.04s/it] 20%|██        | 1004/5000 [133:34:00<531:43:50, 479.04s/it] 20%|██        | 1005/5000 [133:41:57<530:55:44, 478.43s/it] 20%|██        | 1006/5000 [133:49:56<530:59:07, 478.60s/it] 20%|██        | 1007/5000 [133:57:55<530:55:19, 478.67s/it] 20%|██        | 1008/5000 [134:05:54<530:54:59, 478.78s/it] 20%|██        | 1009/5000 [134:13:53<530:39:28, 478.67s/it] 20%|██        | 1010/5000 [134:21:51<530:35:43, 478.73s/it] 20%|██        | 1011/5000 [134:29:50<530:28:15, 478.74s/it] 20%|██        | 1012/5000 [134:37:49<530:21:58, 478.77s/it] 20%|██        | 1013/5000 [134:45:48<530:13:06, 478.75s/it] 20%|██        | 1014/5000 [134:53:47<530:05:31, 478.76s/it] 20%|██        | 1015/5000 [135:01:46<530:06:05, 478.89s/it] 20%|██        | 1016/5000 [135:09:45<529:57:43, 478.88s/it] 20%|██        | 1017/5000 [135:17:43<529:44:57, 478.81s/it] 20%|██        | 1018/5000 [135:25:42<529:40:29, 478.86s/it] 20%|██        | 1019/5000 [135:33:41<529:34:39, 478.89s/it] 20%|██        | 1020/5000 [135:41:40<529:31:27, 478.97s/it] 20%|██        | 1021/5000 [135:49:40<529:35:38, 479.15s/it] 20%|██        | 1022/5000 [135:57:39<529:22:21, 479.07s/it] 20%|██        | 1023/5000 [136:05:39<529:35:06, 479.38s/it] 20%|██        | 1024/5000 [136:13:37<529:07:28, 479.09s/it] 20%|██        | 1025/5000 [136:21:36<528:49:23, 478.93s/it] 21%|██        | 1026/5000 [136:29:34<528:33:38, 478.82s/it] 21%|██        | 1027/5000 [136:37:34<528:48:37, 479.16s/it] 21%|██        | 1028/5000 [136:45:48<533:24:05, 483.45s/it] 21%|██        | 1029/5000 [136:53:51<533:06:28, 483.30s/it] 21%|██        | 1030/5000 [137:01:58<534:16:56, 484.49s/it] 21%|██        | 1031/5000 [137:09:57<532:27:05, 482.95s/it] 21%|██        | 1032/5000 [137:17:58<531:31:38, 482.23s/it] 21%|██        | 1033/5000 [137:26:13<535:37:25, 486.07s/it]
+GPU 0: NVIDIA GeForce RTX 3090 (UUID: GPU-e44b8865-a90e-bee2-f000-8e576cbfee9a)
+usage: train.py [-h] [--dataset-path DATASET_PATH] [--base-output BASE_OUTPUT]
+                [--run-name RUN_NAME] [--batch-size BATCH_SIZE]
+                [--num-workers NUM_WORKERS]
+                [--online-rotation-max-degrees ONLINE_ROTATION_MAX_DEGREES]
+                [--online-augmentations-per-image ONLINE_AUGMENTATIONS_PER_IMAGE]
+train.py: error: unrecognized arguments: 1/valid/multi_25_50_2-1_x1
+Error response from daemon: No such container: slurm_27974
