@@ -2,35 +2,35 @@ Prolog...
 ================================================================================
 Running on worker2. This worker has IP 134.60.70.133/24
 Running as tatsuki, with groups: students docker
-Job ID: 27975
+Job ID: 27978
 CUDA_VISIBLE_DEVICES: 0
 Using CPU Cores 0-11
 Using 63000 MiB RAM
 ================================================================================
-docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27975 --cpuset-cpus 0-11 --memory 63000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/valid/multi_50_150_2-1_x1; }'
+docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27978 --cpuset-cpus 0-11 --memory 63000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset\ 1/valid/multi_25_50_2-1_x1; }'
 ================================================================================
 latest: Pulling from pytorch/pytorch
 Digest: sha256:11691e035a3651d25a87116b4f6adc113a27a29d8f5a6a583f8569e0ee5ff897
 Status: Image is up to date for pytorch/pytorch:latest
 Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
 Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
-Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6081 kB]
-Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
-Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
-Get:6 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
-Get:7 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
-Get:8 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3573 kB]
-Get:9 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
-Get:10 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1287 kB]
-Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
-Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
-Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3902 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3573 kB]
+Get:5 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1287 kB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6081 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6281 kB]
 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1598 kB]
-Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6281 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3902 kB]
 Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
-Fetched 43.3 MB in 2s (17.7 MB/s)
+Fetched 43.3 MB in 2s (18.7 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -561,7 +561,7 @@ Get:361 http://archive.ubuntu.com/ubuntu jammy/universe amd64 va-driver-all amd6
 Get:362 http://archive.ubuntu.com/ubuntu jammy/main amd64 vdpau-driver-all amd64 1.4-3build2 [4510 B]
 Get:363 http://archive.ubuntu.com/ubuntu jammy/universe amd64 proj-bin amd64 8.2.1-1 [154 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 226 MB in 7s (33.6 MB/s)
+Fetched 226 MB in 7s (34.2 MB/s)
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6643 files and directories currently installed.)
 Preparing to unpack .../libsystemd0_249.11-0ubuntu3.17_amd64.deb ...
 Unpacking libsystemd0:amd64 (249.11-0ubuntu3.17) over (249.11-0ubuntu3.12) ...
@@ -1758,8 +1758,8 @@ Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
 Setting up tzdata (2025b-0ubuntu0.22.04.1) ...
 
 Current default time zone: 'Etc/UTC'
-Local time is now:      Tue Dec  9 15:35:56 UTC 2025.
-Universal Time is now:  Tue Dec  9 15:35:56 UTC 2025.
+Local time is now:      Tue Dec  9 15:40:15 UTC 2025.
+Universal Time is now:  Tue Dec  9 15:40:15 UTC 2025.
 Run 'dpkg-reconfigure tzdata' if you wish to change it.
 
 Setting up libcap2-bin (1:2.44-1ubuntu0.22.04.2) ...
@@ -2071,7 +2071,7 @@ Collecting cycler>=0.10 (from matplotlib->-r requirements (line 3))
   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
 Collecting fonttools>=4.22.0 (from matplotlib->-r requirements (line 3))
   Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (113 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 8.2 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 6.7 MB/s eta 0:00:00
 Collecting kiwisolver>=1.3.1 (from matplotlib->-r requirements (line 3))
   Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (6.3 kB)
 Requirement already satisfied: packaging>=20.0 in /opt/conda/lib/python3.10/site-packages (from matplotlib->-r requirements (line 3)) (23.1)
@@ -2085,7 +2085,7 @@ Collecting opencv-contrib-python (from -r requirements (line 4))
   Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
 Collecting scipy>=1.8.0 (from scikit-learn->-r requirements (line 6))
   Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 7.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 8.1 MB/s eta 0:00:00
 Collecting joblib>=1.2.0 (from scikit-learn->-r requirements (line 6))
   Downloading joblib-1.5.2-py3-none-any.whl.metadata (5.6 kB)
 Collecting threadpoolctl>=3.1.0 (from scikit-learn->-r requirements (line 6))
@@ -2101,7 +2101,7 @@ Collecting protobuf!=4.21.0,!=5.28.0,<7,>=3.19.0 (from wandb->-r requirements (l
   Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
 Collecting pydantic<3 (from wandb->-r requirements (line 9))
   Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 11.8 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 11.5 MB/s eta 0:00:00
 Requirement already satisfied: pyyaml in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (6.0.1)
 Requirement already satisfied: requests<3,>=2.0.0 in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (2.31.0)
 Collecting sentry-sdk>=2.0.0 (from wandb->-r requirements (line 9))
@@ -2133,53 +2133,53 @@ Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython!=3.1.29,>=1.0.0->wan
 Requirement already satisfied: MarkupSafe>=2.0 in /opt/conda/lib/python3.10/site-packages (from jinja2->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (2.1.3)
 Requirement already satisfied: mpmath>=0.19 in /opt/conda/lib/python3.10/site-packages (from sympy->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (1.3.0)
 Downloading matplotlib-3.10.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 56.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 59.1 MB/s eta 0:00:00
 Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (69.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 45.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 32.7 MB/s eta 0:00:00
 Downloading scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 46.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 44.6 MB/s eta 0:00:00
 Downloading torchmetrics-1.8.2-py3-none-any.whl (983 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 35.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 35.3 MB/s eta 0:00:00
 Downloading wandb-0.23.1-py3-none-manylinux_2_28_x86_64.whl (22.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 44.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 44.9 MB/s eta 0:00:00
 Downloading contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 24.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 19.7 MB/s eta 0:00:00
 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
 Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 56.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 33.7 MB/s eta 0:00:00
 Downloading gitpython-3.1.45-py3-none-any.whl (208 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 22.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 23.1 MB/s eta 0:00:00
 Downloading joblib-1.5.2-py3-none-any.whl (308 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 29.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 23.1 MB/s eta 0:00:00
 Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 45.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 34.5 MB/s eta 0:00:00
 Downloading lightning_utilities-0.15.2-py3-none-any.whl (29 kB)
 Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 kB 30.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 kB 21.0 MB/s eta 0:00:00
 Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 23.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 27.5 MB/s eta 0:00:00
 Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 53.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 34.4 MB/s eta 0:00:00
 Downloading pyparsing-3.2.5-py3-none-any.whl (113 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 15.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 15.0 MB/s eta 0:00:00
 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 24.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 25.0 MB/s eta 0:00:00
 Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 37.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 41.7 MB/s eta 0:00:00
 Downloading sentry_sdk-2.47.0-py2.py3-none-any.whl (411 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 29.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 29.7 MB/s eta 0:00:00
 Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 5.4 MB/s eta 0:00:00
 Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
 Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 8.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 8.3 MB/s eta 0:00:00
 Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
 Downloading smmap-5.0.2-py3-none-any.whl (24 kB)
 Building wheels for collected packages: imutils
   Building wheel for imutils (setup.py): started
   Building wheel for imutils (setup.py): finished with status 'done'
-  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=8cb6d8615d8cc613c98160b8c2e06319c24581371911f12998cb006fa87c1137
+  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=5cc4ea35b23f97ff7e829bf98a679a036ed8795840eaf18d692af28d7267ed14
   Stored in directory: /tmp/cache/pip/wheels/85/cf/3a/e265e975a1e7c7e54eb3692d6aa4e2e7d6a3945d29da46f2d7
 Successfully built imutils
 Installing collected packages: imutils, typing-extensions, threadpoolctl, smmap, sentry-sdk, scipy, python-dateutil, pyparsing, protobuf, opencv-contrib-python, kiwisolver, joblib, fonttools, cycler, contourpy, annotated-types, typing-inspection, scikit-learn, pydantic-core, matplotlib, lightning-utilities, gitdb, torchmetrics, pydantic, gitpython, wandb
@@ -2192,10 +2192,656 @@ WARNING: Running pip as the 'root' user can result in broken permissions and con
 useradd: warning: the home directory /mnt/hdd/tatsuki already exists.
 useradd: Not copying any file from skel directory into it.
 GPU 0: NVIDIA GeForce RTX 3090 (UUID: GPU-e44b8865-a90e-bee2-f000-8e576cbfee9a)
-usage: train.py [-h] [--dataset-path DATASET_PATH] [--base-output BASE_OUTPUT]
-                [--run-name RUN_NAME] [--batch-size BATCH_SIZE]
-                [--num-workers NUM_WORKERS]
-                [--online-rotation-max-degrees ONLINE_ROTATION_MAX_DEGREES]
-                [--online-augmentations-per-image ONLINE_AUGMENTATIONS_PER_IMAGE]
-train.py: error: unrecognized arguments: 1/valid/multi_50_150_2-1_x1
-Error response from daemon: No such container: slurm_27975
+wandb: Appending key for api.wandb.ai to your netrc file: /mnt/hdd/tatsuki/.netrc
+wandb: Currently logged in as: gktatsu (gktatsu-) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run bdpb2ra8
+wandb: Tracking run with wandb version 0.23.1
+wandb: Run data is saved locally in /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network/wandb/run-20251209_154046-bdpb2ra8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run training_run_20251209_154045_p4054_f61d0c82
+wandb: ⭐️ View project at https://wandb.ai/gktatsu-/Segmentation%20Network
+wandb: 🚀 View run at https://wandb.ai/gktatsu-/Segmentation%20Network/runs/bdpb2ra8
+/opt/conda/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+[INFO] found 233 examples in the training set...
+[INFO] found 25 examples in the validation set...
+[INFO] found 65 examples in the test set...
+[INFO] training the network...
+  0%|          | 0/5000 [00:00<?, ?it/s]  0%|          | 1/5000 [00:22<30:59:41, 22.32s/it]  0%|          | 2/5000 [00:30<19:47:10, 14.25s/it]  0%|          | 3/5000 [00:39<16:10:05, 11.65s/it]  0%|          | 4/5000 [00:47<14:26:40, 10.41s/it]  0%|          | 5/5000 [00:56<13:29:51,  9.73s/it]  0%|          | 6/5000 [01:05<12:58:56,  9.36s/it]  0%|          | 7/5000 [01:13<12:36:08,  9.09s/it]  0%|          | 8/5000 [01:22<12:20:57,  8.91s/it]  0%|          | 9/5000 [01:30<12:11:24,  8.79s/it]  0%|          | 10/5000 [01:39<12:08:05,  8.75s/it]  0%|          | 11/5000 [01:47<12:02:23,  8.69s/it]  0%|          | 12/5000 [01:56<11:58:41,  8.65s/it]  0%|          | 13/5000 [02:05<11:59:52,  8.66s/it]  0%|          | 14/5000 [02:13<11:57:43,  8.64s/it]  0%|          | 15/5000 [02:22<11:55:39,  8.61s/it]  0%|          | 16/5000 [02:31<11:57:57,  8.64s/it]  0%|          | 17/5000 [02:39<11:56:33,  8.63s/it]  0%|          | 18/5000 [02:48<11:55:38,  8.62s/it]  0%|          | 19/5000 [02:56<11:54:43,  8.61s/it]  0%|          | 20/5000 [03:05<11:55:17,  8.62s/it]  0%|          | 21/5000 [03:13<11:53:19,  8.60s/it]  0%|          | 22/5000 [03:22<11:52:39,  8.59s/it]  0%|          | 23/5000 [03:31<11:53:51,  8.61s/it]  0%|          | 24/5000 [03:39<11:53:10,  8.60s/it]  0%|          | 25/5000 [03:48<11:52:30,  8.59s/it]  1%|          | 26/5000 [03:56<11:52:30,  8.59s/it]  1%|          | 27/5000 [04:05<11:55:10,  8.63s/it]  1%|          | 28/5000 [04:14<11:54:19,  8.62s/it]  1%|          | 29/5000 [04:22<11:54:08,  8.62s/it]  1%|          | 30/5000 [04:31<11:54:02,  8.62s/it]  1%|          | 31/5000 [04:40<11:56:44,  8.65s/it]  1%|          | 32/5000 [04:48<11:55:36,  8.64s/it]  1%|          | 33/5000 [04:57<11:54:48,  8.63s/it]  1%|          | 34/5000 [05:06<11:57:25,  8.67s/it]  1%|          | 35/5000 [05:14<11:54:35,  8.64s/it]  1%|          | 36/5000 [05:23<11:54:23,  8.63s/it]  1%|          | 37/5000 [05:31<11:52:34,  8.61s/it]  1%|          | 38/5000 [05:40<11:53:15,  8.62s/it]  1%|          | 39/5000 [05:49<11:52:05,  8.61s/it]  1%|          | 40/5000 [05:57<11:51:41,  8.61s/it]  1%|          | 41/5000 [06:06<11:54:12,  8.64s/it]  1%|          | 42/5000 [06:15<11:52:57,  8.63s/it]  1%|          | 43/5000 [06:23<11:51:04,  8.61s/it]  1%|          | 44/5000 [06:32<11:50:12,  8.60s/it]  1%|          | 45/5000 [06:40<11:52:12,  8.62s/it]  1%|          | 46/5000 [06:49<11:51:57,  8.62s/it]  1%|          | 47/5000 [06:58<11:51:33,  8.62s/it]  1%|          | 48/5000 [07:06<11:53:30,  8.65s/it]  1%|          | 49/5000 [07:15<11:51:12,  8.62s/it]  1%|          | 50/5000 [07:24<11:50:53,  8.62s/it]  1%|          | 51/5000 [07:32<11:52:45,  8.64s/it]  1%|          | 52/5000 [07:41<11:51:18,  8.63s/it]  1%|          | 53/5000 [07:49<11:50:46,  8.62s/it]  1%|          | 54/5000 [07:58<11:51:40,  8.63s/it]  1%|          | 55/5000 [08:07<11:54:31,  8.67s/it]  1%|          | 56/5000 [08:16<11:53:13,  8.66s/it]  1%|          | 57/5000 [08:24<11:52:13,  8.65s/it]  1%|          | 58/5000 [08:33<11:53:40,  8.66s/it]  1%|          | 59/5000 [08:41<11:52:00,  8.65s/it]  1%|          | 60/5000 [08:50<11:50:48,  8.63s/it]  1%|          | 61/5000 [08:59<11:50:22,  8.63s/it]  1%|          | 62/5000 [09:07<11:53:05,  8.66s/it]  1%|▏         | 63/5000 [09:16<11:53:02,  8.67s/it]  1%|▏         | 64/5000 [09:25<11:52:25,  8.66s/it]  1%|▏         | 65/5000 [09:34<11:55:36,  8.70s/it]  1%|▏         | 66/5000 [09:42<11:55:23,  8.70s/it]  1%|▏         | 67/5000 [09:51<11:53:20,  8.68s/it]  1%|▏         | 68/5000 [09:59<11:51:34,  8.66s/it]  1%|▏         | 69/5000 [10:08<11:52:44,  8.67s/it]  1%|▏         | 70/5000 [10:17<11:51:39,  8.66s/it]  1%|▏         | 71/5000 [10:25<11:50:46,  8.65s/it]  1%|▏         | 72/5000 [10:34<11:49:29,  8.64s/it]  1%|▏         | 73/5000 [10:43<11:52:26,  8.68s/it]  1%|▏         | 74/5000 [10:51<11:51:29,  8.67s/it]  2%|▏         | 75/5000 [11:00<11:50:43,  8.66s/it]  2%|▏         | 76/5000 [11:09<11:51:42,  8.67s/it]  2%|▏         | 77/5000 [11:17<11:50:13,  8.66s/it]  2%|▏         | 78/5000 [11:26<11:48:42,  8.64s/it]  2%|▏         | 79/5000 [11:35<11:51:25,  8.67s/it]  2%|▏         | 80/5000 [11:43<11:51:26,  8.68s/it]  2%|▏         | 81/5000 [11:52<11:49:59,  8.66s/it]  2%|▏         | 82/5000 [12:01<11:48:26,  8.64s/it]  2%|▏         | 83/5000 [12:09<11:50:30,  8.67s/it]  2%|▏         | 84/5000 [12:18<11:48:55,  8.65s/it]  2%|▏         | 85/5000 [12:27<11:47:28,  8.64s/it]  2%|▏         | 86/5000 [12:35<11:48:19,  8.65s/it]  2%|▏         | 87/5000 [12:44<11:46:50,  8.63s/it]  2%|▏         | 88/5000 [12:52<11:45:56,  8.62s/it]  2%|▏         | 89/5000 [13:01<11:44:12,  8.60s/it]  2%|▏         | 90/5000 [13:10<11:46:04,  8.63s/it]  2%|▏         | 91/5000 [13:18<11:44:21,  8.61s/it]  2%|▏         | 92/5000 [13:27<11:45:42,  8.63s/it]  2%|▏         | 93/5000 [13:36<11:46:45,  8.64s/it]  2%|▏         | 94/5000 [13:44<11:50:24,  8.69s/it]  2%|▏         | 95/5000 [13:53<11:49:43,  8.68s/it]  2%|▏         | 96/5000 [14:02<11:49:06,  8.68s/it]  2%|▏         | 97/5000 [14:11<11:51:50,  8.71s/it]  2%|▏         | 98/5000 [14:19<11:51:24,  8.71s/it]  2%|▏         | 99/5000 [14:28<11:50:02,  8.69s/it]  2%|▏         | 100/5000 [14:37<11:52:32,  8.73s/it]  2%|▏         | 101/5000 [14:45<11:49:38,  8.69s/it]  2%|▏         | 102/5000 [14:54<11:48:33,  8.68s/it]  2%|▏         | 103/5000 [15:03<11:48:43,  8.68s/it]  2%|▏         | 104/5000 [15:11<11:49:55,  8.70s/it]  2%|▏         | 105/5000 [15:20<11:47:15,  8.67s/it]  2%|▏         | 106/5000 [15:29<11:45:04,  8.64s/it]  2%|▏         | 107/5000 [15:37<11:46:07,  8.66s/it]  2%|▏         | 108/5000 [15:46<11:45:05,  8.65s/it]  2%|▏         | 109/5000 [15:55<11:44:15,  8.64s/it]  2%|▏         | 110/5000 [16:03<11:45:10,  8.65s/it]  2%|▏         | 111/5000 [16:12<11:46:26,  8.67s/it]  2%|▏         | 112/5000 [16:21<11:45:34,  8.66s/it]  2%|▏         | 113/5000 [16:29<11:44:56,  8.65s/it]  2%|▏         | 114/5000 [16:38<11:46:24,  8.67s/it]  2%|▏         | 115/5000 [16:47<11:44:12,  8.65s/it]  2%|▏         | 116/5000 [16:55<11:42:29,  8.63s/it]  2%|▏         | 117/5000 [17:04<11:41:25,  8.62s/it]  2%|▏         | 118/5000 [17:12<11:44:32,  8.66s/it]  2%|▏         | 119/5000 [17:21<11:43:58,  8.65s/it]  2%|▏         | 120/5000 [17:30<11:42:57,  8.64s/it]  2%|▏         | 121/5000 [17:38<11:46:01,  8.68s/it]  2%|▏         | 122/5000 [17:47<11:45:08,  8.67s/it]  2%|▏         | 123/5000 [17:56<11:44:17,  8.66s/it]  2%|▏         | 124/5000 [18:04<11:43:35,  8.66s/it]  2%|▎         | 125/5000 [18:13<11:45:46,  8.69s/it]  3%|▎         | 126/5000 [18:22<11:44:49,  8.68s/it]  3%|▎         | 127/5000 [18:30<11:43:59,  8.67s/it]  3%|▎         | 128/5000 [18:39<11:48:08,  8.72s/it]  3%|▎         | 129/5000 [18:48<11:46:45,  8.71s/it]  3%|▎         | 130/5000 [18:57<11:45:21,  8.69s/it]  3%|▎         | 131/5000 [19:05<11:44:29,  8.68s/it]  3%|▎         | 132/5000 [19:14<11:46:36,  8.71s/it]  3%|▎         | 133/5000 [19:23<11:45:12,  8.69s/it][INFO] EPOCH: 1/5000
+Train loss: 1.314461, Val loss: 1.0636
+[INFO] EPOCH: 2/5000
+Train loss: 1.115381, Val loss: 0.9205
+[INFO] EPOCH: 3/5000
+Train loss: 0.855138, Val loss: 0.7949
+[INFO] EPOCH: 4/5000
+Train loss: 0.711153, Val loss: 0.8423
+[INFO] EPOCH: 5/5000
+Train loss: 0.595362, Val loss: 0.8823
+[INFO] EPOCH: 6/5000
+Train loss: 0.562027, Val loss: 1.0699
+[INFO] EPOCH: 7/5000
+Train loss: 0.533701, Val loss: 1.2649
+[INFO] EPOCH: 8/5000
+Train loss: 0.513458, Val loss: 1.3438
+[INFO] EPOCH: 9/5000
+Train loss: 0.492557, Val loss: 2.0829
+[INFO] EPOCH: 10/5000
+Train loss: 0.486897, Val loss: 1.3273
+[INFO] EPOCH: 11/5000
+Train loss: 0.471651, Val loss: 1.4410
+[INFO] EPOCH: 12/5000
+Train loss: 0.444408, Val loss: 1.5469
+[INFO] EPOCH: 13/5000
+Train loss: 0.418575, Val loss: 1.9595
+[INFO] EPOCH: 14/5000
+Train loss: 0.422434, Val loss: 1.4478
+[INFO] EPOCH: 15/5000
+Train loss: 0.399770, Val loss: 1.3862
+[INFO] EPOCH: 16/5000
+Train loss: 0.405653, Val loss: 1.6955
+[INFO] EPOCH: 17/5000
+Train loss: 0.410072, Val loss: 1.4389
+[INFO] EPOCH: 18/5000
+Train loss: 0.385220, Val loss: 1.2420
+[INFO] EPOCH: 19/5000
+Train loss: 0.383644, Val loss: 1.2069
+[INFO] EPOCH: 20/5000
+Train loss: 0.373801, Val loss: 1.3233
+[INFO] EPOCH: 21/5000
+Train loss: 0.364347, Val loss: 1.1977
+[INFO] EPOCH: 22/5000
+Train loss: 0.368365, Val loss: 1.2086
+[INFO] EPOCH: 23/5000
+Train loss: 0.357923, Val loss: 1.1125
+[INFO] EPOCH: 24/5000
+Train loss: 0.369304, Val loss: 1.2028
+[INFO] EPOCH: 25/5000
+Train loss: 0.351991, Val loss: 1.1349
+[INFO] EPOCH: 26/5000
+Train loss: 0.351324, Val loss: 1.2106
+[INFO] EPOCH: 27/5000
+Train loss: 0.349937, Val loss: 1.2686
+[INFO] EPOCH: 28/5000
+Train loss: 0.361325, Val loss: 1.1605
+[INFO] EPOCH: 29/5000
+Train loss: 0.345334, Val loss: 1.0558
+[INFO] EPOCH: 30/5000
+Train loss: 0.348097, Val loss: 1.0212
+[INFO] EPOCH: 31/5000
+Train loss: 0.351233, Val loss: 1.1955
+[INFO] EPOCH: 32/5000
+Train loss: 0.339984, Val loss: 1.1480
+[INFO] EPOCH: 33/5000
+Train loss: 0.339786, Val loss: 1.2007
+[INFO] EPOCH: 34/5000
+Train loss: 0.358944, Val loss: 1.1227
+[INFO] EPOCH: 35/5000
+Train loss: 0.340102, Val loss: 1.1424
+[INFO] EPOCH: 36/5000
+Train loss: 0.333781, Val loss: 1.1858
+[INFO] EPOCH: 37/5000
+Train loss: 0.332192, Val loss: 1.1490
+[INFO] EPOCH: 38/5000
+Train loss: 0.330192, Val loss: 1.1209
+[INFO] EPOCH: 39/5000
+Train loss: 0.338115, Val loss: 1.1214
+[INFO] EPOCH: 40/5000
+Train loss: 0.327284, Val loss: 1.1743
+[INFO] EPOCH: 41/5000
+Train loss: 0.330963, Val loss: 1.2200
+[INFO] EPOCH: 42/5000
+Train loss: 0.324066, Val loss: 1.2730
+[INFO] EPOCH: 43/5000
+Train loss: 0.327080, Val loss: 1.2048
+[INFO] EPOCH: 44/5000
+Train loss: 0.323723, Val loss: 1.0229
+[INFO] EPOCH: 45/5000
+Train loss: 0.374257, Val loss: 1.2935
+[INFO] EPOCH: 46/5000
+Train loss: 0.342226, Val loss: 0.9869
+[INFO] EPOCH: 47/5000
+Train loss: 0.336330, Val loss: 1.1259
+[INFO] EPOCH: 48/5000
+Train loss: 0.329454, Val loss: 1.1786
+[INFO] EPOCH: 49/5000
+Train loss: 0.318718, Val loss: 1.2432
+[INFO] EPOCH: 50/5000
+Train loss: 0.320027, Val loss: 1.2527
+[INFO] EPOCH: 51/5000
+Train loss: 0.316292, Val loss: 1.2211
+[INFO] EPOCH: 52/5000
+Train loss: 0.321304, Val loss: 1.1702
+[INFO] EPOCH: 53/5000
+Train loss: 0.321811, Val loss: 1.1598
+[INFO] EPOCH: 54/5000
+Train loss: 0.317682, Val loss: 1.1414
+[INFO] EPOCH: 55/5000
+Train loss: 0.308857, Val loss: 1.2177
+[INFO] EPOCH: 56/5000
+Train loss: 0.301639, Val loss: 1.2046
+[INFO] EPOCH: 57/5000
+Train loss: 0.297319, Val loss: 1.2279
+[INFO] EPOCH: 58/5000
+Train loss: 0.305642, Val loss: 1.1052
+[INFO] EPOCH: 59/5000
+Train loss: 0.317882, Val loss: 1.3665
+[INFO] EPOCH: 60/5000
+Train loss: 0.310774, Val loss: 1.2433
+[INFO] EPOCH: 61/5000
+Train loss: 0.305459, Val loss: 1.2457
+[INFO] EPOCH: 62/5000
+Train loss: 0.299531, Val loss: 1.3445
+[INFO] EPOCH: 63/5000
+Train loss: 0.292743, Val loss: 1.2490
+[INFO] EPOCH: 64/5000
+Train loss: 0.289738, Val loss: 1.3130
+[INFO] EPOCH: 65/5000
+Train loss: 0.283134, Val loss: 1.2636
+[INFO] EPOCH: 66/5000
+Train loss: 0.291596, Val loss: 1.2090
+[INFO] EPOCH: 67/5000
+Train loss: 0.293661, Val loss: 1.2388
+[INFO] EPOCH: 68/5000
+Train loss: 0.288742, Val loss: 1.3068
+[INFO] EPOCH: 69/5000
+Train loss: 0.294317, Val loss: 1.3506
+[INFO] EPOCH: 70/5000
+Train loss: 0.284684, Val loss: 1.1756
+[INFO] EPOCH: 71/5000
+Train loss: 0.297590, Val loss: 1.3497
+[INFO] EPOCH: 72/5000
+Train loss: 0.313326, Val loss: 1.2903
+[INFO] EPOCH: 73/5000
+Train loss: 0.302387, Val loss: 1.3161
+[INFO] EPOCH: 74/5000
+Train loss: 0.290038, Val loss: 1.3309
+[INFO] EPOCH: 75/5000
+Train loss: 0.280275, Val loss: 1.3724
+[INFO] EPOCH: 76/5000
+Train loss: 0.270276, Val loss: 1.3407
+[INFO] EPOCH: 77/5000
+Train loss: 0.268659, Val loss: 1.4025
+[INFO] EPOCH: 78/5000
+Train loss: 0.280689, Val loss: 1.3522
+[INFO] EPOCH: 79/5000
+Train loss: 0.278341, Val loss: 1.2341
+[INFO] EPOCH: 80/5000
+Train loss: 0.270598, Val loss: 1.4086
+[INFO] EPOCH: 81/5000
+Train loss: 0.274668, Val loss: 1.5124
+[INFO] EPOCH: 82/5000
+Train loss: 0.284329, Val loss: 1.3235
+[INFO] EPOCH: 83/5000
+Train loss: 0.274990, Val loss: 1.3511
+[INFO] EPOCH: 84/5000
+Train loss: 0.273491, Val loss: 1.2893
+[INFO] EPOCH: 85/5000
+Train loss: 0.276800, Val loss: 1.5752
+[INFO] EPOCH: 86/5000
+Train loss: 0.281297, Val loss: 1.2538
+[INFO] EPOCH: 87/5000
+Train loss: 0.275388, Val loss: 1.3444
+[INFO] EPOCH: 88/5000
+Train loss: 0.259538, Val loss: 1.3909
+[INFO] EPOCH: 89/5000
+Train loss: 0.264871, Val loss: 1.3527
+[INFO] EPOCH: 90/5000
+Train loss: 0.264966, Val loss: 1.6503
+[INFO] EPOCH: 91/5000
+Train loss: 0.269603, Val loss: 1.4414
+[INFO] EPOCH: 92/5000
+Train loss: 0.253298, Val loss: 1.3409
+[INFO] EPOCH: 93/5000
+Train loss: 0.262436, Val loss: 1.5401
+[INFO] EPOCH: 94/5000
+Train loss: 0.257405, Val loss: 1.3984
+[INFO] EPOCH: 95/5000
+Train loss: 0.245902, Val loss: 1.3723
+[INFO] EPOCH: 96/5000
+Train loss: 0.293622, Val loss: 1.5209
+[INFO] EPOCH: 97/5000
+Train loss: 0.269448, Val loss: 1.2833
+[INFO] EPOCH: 98/5000
+Train loss: 0.249236, Val loss: 1.2224
+[INFO] EPOCH: 99/5000
+Train loss: 0.255120, Val loss: 1.2624
+[INFO] EPOCH: 100/5000
+Train loss: 0.254658, Val loss: 1.3175
+[INFO] EPOCH: 101/5000
+Train loss: 0.243214, Val loss: 1.5368
+[INFO] EPOCH: 102/5000
+Train loss: 0.238306, Val loss: 1.3288
+[INFO] EPOCH: 103/5000
+Train loss: 0.255223, Val loss: 1.3281
+[INFO] EPOCH: 104/5000
+Train loss: 0.244355, Val loss: 1.2919
+[INFO] EPOCH: 105/5000
+Train loss: 0.235525, Val loss: 1.5546
+[INFO] EPOCH: 106/5000
+Train loss: 0.245095, Val loss: 1.4550
+[INFO] EPOCH: 107/5000
+Train loss: 0.241682, Val loss: 1.3904
+[INFO] EPOCH: 108/5000
+Train loss: 0.242557, Val loss: 1.4479
+[INFO] EPOCH: 109/5000
+Train loss: 0.232204, Val loss: 1.4773
+[INFO] EPOCH: 110/5000
+Train loss: 0.232838, Val loss: 1.5100
+[INFO] EPOCH: 111/5000
+Train loss: 0.250687, Val loss: 1.4621
+[INFO] EPOCH: 112/5000
+Train loss: 0.276642, Val loss: 1.4165
+[INFO] EPOCH: 113/5000
+Train loss: 0.275247, Val loss: 1.3382
+[INFO] EPOCH: 114/5000
+Train loss: 0.265643, Val loss: 1.1066
+[INFO] EPOCH: 115/5000
+Train loss: 0.264104, Val loss: 1.2974
+[INFO] EPOCH: 116/5000
+Train loss: 0.242034, Val loss: 1.4146
+[INFO] EPOCH: 117/5000
+Train loss: 0.232651, Val loss: 1.6461
+[INFO] EPOCH: 118/5000
+Train loss: 0.256387, Val loss: 1.2677
+[INFO] EPOCH: 119/5000
+Train loss: 0.235952, Val loss: 1.4379
+[INFO] EPOCH: 120/5000
+Train loss: 0.233130, Val loss: 1.5062
+[INFO] EPOCH: 121/5000
+Train loss: 0.231853, Val loss: 1.4813
+[INFO] EPOCH: 122/5000
+Train loss: 0.237019, Val loss: 1.4256
+[INFO] EPOCH: 123/5000
+Train loss: 0.241927, Val loss: 1.5901
+[INFO] EPOCH: 124/5000
+Train loss: 0.226051, Val loss: 1.4855
+[INFO] EPOCH: 125/5000
+Train loss: 0.223525, Val loss: 1.4469
+[INFO] EPOCH: 126/5000
+Train loss: 0.228842, Val loss: 1.5823
+[INFO] EPOCH: 127/5000
+Train loss: 0.224376, Val loss: 1.4863
+[INFO] EPOCH: 128/5000
+Train loss: 0.218394, Val loss: 1.7122
+[INFO] EPOCH: 129/5000
+Train loss: 0.227934, Val loss: 1.5704
+[INFO] EPOCH: 130/5000
+Train loss: 0.251569, Val loss: 1.3378
+[INFO] EPOCH: 131/5000
+Train loss: 0.257250, Val loss: 1.4152
+[INFO] EPOCH: 132/5000
+Train loss: 0.246756, Val loss: 1.2497
+[INFO] EPOCH: 133/5000
+Train loss: 0.247665, Val loss: 1.3597
+[INFO] EPOCH: 134/5000
+  3%|▎         | 134/5000 [19:31<11:44:59,  8.69s/it]  3%|▎         | 135/5000 [19:40<11:46:31,  8.71s/it]  3%|▎         | 136/5000 [19:49<11:44:36,  8.69s/it]  3%|▎         | 137/5000 [19:57<11:43:53,  8.68s/it]  3%|▎         | 138/5000 [20:06<11:43:28,  8.68s/it]  3%|▎         | 139/5000 [20:15<11:45:02,  8.70s/it]  3%|▎         | 140/5000 [20:24<11:43:35,  8.69s/it]  3%|▎         | 141/5000 [20:32<11:43:58,  8.69s/it]  3%|▎         | 142/5000 [20:41<11:45:58,  8.72s/it]  3%|▎         | 143/5000 [20:50<11:44:44,  8.71s/it]  3%|▎         | 144/5000 [20:58<11:42:40,  8.68s/it]  3%|▎         | 145/5000 [21:07<11:40:46,  8.66s/it]  3%|▎         | 146/5000 [21:16<11:43:45,  8.70s/it]  3%|▎         | 147/5000 [21:24<11:43:03,  8.69s/it]  3%|▎         | 148/5000 [21:33<11:41:54,  8.68s/it]  3%|▎         | 149/5000 [21:42<11:41:51,  8.68s/it]  3%|▎         | 150/5000 [21:51<11:44:06,  8.71s/it]  3%|▎         | 151/5000 [21:59<11:42:29,  8.69s/it]  3%|▎         | 152/5000 [22:08<11:41:38,  8.68s/it]  3%|▎         | 153/5000 [22:17<11:43:38,  8.71s/it]  3%|▎         | 154/5000 [22:25<11:42:37,  8.70s/it]  3%|▎         | 155/5000 [22:34<11:41:40,  8.69s/it]  3%|▎         | 156/5000 [22:43<11:41:29,  8.69s/it]  3%|▎         | 157/5000 [22:51<11:43:05,  8.71s/it]  3%|▎         | 158/5000 [23:00<11:42:20,  8.70s/it]  3%|▎         | 159/5000 [23:09<11:40:01,  8.68s/it]  3%|▎         | 160/5000 [23:18<11:42:53,  8.71s/it]  3%|▎         | 161/5000 [23:26<11:41:49,  8.70s/it]  3%|▎         | 162/5000 [23:35<11:40:13,  8.68s/it]  3%|▎         | 163/5000 [23:43<11:39:14,  8.67s/it]  3%|▎         | 164/5000 [23:52<11:41:20,  8.70s/it]  3%|▎         | 165/5000 [24:01<11:41:15,  8.70s/it]  3%|▎         | 166/5000 [24:10<11:41:20,  8.71s/it]  3%|▎         | 167/5000 [24:18<11:43:51,  8.74s/it]  3%|▎         | 168/5000 [24:27<11:41:57,  8.72s/it]  3%|▎         | 169/5000 [24:36<11:39:23,  8.69s/it]  3%|▎         | 170/5000 [24:44<11:37:56,  8.67s/it]  3%|▎         | 171/5000 [24:53<11:39:42,  8.69s/it]  3%|▎         | 172/5000 [25:02<11:38:51,  8.69s/it]  3%|▎         | 173/5000 [25:10<11:37:55,  8.68s/it]  3%|▎         | 174/5000 [25:19<11:36:42,  8.66s/it]  4%|▎         | 175/5000 [25:28<11:39:17,  8.70s/it]  4%|▎         | 176/5000 [25:37<11:37:32,  8.68s/it]  4%|▎         | 177/5000 [25:45<11:38:07,  8.68s/it]  4%|▎         | 178/5000 [25:54<11:38:59,  8.70s/it]  4%|▎         | 179/5000 [26:03<11:35:48,  8.66s/it]  4%|▎         | 180/5000 [26:11<11:34:15,  8.64s/it]  4%|▎         | 181/5000 [26:20<11:35:03,  8.65s/it]  4%|▎         | 182/5000 [26:28<11:35:14,  8.66s/it]  4%|▎         | 183/5000 [26:37<11:33:58,  8.64s/it]  4%|▎         | 184/5000 [26:46<11:32:13,  8.62s/it]  4%|▎         | 185/5000 [26:54<11:34:05,  8.65s/it]  4%|▎         | 186/5000 [27:03<11:32:37,  8.63s/it]  4%|▎         | 187/5000 [27:12<11:30:56,  8.61s/it]  4%|▍         | 188/5000 [27:20<11:32:47,  8.64s/it]  4%|▍         | 189/5000 [27:29<11:32:07,  8.63s/it]  4%|▍         | 190/5000 [27:38<11:33:31,  8.65s/it]  4%|▍         | 191/5000 [27:46<11:34:27,  8.66s/it]  4%|▍         | 192/5000 [27:55<11:37:23,  8.70s/it]  4%|▍         | 193/5000 [28:04<11:36:21,  8.69s/it]  4%|▍         | 194/5000 [28:12<11:35:32,  8.68s/it]  4%|▍         | 195/5000 [28:21<11:34:17,  8.67s/it]  4%|▍         | 196/5000 [28:30<11:36:21,  8.70s/it]  4%|▍         | 197/5000 [28:38<11:34:59,  8.68s/it]  4%|▍         | 198/5000 [28:47<11:33:43,  8.67s/it]  4%|▍         | 199/5000 [28:56<11:33:45,  8.67s/it]  4%|▍         | 200/5000 [29:04<11:31:17,  8.64s/it]  4%|▍         | 201/5000 [29:13<11:29:49,  8.62s/it]  4%|▍         | 202/5000 [29:21<11:29:27,  8.62s/it]  4%|▍         | 203/5000 [29:30<11:32:04,  8.66s/it]  4%|▍         | 204/5000 [29:39<11:30:25,  8.64s/it]  4%|▍         | 205/5000 [29:47<11:29:40,  8.63s/it]  4%|▍         | 206/5000 [29:56<11:31:16,  8.65s/it]  4%|▍         | 207/5000 [30:05<11:31:22,  8.65s/it]  4%|▍         | 208/5000 [30:13<11:31:25,  8.66s/it]  4%|▍         | 209/5000 [30:22<11:29:55,  8.64s/it]  4%|▍         | 210/5000 [30:31<11:31:50,  8.67s/it]  4%|▍         | 211/5000 [30:39<11:30:31,  8.65s/it]  4%|▍         | 212/5000 [30:48<11:30:01,  8.65s/it]  4%|▍         | 213/5000 [30:57<11:31:15,  8.66s/it]  4%|▍         | 214/5000 [31:05<11:30:37,  8.66s/it]  4%|▍         | 215/5000 [31:14<11:29:36,  8.65s/it]  4%|▍         | 216/5000 [31:23<11:31:29,  8.67s/it]  4%|▍         | 217/5000 [31:31<11:30:36,  8.66s/it]  4%|▍         | 218/5000 [31:40<11:30:07,  8.66s/it]  4%|▍         | 219/5000 [31:49<11:30:33,  8.67s/it]  4%|▍         | 220/5000 [31:57<11:33:09,  8.70s/it]  4%|▍         | 221/5000 [32:06<11:32:26,  8.69s/it]  4%|▍         | 222/5000 [32:15<11:32:41,  8.70s/it]  4%|▍         | 223/5000 [32:24<11:34:40,  8.73s/it]  4%|▍         | 224/5000 [32:32<11:33:02,  8.71s/it]  4%|▍         | 225/5000 [32:41<11:31:52,  8.69s/it]  5%|▍         | 226/5000 [32:50<11:30:53,  8.68s/it]  5%|▍         | 227/5000 [32:58<11:31:35,  8.69s/it]  5%|▍         | 228/5000 [33:07<11:29:57,  8.68s/it]  5%|▍         | 229/5000 [33:16<11:28:47,  8.66s/it]  5%|▍         | 230/5000 [33:24<11:30:47,  8.69s/it]  5%|▍         | 231/5000 [33:33<11:29:38,  8.68s/it]  5%|▍         | 232/5000 [33:42<11:28:43,  8.67s/it]  5%|▍         | 233/5000 [33:50<11:29:25,  8.68s/it]  5%|▍         | 234/5000 [33:59<11:31:50,  8.71s/it]  5%|▍         | 235/5000 [34:08<11:30:32,  8.70s/it]  5%|▍         | 236/5000 [34:16<11:29:18,  8.68s/it]  5%|▍         | 237/5000 [34:25<11:28:01,  8.67s/it]  5%|▍         | 238/5000 [34:34<11:29:09,  8.68s/it]  5%|▍         | 239/5000 [34:42<11:27:20,  8.66s/it]  5%|▍         | 240/5000 [34:51<11:25:48,  8.64s/it]  5%|▍         | 241/5000 [35:00<11:27:30,  8.67s/it]  5%|▍         | 242/5000 [35:08<11:26:43,  8.66s/it]  5%|▍         | 243/5000 [35:17<11:25:33,  8.65s/it]  5%|▍         | 244/5000 [35:26<11:27:24,  8.67s/it]  5%|▍         | 245/5000 [35:34<11:25:58,  8.66s/it]  5%|▍         | 246/5000 [35:43<11:26:03,  8.66s/it]  5%|▍         | 247/5000 [35:52<11:26:17,  8.66s/it]  5%|▍         | 248/5000 [36:00<11:28:56,  8.70s/it]  5%|▍         | 249/5000 [36:09<11:27:22,  8.68s/it]  5%|▌         | 250/5000 [36:18<11:27:08,  8.68s/it]  5%|▌         | 251/5000 [36:27<11:29:55,  8.72s/it]  5%|▌         | 252/5000 [36:35<11:29:38,  8.72s/it]  5%|▌         | 253/5000 [36:44<11:30:04,  8.72s/it]  5%|▌         | 254/5000 [36:53<11:29:50,  8.72s/it]  5%|▌         | 255/5000 [37:02<11:32:02,  8.75s/it]  5%|▌         | 256/5000 [37:10<11:31:06,  8.74s/it]  5%|▌         | 257/5000 [37:19<11:30:05,  8.73s/it]  5%|▌         | 258/5000 [37:28<11:28:59,  8.72s/it]  5%|▌         | 259/5000 [37:37<11:31:28,  8.75s/it]  5%|▌         | 260/5000 [37:45<11:30:27,  8.74s/it]  5%|▌         | 261/5000 [37:54<11:34:24,  8.79s/it]  5%|▌         | 262/5000 [38:03<11:35:21,  8.81s/it]  5%|▌         | 263/5000 [38:12<11:32:32,  8.77s/it]  5%|▌         | 264/5000 [38:20<11:29:57,  8.74s/it]  5%|▌         | 265/5000 [38:29<11:29:19,  8.73s/it]Train loss: 0.235389, Val loss: 1.3675
+[INFO] EPOCH: 135/5000
+Train loss: 0.222755, Val loss: 1.5928
+[INFO] EPOCH: 136/5000
+Train loss: 0.217794, Val loss: 1.5914
+[INFO] EPOCH: 137/5000
+Train loss: 0.217515, Val loss: 1.7039
+[INFO] EPOCH: 138/5000
+Train loss: 0.220684, Val loss: 1.5559
+[INFO] EPOCH: 139/5000
+Train loss: 0.216980, Val loss: 1.7351
+[INFO] EPOCH: 140/5000
+Train loss: 0.253157, Val loss: 1.3579
+[INFO] EPOCH: 141/5000
+Train loss: 0.237108, Val loss: 1.5381
+[INFO] EPOCH: 142/5000
+Train loss: 0.225383, Val loss: 1.3546
+[INFO] EPOCH: 143/5000
+Train loss: 0.215257, Val loss: 1.5371
+[INFO] EPOCH: 144/5000
+Train loss: 0.211043, Val loss: 1.7262
+[INFO] EPOCH: 145/5000
+Train loss: 0.214640, Val loss: 1.6271
+[INFO] EPOCH: 146/5000
+Train loss: 0.219126, Val loss: 1.5141
+[INFO] EPOCH: 147/5000
+Train loss: 0.221958, Val loss: 1.5068
+[INFO] EPOCH: 148/5000
+Train loss: 0.221457, Val loss: 1.5576
+[INFO] EPOCH: 149/5000
+Train loss: 0.217727, Val loss: 1.6046
+[INFO] EPOCH: 150/5000
+Train loss: 0.216936, Val loss: 1.4903
+[INFO] EPOCH: 151/5000
+Train loss: 0.216760, Val loss: 1.7159
+[INFO] EPOCH: 152/5000
+Train loss: 0.209545, Val loss: 1.6955
+[INFO] EPOCH: 153/5000
+Train loss: 0.216507, Val loss: 1.7192
+[INFO] EPOCH: 154/5000
+Train loss: 0.215874, Val loss: 1.4497
+[INFO] EPOCH: 155/5000
+Train loss: 0.209073, Val loss: 1.7339
+[INFO] EPOCH: 156/5000
+Train loss: 0.210199, Val loss: 1.6993
+[INFO] EPOCH: 157/5000
+Train loss: 0.204608, Val loss: 1.5988
+[INFO] EPOCH: 158/5000
+Train loss: 0.205479, Val loss: 1.7096
+[INFO] EPOCH: 159/5000
+Train loss: 0.201698, Val loss: 1.8129
+[INFO] EPOCH: 160/5000
+Train loss: 0.204310, Val loss: 2.0160
+[INFO] EPOCH: 161/5000
+Train loss: 0.207768, Val loss: 1.7186
+[INFO] EPOCH: 162/5000
+Train loss: 0.206887, Val loss: 1.6767
+[INFO] EPOCH: 163/5000
+Train loss: 0.206796, Val loss: 1.8105
+[INFO] EPOCH: 164/5000
+Train loss: 0.217701, Val loss: 1.5847
+[INFO] EPOCH: 165/5000
+Train loss: 0.210144, Val loss: 1.4934
+[INFO] EPOCH: 166/5000
+Train loss: 0.204151, Val loss: 1.5594
+[INFO] EPOCH: 167/5000
+Train loss: 0.201452, Val loss: 1.7449
+[INFO] EPOCH: 168/5000
+Train loss: 0.200479, Val loss: 2.0495
+[INFO] EPOCH: 169/5000
+Train loss: 0.205821, Val loss: 1.6694
+[INFO] EPOCH: 170/5000
+Train loss: 0.207476, Val loss: 1.8483
+[INFO] EPOCH: 171/5000
+Train loss: 0.212347, Val loss: 1.7704
+[INFO] EPOCH: 172/5000
+Train loss: 0.213044, Val loss: 1.6825
+[INFO] EPOCH: 173/5000
+Train loss: 0.204026, Val loss: 1.4476
+[INFO] EPOCH: 174/5000
+Train loss: 0.202315, Val loss: 1.6474
+[INFO] EPOCH: 175/5000
+Train loss: 0.202950, Val loss: 2.0628
+[INFO] EPOCH: 176/5000
+Train loss: 0.207277, Val loss: 2.0975
+[INFO] EPOCH: 177/5000
+Train loss: 0.239587, Val loss: 1.6331
+[INFO] EPOCH: 178/5000
+Train loss: 0.257212, Val loss: 1.4789
+[INFO] EPOCH: 179/5000
+Train loss: 0.249299, Val loss: 1.5246
+[INFO] EPOCH: 180/5000
+Train loss: 0.244865, Val loss: 1.4175
+[INFO] EPOCH: 181/5000
+Train loss: 0.233850, Val loss: 1.5588
+[INFO] EPOCH: 182/5000
+Train loss: 0.228897, Val loss: 1.5379
+[INFO] EPOCH: 183/5000
+Train loss: 0.215078, Val loss: 1.8204
+[INFO] EPOCH: 184/5000
+Train loss: 0.208542, Val loss: 1.9243
+[INFO] EPOCH: 185/5000
+Train loss: 0.197846, Val loss: 1.7840
+[INFO] EPOCH: 186/5000
+Train loss: 0.208949, Val loss: 2.0625
+[INFO] EPOCH: 187/5000
+Train loss: 0.203555, Val loss: 1.9195
+[INFO] EPOCH: 188/5000
+Train loss: 0.196078, Val loss: 1.9430
+[INFO] EPOCH: 189/5000
+Train loss: 0.194478, Val loss: 1.7892
+[INFO] EPOCH: 190/5000
+Train loss: 0.200930, Val loss: 1.9184
+[INFO] EPOCH: 191/5000
+Train loss: 0.194752, Val loss: 2.0864
+[INFO] EPOCH: 192/5000
+Train loss: 0.195457, Val loss: 1.7902
+[INFO] EPOCH: 193/5000
+Train loss: 0.200051, Val loss: 1.8043
+[INFO] EPOCH: 194/5000
+Train loss: 0.198609, Val loss: 2.0591
+[INFO] EPOCH: 195/5000
+Train loss: 0.196131, Val loss: 1.7970
+[INFO] EPOCH: 196/5000
+Train loss: 0.201801, Val loss: 1.7824
+[INFO] EPOCH: 197/5000
+Train loss: 0.195784, Val loss: 1.9673
+[INFO] EPOCH: 198/5000
+Train loss: 0.199544, Val loss: 2.1608
+[INFO] EPOCH: 199/5000
+Train loss: 0.228307, Val loss: 1.8899
+[INFO] EPOCH: 200/5000
+Train loss: 0.218538, Val loss: 1.6272
+[INFO] EPOCH: 201/5000
+Train loss: 0.198276, Val loss: 1.8206
+[INFO] EPOCH: 202/5000
+Train loss: 0.196300, Val loss: 1.8642
+[INFO] EPOCH: 203/5000
+Train loss: 0.197567, Val loss: 1.9162
+[INFO] EPOCH: 204/5000
+Train loss: 0.192642, Val loss: 1.7657
+[INFO] EPOCH: 205/5000
+Train loss: 0.191157, Val loss: 1.8689
+[INFO] EPOCH: 206/5000
+Train loss: 0.189589, Val loss: 1.8191
+[INFO] EPOCH: 207/5000
+Train loss: 0.190022, Val loss: 1.9985
+[INFO] EPOCH: 208/5000
+Train loss: 0.187606, Val loss: 1.9059
+[INFO] EPOCH: 209/5000
+Train loss: 0.185550, Val loss: 1.9563
+[INFO] EPOCH: 210/5000
+Train loss: 0.186215, Val loss: 1.9895
+[INFO] EPOCH: 211/5000
+Train loss: 0.187131, Val loss: 1.9941
+[INFO] EPOCH: 212/5000
+Train loss: 0.186051, Val loss: 1.9736
+[INFO] EPOCH: 213/5000
+Train loss: 0.186352, Val loss: 1.9748
+[INFO] EPOCH: 214/5000
+Train loss: 0.184784, Val loss: 1.9895
+[INFO] EPOCH: 215/5000
+Train loss: 0.185719, Val loss: 2.0168
+[INFO] EPOCH: 216/5000
+Train loss: 0.184799, Val loss: 2.0396
+[INFO] EPOCH: 217/5000
+Train loss: 0.186733, Val loss: 1.9959
+[INFO] EPOCH: 218/5000
+Train loss: 0.186800, Val loss: 2.0182
+[INFO] EPOCH: 219/5000
+Train loss: 0.185857, Val loss: 2.0097
+[INFO] EPOCH: 220/5000
+Train loss: 0.185891, Val loss: 2.0359
+[INFO] EPOCH: 221/5000
+Train loss: 0.184590, Val loss: 2.0253
+[INFO] EPOCH: 222/5000
+Train loss: 0.184672, Val loss: 2.0138
+[INFO] EPOCH: 223/5000
+Train loss: 0.185128, Val loss: 2.0546
+[INFO] EPOCH: 224/5000
+Train loss: 0.185649, Val loss: 2.0185
+[INFO] EPOCH: 225/5000
+Train loss: 0.186765, Val loss: 2.0697
+[INFO] EPOCH: 226/5000
+Train loss: 0.185313, Val loss: 2.0102
+[INFO] EPOCH: 227/5000
+Train loss: 0.184855, Val loss: 2.1234
+[INFO] EPOCH: 228/5000
+Train loss: 0.186748, Val loss: 1.9812
+[INFO] EPOCH: 229/5000
+Train loss: 0.185378, Val loss: 2.0932
+[INFO] EPOCH: 230/5000
+Train loss: 0.184112, Val loss: 2.0422
+[INFO] EPOCH: 231/5000
+Train loss: 0.184745, Val loss: 2.0690
+[INFO] EPOCH: 232/5000
+Train loss: 0.185172, Val loss: 2.0625
+[INFO] EPOCH: 233/5000
+Train loss: 0.185737, Val loss: 2.0300
+[INFO] EPOCH: 234/5000
+Train loss: 0.186713, Val loss: 2.0611
+[INFO] EPOCH: 235/5000
+Train loss: 0.184459, Val loss: 2.0731
+[INFO] EPOCH: 236/5000
+Train loss: 0.184176, Val loss: 2.0675
+[INFO] EPOCH: 237/5000
+Train loss: 0.184062, Val loss: 2.1307
+[INFO] EPOCH: 238/5000
+Train loss: 0.186641, Val loss: 2.0403
+[INFO] EPOCH: 239/5000
+Train loss: 0.183355, Val loss: 2.0667
+[INFO] EPOCH: 240/5000
+Train loss: 0.183253, Val loss: 2.0930
+[INFO] EPOCH: 241/5000
+Train loss: 0.183273, Val loss: 2.0956
+[INFO] EPOCH: 242/5000
+Train loss: 0.183180, Val loss: 2.0904
+[INFO] EPOCH: 243/5000
+Train loss: 0.183546, Val loss: 2.0893
+[INFO] EPOCH: 244/5000
+Train loss: 0.184634, Val loss: 2.0661
+[INFO] EPOCH: 245/5000
+Train loss: 0.183347, Val loss: 2.0660
+[INFO] EPOCH: 246/5000
+Train loss: 0.183893, Val loss: 2.1046
+[INFO] EPOCH: 247/5000
+Train loss: 0.182732, Val loss: 2.1145
+[INFO] EPOCH: 248/5000
+Train loss: 0.184511, Val loss: 2.0756
+[INFO] EPOCH: 249/5000
+Train loss: 0.182345, Val loss: 2.0823
+[INFO] EPOCH: 250/5000
+Train loss: 0.185145, Val loss: 2.0442
+[INFO] EPOCH: 251/5000
+Train loss: 0.184708, Val loss: 2.1345
+[INFO] EPOCH: 252/5000
+Train loss: 0.184648, Val loss: 2.0558
+[INFO] EPOCH: 253/5000
+Train loss: 0.182816, Val loss: 2.0957
+[INFO] EPOCH: 254/5000
+Train loss: 0.182342, Val loss: 2.1361
+[INFO] EPOCH: 255/5000
+Train loss: 0.185482, Val loss: 2.0947
+[INFO] EPOCH: 256/5000
+Train loss: 0.183038, Val loss: 2.0851
+[INFO] EPOCH: 257/5000
+Train loss: 0.183238, Val loss: 2.1355
+[INFO] EPOCH: 258/5000
+Train loss: 0.183339, Val loss: 2.1180
+[INFO] EPOCH: 259/5000
+Train loss: 0.184968, Val loss: 2.0682
+[INFO] EPOCH: 260/5000
+Train loss: 0.183332, Val loss: 2.1126
+[INFO] EPOCH: 261/5000
+Train loss: 0.183038, Val loss: 2.0721
+[INFO] EPOCH: 262/5000
+Train loss: 0.183398, Val loss: 2.1078
+[INFO] EPOCH: 263/5000
+Train loss: 0.183809, Val loss: 2.1222
+[INFO] EPOCH: 264/5000
+Train loss: 0.184504, Val loss: 2.0624
+[INFO] EPOCH: 265/5000
+Train loss: 0.183107, Val loss: 2.1581
+[INFO] EPOCH: 266/5000
+  5%|▌         | 266/5000 [38:38<11:31:37,  8.77s/it]  5%|▌         | 267/5000 [38:47<11:29:20,  8.74s/it]  5%|▌         | 268/5000 [38:55<11:28:35,  8.73s/it]  5%|▌         | 269/5000 [39:04<11:30:15,  8.75s/it]  5%|▌         | 270/5000 [39:13<11:29:30,  8.75s/it]  5%|▌         | 271/5000 [39:21<11:27:01,  8.72s/it]  5%|▌         | 272/5000 [39:30<11:25:30,  8.70s/it]  5%|▌         | 273/5000 [39:39<11:26:37,  8.72s/it]  5%|▌         | 274/5000 [39:48<11:25:17,  8.70s/it]  6%|▌         | 275/5000 [39:56<11:24:26,  8.69s/it]  6%|▌         | 276/5000 [40:05<11:26:22,  8.72s/it]  6%|▌         | 277/5000 [40:14<11:25:10,  8.70s/it]  6%|▌         | 278/5000 [40:22<11:23:54,  8.69s/it]  6%|▌         | 279/5000 [40:31<11:23:00,  8.68s/it]  6%|▌         | 280/5000 [40:40<11:24:38,  8.70s/it]  6%|▌         | 281/5000 [40:48<11:23:36,  8.69s/it]  6%|▌         | 282/5000 [40:57<11:22:33,  8.68s/it]  6%|▌         | 283/5000 [41:06<11:21:40,  8.67s/it]  6%|▌         | 284/5000 [41:15<11:24:19,  8.71s/it]  6%|▌         | 285/5000 [41:23<11:22:50,  8.69s/it]  6%|▌         | 286/5000 [41:32<11:21:19,  8.67s/it]  6%|▌         | 287/5000 [41:41<11:22:15,  8.69s/it]  6%|▌         | 288/5000 [41:49<11:20:31,  8.67s/it]  6%|▌         | 289/5000 [41:58<11:19:07,  8.65s/it]  6%|▌         | 290/5000 [42:07<11:22:09,  8.69s/it]  6%|▌         | 291/5000 [42:15<11:20:58,  8.68s/it]  6%|▌         | 292/5000 [42:24<11:20:21,  8.67s/it]  6%|▌         | 293/5000 [42:32<11:19:12,  8.66s/it]  6%|▌         | 294/5000 [42:41<11:20:59,  8.68s/it]  6%|▌         | 295/5000 [42:50<11:18:23,  8.65s/it]  6%|▌         | 296/5000 [42:58<11:17:50,  8.65s/it]  6%|▌         | 297/5000 [43:07<11:19:27,  8.67s/it]  6%|▌         | 298/5000 [43:16<11:18:02,  8.65s/it]  6%|▌         | 299/5000 [43:24<11:16:42,  8.64s/it]  6%|▌         | 300/5000 [43:33<11:17:10,  8.64s/it]  6%|▌         | 300/5000 [43:42<11:24:42,  8.74s/it]
+wandb: updating run metadata
+wandb: uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                    epoch ▁▁▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▆▆▆▆▆▆▆▇▇▇▇▇███
+wandb: epoch/train/avgTrainLoss █▆▆▅▅▄▃▃▃▃▃▃▂▃▃▂▂▂▂▂▁▃▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:         epoch/train/loss █▇▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:     epoch/val/avgValLoss ▁▅▂▂▂▃▃▃▄▄▃▃▃▃▄▅▅▃▄▅▆▆▅▅▄▅▆▇▇▇▇▇██▇██▇▇█
+wandb:           epoch/val/miou ▁▆██▇▆▇▇▆▆▆▆▆▆▆▆▇▆▆▆▇▇▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆
+wandb:         test/avgTestLoss ▁
+wandb:                test/miou ▁
+wandb:       train/avgTrainLoss █▃▂▂▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               train/loss █▄▄▃▂▂▂▂▂▂▂▂▁▁▁▂▁▁▁▁▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           val/avgValLoss ▁▃▃▃▄▃▃▂▃▃▃▄▅▃▃▄▅▆▄▄▅▅▄▇▇▇▇▇▇▇█▇█▇█▇████
+wandb:                       +1 ...
+wandb: 
+wandb: Run summary:
+wandb:                    epoch 301
+wandb: epoch/train/avgTrainLoss 0.1805
+wandb:         epoch/train/loss 0.1805
+wandb:     epoch/val/avgValLoss 2.17431
+wandb:           epoch/val/miou 0.37477
+wandb:         test/avgTestLoss 1.25224
+wandb:                test/miou 0.37837
+wandb:       train/avgTrainLoss 0.1805
+wandb:               train/loss 0.1805
+wandb:           val/avgValLoss 2.17431
+wandb:                       +1 ...
+wandb: 
+wandb: 🚀 View run training_run_20251209_154045_p4054_f61d0c82 at: https://wandb.ai/gktatsu-/Segmentation%20Network/runs/bdpb2ra8
+wandb: ⭐️ View project at: https://wandb.ai/gktatsu-/Segmentation%20Network
+wandb: Synced 5 W&B file(s), 1510 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20251209_154046-bdpb2ra8/logs
+Train loss: 0.184120, Val loss: 2.0369
+[INFO] EPOCH: 267/5000
+Train loss: 0.186256, Val loss: 2.1533
+[INFO] EPOCH: 268/5000
+Train loss: 0.182494, Val loss: 2.0653
+[INFO] EPOCH: 269/5000
+Train loss: 0.182129, Val loss: 2.1247
+[INFO] EPOCH: 270/5000
+Train loss: 0.183932, Val loss: 2.1019
+[INFO] EPOCH: 271/5000
+Train loss: 0.181703, Val loss: 2.0594
+[INFO] EPOCH: 272/5000
+Train loss: 0.183579, Val loss: 2.1419
+[INFO] EPOCH: 273/5000
+Train loss: 0.182198, Val loss: 2.1052
+[INFO] EPOCH: 274/5000
+Train loss: 0.183141, Val loss: 2.0527
+[INFO] EPOCH: 275/5000
+Train loss: 0.185172, Val loss: 2.1974
+[INFO] EPOCH: 276/5000
+Train loss: 0.182649, Val loss: 2.0467
+[INFO] EPOCH: 277/5000
+Train loss: 0.182111, Val loss: 2.1009
+[INFO] EPOCH: 278/5000
+Train loss: 0.182721, Val loss: 2.1538
+[INFO] EPOCH: 279/5000
+Train loss: 0.182040, Val loss: 2.0654
+[INFO] EPOCH: 280/5000
+Train loss: 0.181670, Val loss: 2.1091
+[INFO] EPOCH: 281/5000
+Train loss: 0.182174, Val loss: 2.1354
+[INFO] EPOCH: 282/5000
+Train loss: 0.180944, Val loss: 2.0795
+[INFO] EPOCH: 283/5000
+Train loss: 0.181532, Val loss: 2.1581
+[INFO] EPOCH: 284/5000
+Train loss: 0.182316, Val loss: 2.1196
+[INFO] EPOCH: 285/5000
+Train loss: 0.182035, Val loss: 2.1138
+[INFO] EPOCH: 286/5000
+Train loss: 0.182122, Val loss: 2.1037
+[INFO] EPOCH: 287/5000
+Train loss: 0.180611, Val loss: 2.1777
+[INFO] EPOCH: 288/5000
+Train loss: 0.181209, Val loss: 2.1041
+[INFO] EPOCH: 289/5000
+Train loss: 0.184636, Val loss: 2.0916
+[INFO] EPOCH: 290/5000
+Train loss: 0.184465, Val loss: 2.1556
+[INFO] EPOCH: 291/5000
+Train loss: 0.182751, Val loss: 2.1356
+[INFO] EPOCH: 292/5000
+Train loss: 0.183531, Val loss: 2.0550
+[INFO] EPOCH: 293/5000
+Train loss: 0.188697, Val loss: 2.1465
+[INFO] EPOCH: 294/5000
+Train loss: 0.184156, Val loss: 2.1140
+[INFO] EPOCH: 295/5000
+Train loss: 0.182825, Val loss: 2.0667
+[INFO] EPOCH: 296/5000
+Train loss: 0.181359, Val loss: 2.1342
+[INFO] EPOCH: 297/5000
+Train loss: 0.182432, Val loss: 2.0866
+[INFO] EPOCH: 298/5000
+Train loss: 0.182337, Val loss: 2.1195
+[INFO] EPOCH: 299/5000
+Train loss: 0.182549, Val loss: 2.1340
+[INFO] EPOCH: 300/5000
+Train loss: 0.181676, Val loss: 2.0454
+[INFO] Loading pre-trained weights for testing...
+Train loss: 0.180499, Val loss: 2.1743, Test loss: 1.2522
+[INFO] total time taken to train the model: 2625.38s
+Error response from daemon: No such container: slurm_27978

@@ -2,35 +2,35 @@ Prolog...
 ================================================================================
 Running on worker2. This worker has IP 134.60.70.133/24
 Running as tatsuki, with groups: students docker
-Job ID: 27975
+Job ID: 27976
 CUDA_VISIBLE_DEVICES: 0
 Using CPU Cores 0-11
 Using 63000 MiB RAM
 ================================================================================
-docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27975 --cpuset-cpus 0-11 --memory 63000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/valid/multi_50_150_2-1_x1; }'
+docker run -i --rm --pull=always --ipc=host -e XDG_CACHE_HOME=/tmp/cache --name slurm_27976 --cpuset-cpus 0-11 --memory 63000m --gpus '"device=0"' -w /mnt/hdd/tatsuki/tatsuki/programs/Segmentation-Network -v /mnt/hdd/tatsuki:/mnt/hdd/tatsuki pytorch/pytorch:latest bash -c '{ apt-get update;  DEBIAN_FRONTEND=noninteractive apt-get install -y sudo libsm6 libxext6 libxrender-dev libglib2.0-0 libgl1-mesa-glx python3-opencv; python3 -m pip install -r requirements; groupadd --gid 1004 students; useradd --uid 1057 -s /bin/bash --gid 1004 -m -d /mnt/hdd/tatsuki tatsuki; nvidia-smi -L; sudo --set-home --preserve-env=PATH --user=\#1057 -- bash ./run.sh --dataset-path /mnt/hdd/tatsuki/tatsuki/datasets/Segmentation-Network/original/Dataset 1/valid/multi_20_50_3-1_x1; }'
 ================================================================================
 latest: Pulling from pytorch/pytorch
 Digest: sha256:11691e035a3651d25a87116b4f6adc113a27a29d8f5a6a583f8569e0ee5ff897
 Status: Image is up to date for pytorch/pytorch:latest
-Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
-Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
-Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6081 kB]
-Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
-Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
-Get:6 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
 Get:7 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
-Get:8 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3573 kB]
-Get:9 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
-Get:10 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1287 kB]
-Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
-Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
-Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3902 kB]
-Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
-Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1598 kB]
-Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6281 kB]
-Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
-Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
-Fetched 43.3 MB in 2s (17.7 MB/s)
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [60.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3904 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1598 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [69.2 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6287 kB]
+Get:14 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6081 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.9 kB]
+Get:17 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3573 kB]
+Get:18 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1287 kB]
+Fetched 43.3 MB in 1s (33.0 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -561,7 +561,7 @@ Get:361 http://archive.ubuntu.com/ubuntu jammy/universe amd64 va-driver-all amd6
 Get:362 http://archive.ubuntu.com/ubuntu jammy/main amd64 vdpau-driver-all amd64 1.4-3build2 [4510 B]
 Get:363 http://archive.ubuntu.com/ubuntu jammy/universe amd64 proj-bin amd64 8.2.1-1 [154 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 226 MB in 7s (33.6 MB/s)
+Fetched 226 MB in 5s (46.7 MB/s)
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6643 files and directories currently installed.)
 Preparing to unpack .../libsystemd0_249.11-0ubuntu3.17_amd64.deb ...
 Unpacking libsystemd0:amd64 (249.11-0ubuntu3.17) over (249.11-0ubuntu3.12) ...
@@ -1758,8 +1758,8 @@ Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
 Setting up tzdata (2025b-0ubuntu0.22.04.1) ...
 
 Current default time zone: 'Etc/UTC'
-Local time is now:      Tue Dec  9 15:35:56 UTC 2025.
-Universal Time is now:  Tue Dec  9 15:35:56 UTC 2025.
+Local time is now:      Tue Dec  9 15:37:00 UTC 2025.
+Universal Time is now:  Tue Dec  9 15:37:00 UTC 2025.
 Run 'dpkg-reconfigure tzdata' if you wish to change it.
 
 Setting up libcap2-bin (1:2.44-1ubuntu0.22.04.2) ...
@@ -2071,7 +2071,7 @@ Collecting cycler>=0.10 (from matplotlib->-r requirements (line 3))
   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
 Collecting fonttools>=4.22.0 (from matplotlib->-r requirements (line 3))
   Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (113 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 8.2 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.2/113.2 kB 7.4 MB/s eta 0:00:00
 Collecting kiwisolver>=1.3.1 (from matplotlib->-r requirements (line 3))
   Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (6.3 kB)
 Requirement already satisfied: packaging>=20.0 in /opt/conda/lib/python3.10/site-packages (from matplotlib->-r requirements (line 3)) (23.1)
@@ -2085,7 +2085,7 @@ Collecting opencv-contrib-python (from -r requirements (line 4))
   Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
 Collecting scipy>=1.8.0 (from scikit-learn->-r requirements (line 6))
   Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 7.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 8.1 MB/s eta 0:00:00
 Collecting joblib>=1.2.0 (from scikit-learn->-r requirements (line 6))
   Downloading joblib-1.5.2-py3-none-any.whl.metadata (5.6 kB)
 Collecting threadpoolctl>=3.1.0 (from scikit-learn->-r requirements (line 6))
@@ -2101,7 +2101,7 @@ Collecting protobuf!=4.21.0,!=5.28.0,<7,>=3.19.0 (from wandb->-r requirements (l
   Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
 Collecting pydantic<3 (from wandb->-r requirements (line 9))
   Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 11.8 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 11.7 MB/s eta 0:00:00
 Requirement already satisfied: pyyaml in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (6.0.1)
 Requirement already satisfied: requests<3,>=2.0.0 in /opt/conda/lib/python3.10/site-packages (from wandb->-r requirements (line 9)) (2.31.0)
 Collecting sentry-sdk>=2.0.0 (from wandb->-r requirements (line 9))
@@ -2133,53 +2133,53 @@ Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython!=3.1.29,>=1.0.0->wan
 Requirement already satisfied: MarkupSafe>=2.0 in /opt/conda/lib/python3.10/site-packages (from jinja2->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (2.1.3)
 Requirement already satisfied: mpmath>=0.19 in /opt/conda/lib/python3.10/site-packages (from sympy->torch>=2.0.0->torchmetrics->-r requirements (line 8)) (1.3.0)
 Downloading matplotlib-3.10.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 56.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 47.6 MB/s eta 0:00:00
 Downloading opencv_contrib_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (69.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 45.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 MB 36.3 MB/s eta 0:00:00
 Downloading scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 46.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 47.3 MB/s eta 0:00:00
 Downloading torchmetrics-1.8.2-py3-none-any.whl (983 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 35.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 983.2/983.2 kB 41.9 MB/s eta 0:00:00
 Downloading wandb-0.23.1-py3-none-manylinux_2_28_x86_64.whl (22.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 44.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.9/22.9 MB 52.6 MB/s eta 0:00:00
 Downloading contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 24.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.0/325.0 kB 26.1 MB/s eta 0:00:00
 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
 Downloading fonttools-4.61.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 56.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 48.2 MB/s eta 0:00:00
 Downloading gitpython-3.1.45-py3-none-any.whl (208 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 22.9 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.2/208.2 kB 19.3 MB/s eta 0:00:00
 Downloading joblib-1.5.2-py3-none-any.whl (308 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 29.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 308.4/308.4 kB 23.3 MB/s eta 0:00:00
 Downloading kiwisolver-1.4.9-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 45.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 37.1 MB/s eta 0:00:00
 Downloading lightning_utilities-0.15.2-py3-none-any.whl (29 kB)
 Downloading protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 kB 30.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.3/323.3 kB 24.8 MB/s eta 0:00:00
 Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 23.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 32.5 MB/s eta 0:00:00
 Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 53.1 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 38.8 MB/s eta 0:00:00
 Downloading pyparsing-3.2.5-py3-none-any.whl (113 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 15.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.9/113.9 kB 15.3 MB/s eta 0:00:00
 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 24.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 23.0 MB/s eta 0:00:00
 Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 37.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 42.4 MB/s eta 0:00:00
 Downloading sentry_sdk-2.47.0-py2.py3-none-any.whl (411 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 29.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.1/411.1 kB 32.6 MB/s eta 0:00:00
 Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 5.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 5.5 MB/s eta 0:00:00
 Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
 Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 8.0 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 8.3 MB/s eta 0:00:00
 Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
 Downloading smmap-5.0.2-py3-none-any.whl (24 kB)
 Building wheels for collected packages: imutils
   Building wheel for imutils (setup.py): started
   Building wheel for imutils (setup.py): finished with status 'done'
-  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=8cb6d8615d8cc613c98160b8c2e06319c24581371911f12998cb006fa87c1137
+  Created wheel for imutils: filename=imutils-0.5.4-py3-none-any.whl size=25837 sha256=bb4fd14b7020f1e6be06b3f1a2c7b16d353e62e6c1012a64b980d989b10575f4
   Stored in directory: /tmp/cache/pip/wheels/85/cf/3a/e265e975a1e7c7e54eb3692d6aa4e2e7d6a3945d29da46f2d7
 Successfully built imutils
 Installing collected packages: imutils, typing-extensions, threadpoolctl, smmap, sentry-sdk, scipy, python-dateutil, pyparsing, protobuf, opencv-contrib-python, kiwisolver, joblib, fonttools, cycler, contourpy, annotated-types, typing-inspection, scikit-learn, pydantic-core, matplotlib, lightning-utilities, gitdb, torchmetrics, pydantic, gitpython, wandb
@@ -2197,5 +2197,5 @@ usage: train.py [-h] [--dataset-path DATASET_PATH] [--base-output BASE_OUTPUT]
                 [--num-workers NUM_WORKERS]
                 [--online-rotation-max-degrees ONLINE_ROTATION_MAX_DEGREES]
                 [--online-augmentations-per-image ONLINE_AUGMENTATIONS_PER_IMAGE]
-train.py: error: unrecognized arguments: 1/valid/multi_50_150_2-1_x1
-Error response from daemon: No such container: slurm_27975
+train.py: error: unrecognized arguments: 1/valid/multi_20_50_3-1_x1
+Error response from daemon: No such container: slurm_27976
