@@ -149,7 +149,17 @@ submit ./runEvaluation.sh --pytorch --requirements requirements \
 - `test/avgTestLoss`, `test/miou`
 - 各エポックの画像サンプル
 
-環境変数 `WANDB_API_KEY` または `train.py` 内で API キーを設定してください。
+### APIキーの設定（必須）
+
+学習を実行する前に、環境変数 `WANDB_API_KEY` を**必ず**設定してください：
+
+```bash
+export WANDB_API_KEY='your-api-key'
+```
+
+APIキーの取得は https://wandb.ai/authorize から行えます。
+
+環境変数が設定されていない場合、`train.py` はエラーメッセージを出して終了します。
 
 ---
 

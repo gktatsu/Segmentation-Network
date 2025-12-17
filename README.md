@@ -149,7 +149,17 @@ During training, the following metrics are logged to [Weights & Biases](https://
 - `test/avgTestLoss`, `test/miou`
 - Image samples per epoch
 
-Set your API key via the `WANDB_API_KEY` environment variable or within `train.py`.
+### API Key Setup (Required)
+
+The `WANDB_API_KEY` environment variable **must** be set before running training:
+
+```bash
+export WANDB_API_KEY='your-api-key'
+```
+
+To obtain your API key, visit https://wandb.ai/authorize.
+
+If the environment variable is not set, `train.py` will exit with an error message.
 
 ---
 
