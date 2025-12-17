@@ -82,10 +82,14 @@ config.apply_overrides(
     ONLINE_AUGMENTATIONS_PER_IMAGE=args.online_augmentations_per_image,
 )
 
-wandb.login(key=os.environ.get('WANDB_API_KEY',
-            '91ca033bf4cedebb62502c72c3f5196cb8940574'))
-# wandb.login(key="INSERT KEY")
-# os.environ["WANDB_MODE"] = "dryrun"
+# WandB API key must be set via environment variable
+wandb_api_key = os.environ.get('WANDB_API_KEY')
+if not wandb_api_key:
+    raise EnvironmentError(
+        "WANDB_API_KEY environment variable is required. "
+        "Set it with: export WANDB_API_KEY='your-api-key'"
+    )
+wandb.login(key=wandb_api_key)
 
 timestamp_str = datetime.now().strftime('%Y%m%d_%H%M%S')
 unique_suffix = f"p{os.getpid()}_{uuid.uuid4().hex[:8]}"
