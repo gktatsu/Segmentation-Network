@@ -166,4 +166,10 @@ Network/Dataset*
 wandb/*
 *.png
 *.pth
+
+# Virtual environment packages
+Lib/
+
+# SLURM job logs
+slurm_log/
 util/datasets/batch_copy_config*.json
