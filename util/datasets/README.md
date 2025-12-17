@@ -1,215 +1,242 @@
-## 概要
+# Dataset Splitting & Formatting Tools
 
-このリポジトリには、ペア画像（例: セグメンテーションの入力画像と対応マスク）を学習・検証・テストに振り分ける `split_dataset.py` と、分割後の成果物を最終的な提出形式に整形する `format_dataset.py` の 2 本の CLI ツールが含まれています。どちらも標準ライブラリのみで動作し、Linux / macOS / Windows いずれの環境でも Python 3.7 以上で利用できます。現在は `util/datasets/random_split/` 配下に集約されているので、以降のコマンド例もこのフォルダを基準にしています（親ディレクトリ側には互換目的のラッパーのみ残しています）。
+## Overview
 
-## ファイル一覧
+This repository contains tools for splitting paired images (e.g., segmentation input images and corresponding masks) into train / validation / test sets. All scripts run on standard library only and work on Linux / macOS / Windows with Python 3.7+.
 
-| ファイル | 役割 |
-|----------|------|
-| `random_split/split_dataset.py` | 複数の画像ディレクトリとマスクディレクトリを照合し、指定比率で `train` / `valid` / `test` に分割するメインツール。ログ（CSV / summary）を生成します。 |
-| `random_split/format_dataset.py` | `split_dataset.py` の出力（`train/valid/test` 直下に `images/`・`masks/` を持つ構造）を、`train_images/` などのフラットな最終構造にコピーしつつ連番リネームします。 |
-
-各スクリプトの詳細説明・CLI オプションまとめは `util/datasets/random_split/README.md` にも記載しています。日々の運用ではそちらを参照すれば十分です。
-
-## 必要条件
-
-- Python 3.7 以上
-- 画像とマスクで拡張子を除いたベース名が一致していること（例: `img0001.png` と `img0001_mask.png` のような命名では不可）
-- 入力ディレクトリは非再帰でスキャンされます。サブフォルダを含めたい場合は事前にフラット化してください。
-
-## 典型的なワークフロー
-
-1. **分割の確認 (dry-run)**
-	 ```bash
-	 python3 random_split/split_dataset.py \
-		 --images /path/to/images \
-		 --masks  /path/to/masks \
-		 --out    /path/to/out_dir \
-		 --train 0.6 --valid 0.2 --test 0.2 \
-		 --dry-run
-	 ```
-	 - コピーや移動は行われず、ログのみ生成されます。割当結果を CSV で確認できます。
-
-2. **本実行**
-	 ```bash
-	 python3 random_split/split_dataset.py \
-		 --images /path/to/images \
-		 --masks  /path/to/masks \
-		 --out    /path/to/out_dir \
-		 --train 0.6 --valid 0.2 --test 0.2
-	 ```
-	 - デフォルトではコピー。`--move` を付けると移動になります。
-
-	 - 追加挙動: デフォルトで `--out` に指定した出力ルートの末尾に実行時刻のタイムスタンプ（形式 `_yyyymmddHHMM`）を付与して新しいディレクトリを作成します。これにより既存の出力が上書きされるのを防げます。
-		 タイムスタンプ付与を無効化したい場合は `--no-append-timestamp` を指定してください。
-
-3. **既存の分割を保持しつつ再分配する場合**
-	 ```bash
-	 python3 random_split/split_dataset.py \
-		 --images /path/to/train_images /path/to/test_images \
-		 --masks  /path/to/train_masks  /path/to/test_masks \
-		 --out    /path/to/out_dir \
-		 --train 0.6 --valid 0.2 --test 0.2 \
-		 --preserve-original-test
-	 ```
-	 - 2 番目の入力（index 1）のペアはそのまま `test` に残し、残りを `train` / `valid` で再分配します。
-
-4. **最終フォーマットへの整形**
-	 ```bash
-	 python3 random_split/format_dataset.py \
-		 --source /path/to/out_dir \
-		 --dest   /path/to/final_dataset
-	 ```
-	 - `final_dataset/` 直下に `train_images/`, `train_masks/`, `validation_images/`, `validation_masks/`, `test_images/`, `test_masks/` が生成され、各サブセットで `image1.png`, `mask1.png` といった連番にコピーされます。
-	 - `split_dataset.py` 実行後には `SPLIT_DATASET_OUTPUT_ROOT=/actual/path` という行が必ず出力されるため、自動化スクリプトで最終出力ルートを取得できます。
-
-### フォルダ構造イメージ
-
-
-```
-split_out_YYYYMMDDHHMM/   # デフォルトでは out に対してタイムスタンプが付与されます
-	train/
-		images/
-		masks/
-	valid/
-		images/
-		masks/
-	test/
-		images/
-		masks/
-
-format_dataset.py 実行後:
-
-Dataset/
-	train_images/
-	train_masks/
-	validation_images/
-	validation_masks/
-	test_images/
-	test_masks/
-```
-
-## `split_dataset.py` オプション一覧
-
-| オプション | 役割 |
-|-------------|------|
-| `--images` (必須) | 画像ディレクトリ（複数指定可）。同じベース名でマージします。 |
-| `--masks` (必須) | マスクディレクトリ（複数指定可）。 |
-| `--out` (必須) | 出力ルート。`train/valid/test` 配下に `images/`・`masks/` を作成します。 |
-| `--train`, `--valid`, `--test` | 分割比。少数でも百分率でも指定可能。合計が自動で正規化されます。 |
-| `--seed` | 乱数シード。デフォルト 42。 |
-| `--move` | コピーではなく移動したい場合に指定。 |
-| `--dry-run` | ファイル操作を行わずログのみ生成。 |
-| `--preserve-test-index` | 指定したインデックスの入力セットを `test` として保持。 |
-| `--preserve-original-test` | 入力が 2 組のときに index 1 を自動で `test` 保存。 |
-| `--no-append-timestamp` | `--out` に与えた出力ルートの末尾に実行時刻（`_yyyymmddHHMM`）を付けるデフォルト挙動を無効化します。デフォルトはタイムスタンプ付与（付けない場合はこのフラグを指定）。 |
-
-## `format_dataset.py` オプション一覧
-
-| オプション | 役割 |
-|-------------|------|
-| `--source` (必須) | `split_dataset.py` の出力ルート。`train/valid/test` 配下に `images/`・`masks/` が必要です。 |
-| `--dest` (必須) | 整形後の出力先。存在しない場合は自動作成されます。 |
-| `--dry-run` | コピーを行わず、実行内容のみ表示。 |
-
-## まとめ実行スクリプト
-
-`util/datasets/random_split/run_split_and_format.sh` は `split_dataset.py` と `format_dataset.py` を連続実行するヘルパーです。分割用の引数をそのまま渡せば、分割先にタイムスタンプが付与されても自動的に解決し、整形済みデータセットまで一気に生成します。
-
-### 使い方
-
-```bash
-cd util/datasets
-bash random_split/run_split_and_format.sh \
-	--images /path/to/images \
-	--masks  /path/to/masks \
-	--out    /path/to/out_dir \
-	--train 0.6 --valid 0.2 --test 0.2
-```
-
-- `split_dataset.py` に渡していた引数はすべてそのまま利用できます。
-- 整形後の出力先は既定で `<splitの実ディレクトリ>_formatted` になります。別の場所に書き出したい場合は `--format-dest /your/dest` を追加してください（このオプションのみシェルスクリプト固有）。
-- `PYTHON_BIN` 環境変数を設定すると `python3` 以外のインタプリタを使うことも可能です。
-- `--dry-run` を付けると `split_dataset.py` だけをドライランで実行し、割当ログを確認した時点で終了します（`format_dataset.py` はスキップ）。
-	正常完了時は中間の split ディレクトリを削除し、`split_log_*.csv` と `split_summary_*.txt` をフォーマット済みフォルダ直下に移動するため、最終的に残るのは `<out>_formatted` のみです。
-
-整形処理の進捗と結果パスは `[run_split_and_format]` プレフィックス付きで表示されます。分割のみ / 整形のみを実行したい場合は、従来どおり各 Python スクリプトを直接呼び出してください。
-
-## 画像連番リネームツール
-
-`random_split/rename_images.py` は単一ディレクトリ内の画像を `img_0001.png` のような規則に沿って並べ直すユーティリティです。`--dir` に対象ディレクトリを指定すると、その直下のファイルだけを処理します。
-
-### 基本コマンド
-
-```bash
-python3 random_split/rename_images.py --dir /path/to/images --prefix sample --start 1 --zero-pad 4
-```
-
-- `--prefix`: 生成されるファイル名の接頭辞。
-- `--start`: 連番の開始番号。
-- `--zero-pad`: ゼロ埋め幅。`--auto-pad` を指定すると最大番号に応じて自動調整します。
-- `--ext`: 対象拡張子を複数指定可能（デフォルト `.png`）。
-- `--output`: 別ディレクトリにコピーしたい場合に指定。省略時はインプレースでリネームします。
-- `--skip-processed`: 指定したディレクトリにマーカー（デフォルト `.rename_images_done`）が存在する場合はスキップします。
-- `--write-marker`: 正常終了後にマーカーを作成します。`--skip-processed` と組み合わせると再実行を防げます。`--marker-name` でファイル名をカスタマイズ可能。
-- ファイルは「0, 1, 2, ... 10, 11 ...」といった自然順序でソートされるため、`mask9.png` の次に `mask10.png` が来るようになります。
-
-### 再帰モード
-
-`--recursive` を付けると、`--dir` を「ルート」と見なし、その配下すべてのサブディレクトリを走査します。直下に **指定拡張子のファイルのみ** を含むディレクトリを自動検出し、各ディレクトリに対して上記ロジックを個別に適用します。
-
-```bash
-python3 random_split/rename_images.py \
-	--dir /datasets/raw_assets \
-	--recursive \
-	--prefix dataset \
-	--start 0 \
-	--zero-pad 3
-```
-
-- ディレクトリ内に別のファイル種別やサブフォルダが混在している場合、そのディレクトリはスキップされます（`.DS_Store` など不要ファイルは事前に削除してください）。
-- `--output` を組み合わせると、ルートからの相対パス構造を保ったまま別ツリーに複製できます。
-- 連番は各ディレクトリで独立しており、`--start` で指定した値から毎回リセットされます。
-- `--skip-processed`/`--write-marker` は再帰モードでも使用でき、各サブディレクトリにマーカーがあれば自動的にスキップされます。
-
-## 出力されるログ
-
-`split_dataset.py` を実行すると、`--out` 直下にタイムスタンプ付きログが生成されます。
-
-- `split_log_<timestamp>.csv`
-	- 列: `basename`, `image_src`, `image_src_dir`, `mask_src`, `mask_src_dir`, `split`, `dest_image`, `dest_mask`
-	- スプレッドシートで開けば各ファイルの割当先や元パスを確認できます。
-- `split_summary_<timestamp>.txt`
-	- 総ペア数、train/valid/test 件数を記録します。
-
-注: 現在の挙動では、出力ルートそのものにタイムスタンプが付くため、CSV や summary はタイムスタンプ付きディレクトリ内に作成されます。ファイル名自体（画像/マスクのファイル名や `train/images` 等のサブディレクトリ名）は変更されません。
-
-`format_dataset.py` はログファイルを生成しませんが、進捗として各サブセットのコピー件数を標準出力に表示します。
-
-## 実装上の注意
-
-- 重複ベース名が複数の入力ディレクトリで見つかった場合は安全のためエラーで停止します。
-- 余剰サンプルはすべて `train` に割り当てています。別ルールが必要であれば `compute_counts` を変更してください。
-- `--preserve-test-index` を使うと、指定ディレクトリのサンプルが `test` に固定され、残りのデータで比率を再計算します。
-- `format_dataset.py` はベース名が一致しないペアを自動的にスキップし、共通部分のみ整形します。
-
-## トラブルシューティング
-
-| 症状 | 原因・対処 |
-|------|------------|
-| `No paired files found` | ベース名が一致していない、または画像・マスクどちらかしか存在しない。命名規則と入力パスを確認してください。 |
-| `Duplicate basenames detected` | 複数の入力ディレクトリに同名ペアが存在。対象ファイルの整理が必要です。 |
-| ログはあるがファイルがコピーされない | `--dry-run` を付けたまま実行している可能性があります。フラグを外してください。 |
-| 目的の分割比にならない | サンプル数が少ない場合は丸めによって偏りが出ます。`compute_counts` のロジックを調整するか、サンプル数を増やしてください。 |
-
-## 今後の拡張アイデア
-
-- 再帰的なサブフォルダ探索
-- 余剰サンプルのランダム再配分
-- コピー完了後のハッシュ整合性チェック
-- 進捗バー（`tqdm`）や並列コピーの導入
+Tools are consolidated under `util/datasets/random_split/`. The parent directory contains only backward-compatible wrappers.
 
 ---
 
-ご自身の環境に合わせた具体的なコマンド例や、追加機能の要望があれば遠慮なく共有してください。必要に応じて README やスクリプトをさらに拡充できます。
+## File List
+
+| File | Role |
+|------|------|
+| `random_split/split_dataset.py` | Matches multiple image and mask directories, splits by specified ratios into `train` / `valid` / `test`. Generates logs (CSV / summary). |
+| `random_split/format_dataset.py` | Copies `split_dataset.py` output to final submission format (`train_images/`, etc.) with sequential renaming. |
+| `random_split/run_split_and_format.sh` | Shell wrapper that runs splitting and formatting consecutively. Removes intermediate directory and keeps only the formatted folder. |
+| `random_split/rename_images.py` | Sequentially renames images in any directory. Supports `--recursive` for batch processing. |
+| `random_split/README.md` | Quick reference for each script. |
+
+---
+
+## Requirements
+
+- Python 3.7+
+- Image and mask files must have matching base names (excluding extension) (e.g., `image1.png` and `image1.png`)
+- Input directories are scanned non-recursively. To include subfolders, flatten them beforehand or use `rename_images.py --recursive`.
+
+---
+
+## Typical Workflow
+
+### 1. Verify Split (dry-run)
+
+```bash
+python3 random_split/split_dataset.py \
+    --images /path/to/images \
+    --masks  /path/to/masks \
+    --out    /path/to/out_dir \
+    --train 0.6 --valid 0.2 --test 0.2 \
+    --dry-run
+```
+
+- No copying or moving occurs; only logs are generated.
+
+### 2. Execute Split
+
+```bash
+python3 random_split/split_dataset.py \
+    --images /path/to/images \
+    --masks  /path/to/masks \
+    --out    /path/to/out_dir \
+    --train 0.6 --valid 0.2 --test 0.2
+```
+
+- Default is copy. Use `--move` to move files instead.
+- Output directory name automatically gets a timestamp suffix (`_yyyymmddHHMM`). Disable with `--no-append-timestamp`.
+- On completion, `SPLIT_DATASET_OUTPUT_ROOT=/actual/path` is printed for use in subsequent steps.
+
+### 3. Preserve Existing Test Set and Redistribute
+
+```bash
+python3 random_split/split_dataset.py \
+    --images /path/to/train_images /path/to/test_images \
+    --masks  /path/to/train_masks  /path/to/test_masks \
+    --out    /path/to/out_dir \
+    --train 0.6 --valid 0.2 --test 0.2 \
+    --preserve-original-test
+```
+
+- The second input (index 1) pairs remain as `test`; the rest are redistributed into `train` / `valid`.
+- Use `--preserve-test-index N` to specify any index.
+
+### 4. Format to Final Structure
+
+```bash
+python3 random_split/format_dataset.py \
+    --source /path/to/out_dir_202512171234 \
+    --dest   /path/to/final_dataset
+```
+
+- Creates `train_images/`, `train_masks/`, `validation_images/`, `validation_masks/`, `test_images/`, `test_masks/` under `final_dataset/`.
+- Files are renamed sequentially (e.g., `image1.png`, `mask1.png`).
+
+### 5. Split and Format Together
+
+```bash
+bash random_split/run_split_and_format.sh \
+    --images /path/to/images \
+    --masks  /path/to/masks \
+    --out    /path/to/out_dir \
+    --train 0.6 --valid 0.2 --test 0.2
+```
+
+- Use `--format-dest /your/dest` to specify formatted output destination. Default is `<split_output>_formatted`.
+- Set `PYTHON_BIN` environment variable to use a different Python interpreter.
+- Use `--dry-run` to run split dry-run only; formatting is skipped.
+- On success, the intermediate split directory is removed and logs are moved to the formatted folder.
+
+---
+
+## Folder Structure Overview
+
+```
+split_out_YYYYMMDDHHMM/         # split_dataset.py output
+├── train/
+│   ├── images/
+│   └── masks/
+├── valid/
+│   ├── images/
+│   └── masks/
+├── test/
+│   ├── images/
+│   └── masks/
+├── split_log_*.csv
+└── split_summary_*.txt
+
+Dataset/                        # format_dataset.py output
+├── train_images/
+├── train_masks/
+├── validation_images/
+├── validation_masks/
+├── test_images/
+└── test_masks/
+```
+
+---
+
+## `split_dataset.py` Options
+
+| Option | Role |
+|--------|------|
+| `--images` (required) | Image directory (multiple allowed). Merges by matching base names. |
+| `--masks` (required) | Mask directory (multiple allowed). |
+| `--out` (required) | Output root. Creates `train/valid/test` with `images/` and `masks/` subdirectories. |
+| `--train`, `--valid`, `--test` | Split ratios. Decimals or percentages; auto-normalized. |
+| `--seed` | Random seed (default 42). |
+| `--move` | Move instead of copy. |
+| `--dry-run` | Generate logs only; no file operations. |
+| `--preserve-test-index` | Keep specified input index as `test`. |
+| `--preserve-original-test` | When 2 input sets exist, automatically keep index 1 as `test`. |
+| `--no-append-timestamp` | Disable timestamp suffix on output root. |
+
+---
+
+## `format_dataset.py` Options
+
+| Option | Role |
+|--------|------|
+| `--source` (required) | `split_dataset.py` output root. |
+| `--dest` (required) | Formatted output destination. Created automatically if it doesn't exist. |
+| `--dry-run` | Show actions without copying. |
+
+---
+
+## `rename_images.py` — Image Sequential Renaming Tool
+
+Sequentially renames images in a single directory or recursively across multiple directories.
+
+### Basic Command
+
+```bash
+python3 random_split/rename_images.py \
+    --dir /path/to/images \
+    --prefix sample \
+    --start 1 \
+    --zero-pad 4
+```
+
+| Option | Description |
+|--------|-------------|
+| `--dir` | Target directory (required). |
+| `--prefix` | Filename prefix (default `gen_img`). |
+| `--start` | Starting number for sequence (default 0). |
+| `--zero-pad` | Zero-padding width. Use `--auto-pad` for automatic adjustment based on max index. |
+| `--ext` | Target extension(s) (multiple allowed, default `.png`). |
+| `--output` | Copy to different directory. Omit for in-place rename. |
+| `--recursive` | Process all subdirectories under `--dir`. |
+| `--skip-processed` | Skip directories with marker file. |
+| `--write-marker` | Create marker file on successful completion. |
+| `--marker-name` | Marker filename (default `.rename_images_done`). |
+| `--overwrite` | Allow overwriting existing files. |
+| `--dry-run` | Show plan without making changes. |
+
+### Recursive Mode
+
+```bash
+python3 random_split/rename_images.py \
+    --dir /datasets/raw_assets \
+    --recursive \
+    --prefix dataset \
+    --start 0 \
+    --auto-pad
+```
+
+- Auto-detects directories containing only files with target extensions.
+- Combined with `--output`, preserves relative path structure from root to a separate tree.
+- Sequence resets independently for each directory.
+
+---
+
+## Output Logs
+
+Generated by `split_dataset.py` in `--out` directory:
+
+- `split_log_<timestamp>.csv` — Records destination and source path for each file.
+- `split_summary_<timestamp>.txt` — Total pairs, train/valid/test counts.
+
+`format_dataset.py` doesn't generate log files but prints copy counts to stdout.
+
+---
+
+## Implementation Notes
+
+- Errors and stops if duplicate base names are found across input directories.
+- Remainder samples are assigned to `train`. Modify `compute_counts` for different rules.
+- `format_dataset.py` auto-skips pairs with mismatched base names; only common pairs are formatted.
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause / Solution |
+|---------|------------------|
+| `No paired files found` | Base names don't match, or only one of image/mask exists. Check naming conventions and input paths. |
+| `Duplicate basenames detected` | Same-named pairs exist in multiple input directories. Organize files. |
+| Logs exist but files not copied | Possibly running with `--dry-run`. Remove the flag. |
+| Split ratios don't match target | Rounding bias with small sample sizes. Increase samples or adjust `compute_counts`. |
+
+---
+
+## Future Enhancement Ideas
+
+- Recursive subfolder scanning (for `split_dataset.py`)
+- Random redistribution of remainder samples
+- Hash integrity check after copy completion
+- Progress bar (`tqdm`) or parallel copying
+
+---
+
+Feel free to share specific command examples or feature requests for your environment.
 
